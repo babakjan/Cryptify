@@ -11,6 +11,10 @@
 		DF18A9F229296EE100533C8B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18A9F129296EE100533C8B /* ContentView.swift */; };
 		DF18A9F429296EE300533C8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF18A9F329296EE300533C8B /* Assets.xcassets */; };
 		DF18A9F729296EE300533C8B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF18A9F629296EE300533C8B /* Preview Assets.xcassets */; };
+		DF18AA012929701500533C8B /* MarketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18AA002929701500533C8B /* MarketsView.swift */; };
+		DF18AA03292970A500533C8B /* MarketsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18AA02292970A500533C8B /* MarketsViewModel.swift */; };
+		DF18AA052929718B00533C8B /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18AA042929718B00533C8B /* Symbol.swift */; };
+		DF18AA07292972B000533C8B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18AA06292972B000533C8B /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		DF18A9F129296EE100533C8B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DF18A9F329296EE300533C8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF18A9F629296EE300533C8B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DF18AA002929701500533C8B /* MarketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsView.swift; sourceTree = "<group>"; };
+		DF18AA02292970A500533C8B /* MarketsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsViewModel.swift; sourceTree = "<group>"; };
+		DF18AA042929718B00533C8B /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
+		DF18AA06292972B000533C8B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +59,13 @@
 		DF18A9EE29296EE100533C8B /* Cryptify */ = {
 			isa = PBXGroup;
 			children = (
+				DF18A9FE29296FB100533C8B /* View */,
+				DF18A9FD29296FA800533C8B /* Model */,
 				DF18A9EF29296EE100533C8B /* CryptifyApp.swift */,
 				DF18A9F129296EE100533C8B /* ContentView.swift */,
 				DF18A9F329296EE300533C8B /* Assets.xcassets */,
 				DF18A9F529296EE300533C8B /* Preview Content */,
+				DF18AA06292972B000533C8B /* API.swift */,
 			);
 			path = Cryptify;
 			sourceTree = "<group>";
@@ -65,6 +76,31 @@
 				DF18A9F629296EE300533C8B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DF18A9FD29296FA800533C8B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DF18AA042929718B00533C8B /* Symbol.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DF18A9FE29296FB100533C8B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF18A9FF29296FEE00533C8B /* Markets */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF18A9FF29296FEE00533C8B /* Markets */ = {
+			isa = PBXGroup;
+			children = (
+				DF18AA002929701500533C8B /* MarketsView.swift */,
+				DF18AA02292970A500533C8B /* MarketsViewModel.swift */,
+			);
+			path = Markets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +173,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF18AA03292970A500533C8B /* MarketsViewModel.swift in Sources */,
+				DF18AA052929718B00533C8B /* Symbol.swift in Sources */,
+				DF18AA012929701500533C8B /* MarketsView.swift in Sources */,
 				DF18A9F229296EE100533C8B /* ContentView.swift in Sources */,
+				DF18AA07292972B000533C8B /* API.swift in Sources */,
 				DF18A9F029296EE100533C8B /* CryptifyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
