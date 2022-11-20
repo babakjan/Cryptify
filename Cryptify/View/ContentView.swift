@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    let styles: Styles = Styles()
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack {
             MarketsView()
         }
-        .padding()
+        .foregroundColor(colorScheme == .light ? styles.colors["black"] : .white)
+        .padding(.vertical, 8)
     }
 }
 

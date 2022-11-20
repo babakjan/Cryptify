@@ -14,7 +14,7 @@ class API<T: Decodable> {
     func fetchAll(url: String) async -> [T] {
         var request = URLRequest(url: URL(string: serverUrl + url)!)
         request.httpMethod = "GET"
-        request.timeoutInterval = 4
+        request.timeoutInterval = 8
         
         do {
             let (data, _) = try await URLSession.shared.data(for: request)

@@ -8,11 +8,17 @@
 import Foundation
 
 final class MarketsViewModel: ObservableObject {
-    @Published var sybols: [Symbol] = []
+    @Published var symbols: [Symbol]
+    @Published public var searchedText = ""
+    
     let api: API<Symbol> = API<Symbol>()
+    
+    init(symbols: [Symbol] = []) {
+        self.symbols = symbols
+    }
     
     @MainActor
     func fetchSymbols() async {
-        sybols = await api.fetchAll(url: "/price")
+        symbols = await api.fetchAll(url: "/price")
     }
 }

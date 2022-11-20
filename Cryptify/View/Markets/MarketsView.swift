@@ -10,20 +10,37 @@ import SwiftUI
 struct MarketsView: View {
     @StateObject var viewModel: MarketsViewModel = MarketsViewModel()
     
+    let styles = Styles()
+    
     var body: some View {
-        Text("Marekts")
-        ScrollView {
-            if viewModel.sybols.isEmpty {
-                ProgressView()
-                    .progressViewStyle(.circular)
-            } else {
-                ForEach(viewModel.sybols, id: \.symbol) { symbol in
-                    Text(symbol.symbol)
+        VStack(alignment: .leading, spacing: 0) {
+            //fixed header
+            MarketsHeaderView()
+            
+            //scrollable rest of the view
+            VStack(alignment: .leading) {
+                Text("Markets")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 16)
+                
+                HStack {
+                    TodayHeadingView(styles: styles)
+                    
+                    Spacer()
+                    
+                    ConnectionStatus(styles: styles)
                 }
+                .padding(.horizontal, 16)
+                
+                SymbolsGridView(viewModel: viewModel)
             }
-        }
-        .task {
-            await viewModel.fetchSymbols()
+            .task {
+                await viewModel.fetchSymbols()
+            }
+            .refreshable {
+                await viewModel.fetchSymbols()
+            }
         }
     }
 }
