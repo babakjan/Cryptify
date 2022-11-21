@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MarketsView: View {
+    @Binding var navigationPath: NavigationPath
     @StateObject var viewModel: MarketsViewModel = MarketsViewModel()
     @State private var searchedText = ""
     let styles: Styles = Styles()
@@ -55,20 +56,32 @@ struct MarketsView: View {
                         //body
                         ForEach(searchResult, id: \.symbol) { symbol in
                             PairView(symbol: symbol, styles: styles) //TODO where to instantiate styles???
+                                .onTapGesture { //TODO how to create link, when row is clicked???
+                                    navigationPath.append(symbol)
+                                }
                             
                             Text(symbol.formattedPrice)
+                                .onTapGesture {
+                                    navigationPath.append(symbol)
+                                }
                             
                             DailyChangeView(
                                 dailyChage: symbol.dailyChange,
                                 dailyChangeFormatted: symbol.formattedDailyChange,
                                 styles: styles
                             )
+                            .onTapGesture {
+                                navigationPath.append(symbol)
+                            }
                             
                             RowSeparatorView(styles: styles)
                         }
                     }
                     .padding(.horizontal, 16)
                     .searchable(text: $searchedText)
+                    .navigationDestination(for: Symbol.self) { symbol in
+                        TickerDetailView(symbol: symbol.symbol)
+                    }
                 }
             }
         }
@@ -84,6 +97,7 @@ struct MarketsView: View {
 struct SymbolView_Previews: PreviewProvider {
     static var previews: some View {
         MarketsView(
+            navigationPath: .constant(NavigationPath()),
             viewModel: MarketsViewModel(
                 symbols: [
                     Symbol(

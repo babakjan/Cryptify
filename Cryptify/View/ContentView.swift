@@ -10,11 +10,14 @@ import SwiftUI
 struct ContentView: View {
     let styles: Styles = Styles()
     @Environment(\.colorScheme) var colorScheme
+    @State var navigationPath = NavigationPath()
     
     var body: some View {
         NavigationView {
-            MarketsView()
-                .foregroundColor(colorScheme == .light ? styles.colors["black"] : .white)
+            NavigationStack(path: $navigationPath) {
+                MarketsView(navigationPath: $navigationPath)
+                    .foregroundColor(colorScheme == .light ? styles.colors["black"] : .white)
+            }
         }
     }
 }

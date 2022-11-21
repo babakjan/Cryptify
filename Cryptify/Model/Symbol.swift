@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Symbol {
+struct Symbol: Hashable {
     var symbol: String //symbol name
     var firstCurrency: String //first currency from pair
     var secondCurrency: String //second currency from pair
