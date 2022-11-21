@@ -13,28 +13,34 @@ struct MarketsView: View {
     let styles = Styles()
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        ZStack(alignment: .top) {
+            SymbolsGridView(viewModel: viewModel)
+                .padding(.top, 90)
+            
+            VStack(alignment: .leading, spacing: 0) {
             //fixed header
             MarketsHeaderView()
             
             //scrollable rest of the view
-            VStack(alignment: .leading) {
-                Text("Markets")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                VStack(alignment: .leading) {
+                    Text("Markets")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.horizontal, 16)
+                    
+                    HStack {
+                        TodayHeadingView(styles: styles)
+                        
+                        Spacer()
+                        
+                        ConnectionStatus(styles: styles)
+                    }
                     .padding(.horizontal, 16)
-                
-                HStack {
-                    TodayHeadingView(styles: styles)
-                    
-                    Spacer()
-                    
-                    ConnectionStatus(styles: styles)
+                    .padding(.bottom, 16)
                 }
-                .padding(.horizontal, 16)
-                
-                SymbolsGridView(viewModel: viewModel)
             }
+            .background(.white)
+
             .task {
                 await viewModel.fetchSymbols()
             }
