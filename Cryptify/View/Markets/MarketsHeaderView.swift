@@ -19,7 +19,7 @@ struct MarketsHeaderView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 24)
         }
-        .padding(.horizontal, 16)    }
+    }
 }
 
 struct MarketsHeaderView_Previews: PreviewProvider {

@@ -12,11 +12,10 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        VStack {
+        NavigationView {
             MarketsView()
+                .foregroundColor(colorScheme == .light ? styles.colors["black"] : .white)
         }
-        .foregroundColor(colorScheme == .light ? styles.colors["black"] : .white)
-        .padding(.vertical, 8)
     }
 }
 

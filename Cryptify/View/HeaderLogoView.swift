@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//header logo
 struct HeaderLogoView: View {
     let styles: Styles = Styles()
     
