@@ -80,7 +80,12 @@ struct MarketsView: View {
                     .padding(.horizontal, 16)
                     .searchable(text: $searchedText)
                     .navigationDestination(for: Symbol.self) { symbol in
-                        TickerDetailView(symbol: symbol.symbol)
+                        TickerDetailView(
+                            navigationPath: $navigationPath,
+                            symbol: symbol.symbol,
+                            viewModel: TickerViewModel(symbol: symbol.symbol),
+                            styles: styles
+                        )
                     }
                 }
             }

@@ -16,19 +16,12 @@ struct Symbol: Hashable {
     var dailyChange: Double //dayli change in decimal
     var ts: UInt64 //time the record was published
     
-    //return formatted daily change - in format 44,90% - 2 decimal digits and with % sign
     var formattedDailyChange: String {
-        "\(String(format: "%.2f", ceil(dailyChange * 100) / 100))%"
+        formattTwoDecimalsPercent(number: dailyChange)
     }
     
-    //return formatted price - in format $5345.4353, max number of digits is 9
     var formattedPrice: String {
-        let maxNumberOfDigits = 9 //decimal + not decimal
-        let maximumFractionDigits = maxNumberOfDigits - price.description.components(separatedBy: ".")[0].count //maxNumberOfDigits - num of non decimal digits
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = maximumFractionDigits > 0 ? maximumFractionDigits : 0
-        return "$\(formatter.string(from: NSNumber(value: price))!)"
+        formattPrice(of: price, maxNumberOfDigits: 9)
     }
 }
 

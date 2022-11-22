@@ -14,15 +14,29 @@ class API<T: Decodable> {
     func fetchAll(url: String) async -> [T] {
         var request = URLRequest(url: URL(string: serverUrl + url)!)
         request.httpMethod = "GET"
-        request.timeoutInterval = 8
+        request.timeoutInterval = 10
         
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
-            print(data)
             return try JSONDecoder().decode([T].self, from: data)
         } catch {
             print("[ERROR]", error)
             return []
+        }
+    }
+    
+    @MainActor
+    func fetch(url: String) async -> T? {
+        var request = URLRequest(url: URL(string: serverUrl + url)!)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 10
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            print("[ERROR]", error)
+            return nil
         }
     }
 }
