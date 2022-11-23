@@ -8,18 +8,25 @@
 import Foundation
 
 final class TickerViewModel: ObservableObject {
-    let symbolId: String
     
     @Published var ticker: Ticker? = nil
     @Published var symbol: Symbol? = nil
     @Published var candles: [Candle] = []
+    @Published var selectedChart = ChartType.candles
     
-    let tickerApi: TickerAPI = .init()
-    let symbolApi: SymbolAPI = .init()
-    let candleApi: CandleAPI = .init()
+    let chartTypeOptions = [
+        ChartType.candles,
+        ChartType.line,
+        ChartType.area
+    ]
     
-    init(symbol: String) {
-        self.symbolId = symbol
+    private let symbolId: String
+    private let tickerApi: TickerAPI = .init()
+    private let symbolApi: SymbolAPI = .init()
+    private let candleApi: CandleAPI = .init()
+    
+    init(symbolId: String) {
+        self.symbolId = symbolId
     }
     
     @MainActor
@@ -35,5 +42,15 @@ final class TickerViewModel: ObservableObject {
     @MainActor
     func fetchCandles() async {
         candles = await candleApi.fetchAllCandles(symbolId: symbolId)
+    }
+    
+    enum ChartType: String, CaseIterable, Identifiable {
+        case candles
+        case line
+        case area
+        
+        var id: String {
+            self.rawValue
+        }
     }
 }

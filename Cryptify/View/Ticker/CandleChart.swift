@@ -7,7 +7,9 @@
 
 import SwiftUI
 import Charts
+//chartXScale
 
+//chartXAxis
 struct CandleChart: View {
     @State var candles: [Candle]
     

@@ -11,7 +11,7 @@ import Charts
 struct LineOrAreaChart: View {
     @State var candles: [Candle]
     @State var color: Color
-    @State var type = "line" // other option area
+    @State var type = TickerViewModel.ChartType.line
     
     var body: some View {
         GroupBox {
@@ -19,7 +19,7 @@ struct LineOrAreaChart: View {
                 ScrollView (.horizontal) {
                     ScrollViewReader { scroller in
                         Chart(candles.indices, id: \.self) { index in
-                            if type == "line" {
+                            if type == TickerViewModel.ChartType.line {
                                 LineMark(
                                     x: .value("Mont", index),
                                     y: .value("Price", candles[index].openCloseAvg)

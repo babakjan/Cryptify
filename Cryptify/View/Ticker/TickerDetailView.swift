@@ -9,18 +9,15 @@ import SwiftUI
 
 struct TickerDetailView: View {
     @Binding var navigationPath: NavigationPath
-    var symbol: String
     @StateObject var viewModel: TickerViewModel
     let styles: Styles
-    @State private var chartType = "candles"
-    let options = ["candles", "line", "area"]
     
     //TODO how to initialiye navigation path - used before initialization
-//    init(symbol: String, navigationPath: NavigationPath) {
-//        self.symbol = symbol
-//        self._viewModel = StateObject(wrappedValue: TickerViewModel(symbol: symbol))
-//        self.navigationPath = navigationPath
-//    }
+    init(symbol: String, navigationPath: Binding<NavigationPath>) {
+        self._viewModel = StateObject(wrappedValue: TickerViewModel(symbolId: symbol))
+        self._navigationPath = navigationPath
+        styles = .init()
+    }
     
     var body: some View {
         ScrollView {
@@ -29,35 +26,30 @@ struct TickerDetailView: View {
                     VStack(alignment: .leading) {
                         PriceAndDailyChangeView(symbol: symbol, styles: styles)
                         
-                        Picker("Chart type", selection: $chartType) {
-                            ForEach(options, id: \.self) {
-                                Text($0)
-                            }
-                        }.padding(.leading, -8)
+                        chartTypePicker
+                            .padding(.bottom, 8)
                         
                         if viewModel.candles.count != 0 {
                             
-                            Group {
-                                if chartType == "line" {
-                                    LineOrAreaChart(
-                                        candles: viewModel.candles,
-                                        color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!,
-                                        type: "line"
-                                    )
-                                } else if chartType == "area" {
-                                    LineOrAreaChart(
-                                        candles: viewModel.candles,
-                                        color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!,
-                                        type: "area"
-                                    )
-                                } else {
-                                    CandleChart(candles: viewModel.candles)
-                                }
+                            if viewModel.selectedChart == TickerViewModel.ChartType.line {
+                                LineOrAreaChart(
+                                    candles: viewModel.candles,
+                                    color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!,
+                                    type: TickerViewModel.ChartType.line
+                                )
+                            } else if viewModel.selectedChart == TickerViewModel.ChartType.area {
+                                LineOrAreaChart(
+                                    candles: viewModel.candles,
+                                    color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!,
+                                    type: TickerViewModel.ChartType.area
+                                )
+                            } else {
+                                CandleChart(candles: viewModel.candles)
                             }
                             
+                            Spacer()
                         }//TODO progress view when loading
                         
-                        Spacer()
                         
                         DetailsView(ticker: ticker, styles: styles)
                     }
@@ -84,15 +76,25 @@ struct TickerDetailView: View {
             }
         }
     }
-}
 
-struct TickerDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        TickerDetailView(
-            navigationPath: .constant(NavigationPath()),
-            symbol: "BTC / USDT",
-            viewModel: TickerViewModel(symbol: "TRX_USDC"),
-            styles: .init()
-        )
+    var chartTypePicker: some View {
+        Picker("Chart type", selection: $viewModel.selectedChart) {
+            ForEach(TickerViewModel.ChartType.allCases) { chartType in
+                Text(chartType.rawValue)
+                    .tag(chartType)
+            }
+        }
+        .pickerStyle(.segmented)
     }
 }
+
+//struct TickerDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TickerDetailView(
+//            navigationPath: .constant(NavigationPath()),
+//            symbol: "BTC / USDT",
+//            viewModel: TickerViewModel(symbol: "TRX_USDC"),
+//            styles: .init()
+//        )
+//    }
+//}
