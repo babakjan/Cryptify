@@ -8,9 +8,10 @@
 import SwiftUI
 import Charts
 
-struct LineChart: View {
+struct LineOrAreaChart: View {
     @State var candles: [Candle]
     @State var color: Color
+    @State var type = "line" // other option area
     
     var body: some View {
         GroupBox {
@@ -18,11 +19,19 @@ struct LineChart: View {
                 ScrollView (.horizontal) {
                     ScrollViewReader { scroller in
                         Chart(candles.indices, id: \.self) { index in
-                            LineMark(
-                                x: .value("Mont", index),
-                                y: .value("Price", candles[index].openCloseAvg)
-                            )
-                            .foregroundStyle(color)
+                            if type == "line" {
+                                LineMark(
+                                    x: .value("Mont", index),
+                                    y: .value("Price", candles[index].openCloseAvg)
+                                )
+                                .foregroundStyle(color)
+                            } else {
+                                AreaMark(
+                                    x: .value("Mont", index),
+                                    y: .value("Price", candles[index].openCloseAvg)
+                                )
+                                .foregroundStyle(color)
+                            }
                         }
                         .padding(5)
                         .frame(width: CGFloat(candles.count) * 7, height: 250)
@@ -40,6 +49,6 @@ struct LineChart: View {
 
 struct LineChart_Previews: PreviewProvider {
     static var previews: some View {
-        LineChart(candles: [], color: .green)
+        LineOrAreaChart(candles: [], color: .green)
     }
 }

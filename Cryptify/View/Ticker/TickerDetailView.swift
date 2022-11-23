@@ -12,6 +12,8 @@ struct TickerDetailView: View {
     var symbol: String
     @StateObject var viewModel: TickerViewModel
     let styles: Styles
+    @State private var chartType = "candles"
+    let options = ["candles", "line", "area"]
     
     //TODO how to initialiye navigation path - used before initialization
 //    init(symbol: String, navigationPath: NavigationPath) {
@@ -27,13 +29,32 @@ struct TickerDetailView: View {
                     VStack(alignment: .leading) {
                         PriceAndDailyChangeView(symbol: symbol, styles: styles)
                         
+                        Picker("Chart type", selection: $chartType) {
+                            ForEach(options, id: \.self) {
+                                Text($0)
+                            }
+                        }.padding(.leading, -8)
+                        
                         if viewModel.candles.count != 0 {
-                            CandleChart(candles: viewModel.candles)
                             
-                            LineChart(
-                                candles: viewModel.candles,
-                                color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!
-                            )
+                            Group {
+                                if chartType == "line" {
+                                    LineOrAreaChart(
+                                        candles: viewModel.candles,
+                                        color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!,
+                                        type: "line"
+                                    )
+                                } else if chartType == "area" {
+                                    LineOrAreaChart(
+                                        candles: viewModel.candles,
+                                        color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!,
+                                        type: "area"
+                                    )
+                                } else {
+                                    CandleChart(candles: viewModel.candles)
+                                }
+                            }
+                            
                         }//TODO progress view when loading
                         
                         Spacer()
