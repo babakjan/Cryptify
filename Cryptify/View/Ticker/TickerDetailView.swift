@@ -39,8 +39,10 @@ struct TickerDetailView: View {
         .task {
             await viewModel.fetchTicker()
             await viewModel.fetchSymbol()
+            await viewModel.fetchCandles()
         }
         .padding(.horizontal, 16)
+        .padding(.bottom, 16)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {

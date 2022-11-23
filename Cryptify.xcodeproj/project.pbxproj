@@ -19,6 +19,11 @@
 		DF3FBC46292CE2B700A8C865 /* PriceAndDailyChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC45292CE2B700A8C865 /* PriceAndDailyChangeView.swift */; };
 		DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC47292CE42A00A8C865 /* DetailsView.swift */; };
 		DF3FBC4B292D0CB100A8C865 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC4A292D0CB100A8C865 /* Formatter.swift */; };
+		DF3FBC4D292D16D200A8C865 /* Candle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC4C292D16D200A8C865 /* Candle.swift */; };
+		DF3FBC50292D2B5200A8C865 /* CandleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC4F292D2B5200A8C865 /* CandleAPI.swift */; };
+		DF3FBC52292D393300A8C865 /* SymbolAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC51292D393300A8C865 /* SymbolAPI.swift */; };
+		DF3FBC54292D3C3D00A8C865 /* TickerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC53292D3C3D00A8C865 /* TickerAPI.swift */; };
+		DF3FBC56292D6B8600A8C865 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC55292D6B8600A8C865 /* Either.swift */; };
 		DF4E7D61292A763D004881A0 /* PairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D60292A763D004881A0 /* PairView.swift */; };
 		DF4E7D63292A769D004881A0 /* DailyChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D62292A769D004881A0 /* DailyChangeView.swift */; };
 		DF4E7D65292A772F004881A0 /* RowSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D64292A772F004881A0 /* RowSeparatorView.swift */; };
@@ -47,6 +52,11 @@
 		DF3FBC45292CE2B700A8C865 /* PriceAndDailyChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceAndDailyChangeView.swift; sourceTree = "<group>"; };
 		DF3FBC47292CE42A00A8C865 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		DF3FBC4A292D0CB100A8C865 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
+		DF3FBC4C292D16D200A8C865 /* Candle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candle.swift; sourceTree = "<group>"; };
+		DF3FBC4F292D2B5200A8C865 /* CandleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleAPI.swift; sourceTree = "<group>"; };
+		DF3FBC51292D393300A8C865 /* SymbolAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolAPI.swift; sourceTree = "<group>"; };
+		DF3FBC53292D3C3D00A8C865 /* TickerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerAPI.swift; sourceTree = "<group>"; };
+		DF3FBC55292D6B8600A8C865 /* Either.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
 		DF4E7D60292A763D004881A0 /* PairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairView.swift; sourceTree = "<group>"; };
 		DF4E7D62292A769D004881A0 /* DailyChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChangeView.swift; sourceTree = "<group>"; };
 		DF4E7D64292A772F004881A0 /* RowSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowSeparatorView.swift; sourceTree = "<group>"; };
@@ -92,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				DF18A9EF29296EE100533C8B /* CryptifyApp.swift */,
-				DF18AA06292972B000533C8B /* API.swift */,
+				DF3FBC4E292D2B1100A8C865 /* Api */,
 				DF3FBC49292D0C9A00A8C865 /* Utils */,
 				DF18A9FD29296FA800533C8B /* Model */,
 				DF18A9FE29296FB100533C8B /* View */,
@@ -115,6 +125,8 @@
 			children = (
 				DF18AA042929718B00533C8B /* Symbol.swift */,
 				DF9F74C4292C1DCC00D1F411 /* Ticker.swift */,
+				DF3FBC4C292D16D200A8C865 /* Candle.swift */,
+				DF3FBC55292D6B8600A8C865 /* Either.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -153,6 +165,17 @@
 				DF3FBC4A292D0CB100A8C865 /* Formatter.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		DF3FBC4E292D2B1100A8C865 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				DF18AA06292972B000533C8B /* API.swift */,
+				DF3FBC4F292D2B5200A8C865 /* CandleAPI.swift */,
+				DF3FBC51292D393300A8C865 /* SymbolAPI.swift */,
+				DF3FBC53292D3C3D00A8C865 /* TickerAPI.swift */,
+			);
+			path = Api;
 			sourceTree = "<group>";
 		};
 		DF9F74C1292BFE4C00D1F411 /* Ticker */ = {
@@ -239,10 +262,12 @@
 			files = (
 				DF3FBC4B292D0CB100A8C865 /* Formatter.swift in Sources */,
 				DF4E7D61292A763D004881A0 /* PairView.swift in Sources */,
+				DF3FBC4D292D16D200A8C865 /* Candle.swift in Sources */,
 				DF9F74C3292BFE6A00D1F411 /* TickerDetailView.swift in Sources */,
 				DF18AA03292970A500533C8B /* MarketsViewModel.swift in Sources */,
 				DF18AA052929718B00533C8B /* Symbol.swift in Sources */,
 				DFC0D8A6292A580000907736 /* MarketsHeaderView.swift in Sources */,
+				DF3FBC50292D2B5200A8C865 /* CandleAPI.swift in Sources */,
 				DF4E7D6B292A7B98004881A0 /* ConnectionStatus.swift in Sources */,
 				DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */,
 				DF4E7D65292A772F004881A0 /* RowSeparatorView.swift in Sources */,
@@ -250,8 +275,11 @@
 				DFC0D8A0292A146F00907736 /* Styles.swift in Sources */,
 				DF3FBC44292CD20100A8C865 /* TickerHeaderView.swift in Sources */,
 				DF3FBC46292CE2B700A8C865 /* PriceAndDailyChangeView.swift in Sources */,
+				DF3FBC52292D393300A8C865 /* SymbolAPI.swift in Sources */,
+				DF3FBC56292D6B8600A8C865 /* Either.swift in Sources */,
 				DF18A9F229296EE100533C8B /* ContentView.swift in Sources */,
 				DFC0D8A2292A4E6500907736 /* HeaderLogoView.swift in Sources */,
+				DF3FBC54292D3C3D00A8C865 /* TickerAPI.swift in Sources */,
 				DF4E7D69292A7925004881A0 /* SymbolsGridLoading.swift in Sources */,
 				DF18AA07292972B000533C8B /* API.swift in Sources */,
 				DF18A9F029296EE100533C8B /* CryptifyApp.swift in Sources */,

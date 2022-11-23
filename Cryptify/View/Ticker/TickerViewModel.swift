@@ -9,10 +9,14 @@ import Foundation
 
 final class TickerViewModel: ObservableObject {
     let symbolId: String
+    
     @Published var ticker: Ticker? = nil
     @Published var symbol: Symbol? = nil
-    let tickerApi: API<Ticker> = .init()
-    let symbolApi: API<Symbol> = .init()
+    @Published var candles: [Candle] = []
+    
+    let tickerApi: TickerAPI = .init()
+    let symbolApi: SymbolAPI = .init()
+    let candleApi: CandleAPI = .init()
     
     init(symbol: String) {
         self.symbolId = symbol
@@ -20,11 +24,16 @@ final class TickerViewModel: ObservableObject {
     
     @MainActor
     func fetchTicker() async {
-        ticker = await tickerApi.fetch(url: "/\(symbolId)/ticker24h")
+        ticker = await tickerApi.fetchTicker(symbolId: symbolId)
+    }
+
+    @MainActor
+    func fetchSymbol() async {
+        symbol = await symbolApi.fetchSymbol(symbolId: symbolId)
     }
     
     @MainActor
-    func fetchSymbol() async {
-        symbol = await symbolApi.fetch(url: "/\(symbolId)/price")
+    func fetchCandles() async {
+        candles = await candleApi.fetchAllCandles(symbolId: symbolId, interval: .MONTH_1)
     }
 }
