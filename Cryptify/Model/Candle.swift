@@ -6,11 +6,11 @@
 //
 
 import Foundation
-
-//api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-candles
+import SwiftUI
 
 //Candle in candle chart
-struct Candle: Hashable {
+struct Candle: Hashable, Identifiable {
+    var id: Int
     var low: Double //lowest price over the interval
     var high: Double //highest price over the interval
     var open: Double //price at the start time
@@ -21,16 +21,27 @@ struct Candle: Hashable {
     var ts: UInt64 //time the record was pushed
     var weightedAverage: Double //weighted average over the interval
     var interval: String //the selected interval
+    var startTime: UInt64 //start time of interval
+    var endTime: UInt64 //end time of interval
+    
+    var color: Color { //color of candle
+        open < close ? Styles().colors["green"]! : Styles().colors["red"]!
+    }
+    
+    var openCloseAvg: Double {
+        (open + close) / 2
+    }
 }
 
 extension Candle {
     struct BadInputError: Error {}
     
     //create Candle object from array of Either (some elements are string and some number)
-    static func fromEitherArray(_ array: [Either<UInt64, String>]) throws -> Candle {
+    static func fromEitherArray(_ array: [Either<UInt64, String>], id: Int) throws -> Candle {
         guard array.count == 14 else { throw BadInputError() }
         
         return Candle(
+            id: id,
             low: Double(array[0].get().1!)!,
             high: Double(array[1].get().1!)!,
             open: Double(array[2].get().1!)!,
@@ -40,7 +51,9 @@ extension Candle {
             tradeCount: array[8].get().0!,
             ts: array[9].get().0!,
             weightedAverage: Double(array[10].get().1!)!,
-            interval: array[11].get().1!
+            interval: array[11].get().1!,
+            startTime: array[12].get().0!,
+            endTime: array[13].get().0!
         )
     }
 }

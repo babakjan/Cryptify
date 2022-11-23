@@ -7,6 +7,7 @@
 
 import Foundation
 
+//Ticker - currency detail
 struct Ticker: Hashable {
     var symbol: String //symbol name
     var open: Double //price at the start time

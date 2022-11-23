@@ -43,9 +43,11 @@ struct LabelPropertyView: View {
         HStack() {
             Text(label)
                 .foregroundColor(styles.colors["black50"])
+                .font(.callout)
             
             Text(property)
                 .fontWeight(.semibold)
+                .font(.callout)
         }
     }
 }

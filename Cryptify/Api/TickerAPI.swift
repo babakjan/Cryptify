@@ -7,6 +7,8 @@
 
 import Foundation
 
+//api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-ticker
+
 class TickerAPI: API<Ticker> {
     
     @MainActor

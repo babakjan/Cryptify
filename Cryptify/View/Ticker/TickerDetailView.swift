@@ -21,33 +21,44 @@ struct TickerDetailView: View {
 //    }
     
     var body: some View {
-        VStack {
-            if let ticker = viewModel.ticker, let symbol = viewModel.symbol {
-                VStack(alignment: .leading) {
-                    PriceAndDailyChangeView(symbol: symbol, styles: styles)
-                    
-                    Spacer()
-                    
-                    DetailsView(ticker: ticker, styles: styles)
+        ScrollView {
+            VStack {
+                if let ticker = viewModel.ticker, let symbol = viewModel.symbol {
+                    VStack(alignment: .leading) {
+                        PriceAndDailyChangeView(symbol: symbol, styles: styles)
+                        
+                        if viewModel.candles.count != 0 {
+                            CandleChart(candles: viewModel.candles)
+                            
+                            LineChart(
+                                candles: viewModel.candles,
+                                color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!
+                            )
+                        }//TODO progress view when loading
+                        
+                        Spacer()
+                        
+                        DetailsView(ticker: ticker, styles: styles)
+                    }
+                    .navigationTitle(ticker.displayName)
+                } else {
+                    ProgressView()
+                        .progressViewStyle(.circular)
                 }
-                .navigationTitle(ticker.displayName)
-            } else {
-                ProgressView()
-                    .progressViewStyle(.circular)
             }
-        }
-        .task {
-            await viewModel.fetchTicker()
-            await viewModel.fetchSymbol()
-            await viewModel.fetchCandles()
-        }
-        .padding(.horizontal, 16)
-        .padding(.bottom, 16)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                TickerHeaderView {
-                    navigationPath.removeLast()
+            .task {
+                await viewModel.fetchTicker()
+                await viewModel.fetchSymbol()
+                await viewModel.fetchCandles()
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    TickerHeaderView {
+                        navigationPath.removeLast()
+                    }
                 }
             }
         }

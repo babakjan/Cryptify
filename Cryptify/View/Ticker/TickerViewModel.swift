@@ -34,6 +34,6 @@ final class TickerViewModel: ObservableObject {
     
     @MainActor
     func fetchCandles() async {
-        candles = await candleApi.fetchAllCandles(symbolId: symbolId, interval: .MONTH_1)
+        candles = await candleApi.fetchAllCandles(symbolId: symbolId)
     }
 }

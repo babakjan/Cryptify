@@ -7,16 +7,26 @@
 
 import Foundation
 
+//api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-candles
+
 class CandleAPI: API<[Either<UInt64, String>]> {
     
     @MainActor
-    func fetchAllCandles(symbolId: String, interval: Interval) async -> [Candle] {
-        let eitherArray = await fetchAll(
+    func fetchAllCandles(symbolId: String, interval: Interval = .MONTH_1, limit: String = "500") async -> [Candle] {
+        let eitherArrays = await fetchAll(
             path: "/\(symbolId)/candles",
-            parameters: ["interval": interval.description]
+            parameters: [
+                "interval": interval.description,
+                "limit": limit
+            ]
         )
+        var candles: [Candle] = []
         do {
-            return try eitherArray.map { try Candle.fromEitherArray($0) }
+            for (idx, eitherArray) in eitherArrays.enumerated() {
+                try candles.append(Candle.fromEitherArray(eitherArray, id: idx))
+            }
+            print("candles count ", candles.count)
+            return candles
         } catch {
             print("[ERROR]", error)
             return []

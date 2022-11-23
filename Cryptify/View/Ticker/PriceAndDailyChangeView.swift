@@ -14,15 +14,19 @@ struct PriceAndDailyChangeView: View {
     var body: some View {
         HStack {
             Text("Price:")
-                .font(.title2)
+                .font(.title3)
+            
             Text(symbol.formattedPrice)
-                .font(.title2)
+                .font(.title3)
                 .fontWeight(.semibold)
+            
             Spacer()
+            
             Text("24h:")
-                .font(.title2)
+                .font(.title3)
+            
             Text(symbol.formattedDailyChange)
-                .font(.title2)
+                .font(.title3)
                 .fontWeight(.semibold)
                 .foregroundColor(symbol.dailyChange < 0 ? styles.colors["red"] : styles.colors["green"])
         }
