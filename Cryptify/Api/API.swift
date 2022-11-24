@@ -13,7 +13,6 @@ class API<T: Decodable> {
     @MainActor
     func fetchAll(path: String, parameters: [String: String] = [:]) async -> [T] {
         let url = createUrl(path: path, parameters: parameters)
-        print(url)
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         request.timeoutInterval = 10

@@ -10,13 +10,10 @@ import SwiftUI
 struct TickerDetailView: View {
     @Binding var navigationPath: NavigationPath
     @StateObject var viewModel: TickerViewModel
-    let styles: Styles
     
-    //TODO how to initialiye navigation path - used before initialization
     init(symbol: String, navigationPath: Binding<NavigationPath>) {
         self._viewModel = StateObject(wrappedValue: TickerViewModel(symbolId: symbol))
         self._navigationPath = navigationPath
-        styles = .init()
     }
     
     var body: some View {
@@ -24,45 +21,24 @@ struct TickerDetailView: View {
             VStack {
                 if let ticker = viewModel.ticker, let symbol = viewModel.symbol {
                     VStack(alignment: .leading) {
-                        PriceAndDailyChangeView(symbol: symbol, styles: styles)
+                        
+                        PriceAndDailyChangeView(symbol: symbol)
+                            .padding(.top, 8)
                         
                         chartTypePicker
                             .padding(.bottom, 8)
                         
                         if viewModel.candles.count != 0 {
-                            
-                            if viewModel.selectedChart == TickerViewModel.ChartType.line {
-                                LineOrAreaChart(
-                                    candles: viewModel.candles,
-                                    color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!,
-                                    type: TickerViewModel.ChartType.line
-                                )
-                            } else if viewModel.selectedChart == TickerViewModel.ChartType.area {
-                                LineOrAreaChart(
-                                    candles: viewModel.candles,
-                                    color: symbol.dailyChange < 0 ? styles.colors["red"]! : styles.colors["green"]!,
-                                    type: TickerViewModel.ChartType.area
-                                )
-                            } else {
-                                CandleChart(candles: viewModel.candles)
-                            }
-                            
-                            Spacer()
+                            ChartView(viewModel: viewModel)
                         }//TODO progress view when loading
                         
-                        
-                        DetailsView(ticker: ticker, styles: styles)
+                        DetailsView(ticker: ticker)
                     }
                     .navigationTitle(ticker.displayName)
                 } else {
                     ProgressView()
                         .progressViewStyle(.circular)
                 }
-            }
-            .task {
-                await viewModel.fetchTicker()
-                await viewModel.fetchSymbol()
-                await viewModel.fetchCandles()
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
@@ -74,6 +50,9 @@ struct TickerDetailView: View {
                     }
                 }
             }
+        }
+        .task {
+            await viewModel.fetchData()
         }
     }
 
@@ -88,13 +67,10 @@ struct TickerDetailView: View {
     }
 }
 
-//struct TickerDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TickerDetailView(
-//            navigationPath: .constant(NavigationPath()),
-//            symbol: "BTC / USDT",
-//            viewModel: TickerViewModel(symbol: "TRX_USDC"),
-//            styles: .init()
-//        )
-//    }
-//}
+struct TickerDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        TickerDetailView(
+            symbol: "BTC / USDT",navigationPath: .constant(NavigationPath())
+        )
+    }
+}

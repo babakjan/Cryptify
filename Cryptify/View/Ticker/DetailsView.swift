@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DetailsView: View {
     var ticker: Ticker
-    let styles: Styles
     
     var body: some View {
         LazyVGrid(
@@ -19,17 +18,17 @@ struct DetailsView: View {
             ],
             spacing: 16
         ) {
-            LabelPropertyView(label: "Low:", property: ticker.formattedLow, styles: styles)
+            LabelPropertyView(label: "Low:", property: ticker.formattedLow)
             
-            LabelPropertyView(label: "High:", property: ticker.formattedHigh, styles: styles)
+            LabelPropertyView(label: "High:", property: ticker.formattedHigh)
 
-            LabelPropertyView(label: "Open:", property: ticker.formattedOpen, styles: styles)
+            LabelPropertyView(label: "Open:", property: ticker.formattedOpen)
             
-            LabelPropertyView(label: "Close:", property: ticker.formattedClose, styles: styles)
+            LabelPropertyView(label: "Close:", property: ticker.formattedClose)
             
-            LabelPropertyView(label: "Quantity:", property: ticker.formattedQuantity, styles: styles)
+            LabelPropertyView(label: "Quantity:", property: ticker.formattedQuantity)
         
-            LabelPropertyView(label: "TradeCount:", property: "\(ticker.tradeCount)", styles: styles)
+            LabelPropertyView(label: "TradeCount:", property: "\(ticker.tradeCount)")
         }
     }
 }
@@ -37,12 +36,11 @@ struct DetailsView: View {
 struct LabelPropertyView: View {
     var label: String
     var property: String
-    let styles: Styles
     
     var body: some View {
         HStack() {
             Text(label)
-                .foregroundColor(styles.colors["black50"])
+                .foregroundColor(Color.theme.secondaryText)
                 .font(.callout)
             
             Text(property)
@@ -69,7 +67,7 @@ struct DetailsView_Previews: PreviewProvider {
                 displayName: "BTC/USDT",
                 dailyChange: 1.03,
                 ts: 3434
-            ),
-            styles: .init())
+            )
+        )
     }
 }

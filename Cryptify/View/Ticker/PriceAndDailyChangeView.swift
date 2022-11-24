@@ -9,12 +9,12 @@ import SwiftUI
 
 struct PriceAndDailyChangeView: View {
     var symbol: Symbol
-    let styles: Styles
     
     var body: some View {
         HStack {
             Text("Price:")
                 .font(.title3)
+                .foregroundColor(.theme.secondaryText)
             
             Text(symbol.formattedPrice)
                 .font(.title3)
@@ -24,13 +24,16 @@ struct PriceAndDailyChangeView: View {
             
             Text("24h:")
                 .font(.title3)
+                .foregroundColor(.theme.secondaryText)
+            
+            Image(systemName: symbol.dailyChange < 0 ? "arrowtriangle.down.fill" : "arrowtriangle.up.fill")
+                .foregroundColor(symbol.dailyChange < 0 ? .theme.red : .theme.green)
             
             Text(symbol.formattedDailyChange)
                 .font(.title3)
                 .fontWeight(.semibold)
-                .foregroundColor(symbol.dailyChange < 0 ? styles.colors["red"] : styles.colors["green"])
+                .foregroundColor(symbol.dailyChange < 0 ? .theme.red : .theme.green)
         }
-        .padding(.top, 8)
     }
 }
 
@@ -44,8 +47,9 @@ struct PriceAndDailyChangeView_Previews: PreviewProvider {
                 price: 14435,
                 time: 34349832,
                 dailyChange: 2.39,
-                ts: 4385734),
-            styles: .init()
+                ts: 4385734
+            )
         )
     }
 }
+

@@ -29,6 +29,13 @@ final class TickerViewModel: ObservableObject {
         self.symbolId = symbolId
     }
     
+    func fetchData() async {
+        print("fetch data")
+        await fetchTicker()
+        await fetchSymbol()
+        await fetchCandles()
+    }
+    
     @MainActor
     func fetchTicker() async {
         ticker = await tickerApi.fetchTicker(symbolId: symbolId)
