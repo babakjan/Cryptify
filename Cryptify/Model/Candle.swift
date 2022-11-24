@@ -21,8 +21,9 @@ struct Candle: Hashable, Identifiable {
     var ts: UInt64 //time the record was pushed
     var weightedAverage: Double //weighted average over the interval
     var interval: String //the selected interval
-    var startTime: UInt64 //start time of interval
-    var endTime: UInt64 //end time of interval
+    var startTime: Date //start time of interval
+    var endTime: Date //end time of interval
+    var animate = false //for chart animations
     
     var color: Color { //color of candle
         open < close ? Styles().colors["green"]! : Styles().colors["red"]!
@@ -52,8 +53,8 @@ extension Candle {
             ts: array[9].get().0!,
             weightedAverage: Double(array[10].get().1!)!,
             interval: array[11].get().1!,
-            startTime: array[12].get().0!,
-            endTime: array[13].get().0!
+            startTime: Date(timeIntervalSince1970: TimeInterval(array[12].get().0!) / 1000), //divide by 1000, because api returns unix time in ms
+            endTime: Date(timeIntervalSince1970: TimeInterval(array[13].get().0!) / 1000)
         )
     }
 }

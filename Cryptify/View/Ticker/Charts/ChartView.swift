@@ -16,7 +16,7 @@ struct ChartView: View {
                 ScrollView (.horizontal) {
                     ScrollViewReader { scroller in
                         chart
-                        .frame(width: CGFloat(viewModel.candles.count) * 6, height: 250)
+                        .frame(width: CGFloat(viewModel.candles.count) * 12, height: 250)
                         .padding(4)
                         .id(1) //for scroller
                         .onAppear {
@@ -33,26 +33,10 @@ struct ChartView: View {
         Group {
             if viewModel.selectedChart == TickerViewModel.ChartType.candles {
                 CandleChartView(candles: viewModel.candles)
+            } else if viewModel.selectedChart == TickerViewModel.ChartType.area {
+                AreaChartView(viewModel: viewModel)
             } else {
-                if let symbol = viewModel.symbol {
-                    Group {
-                        if viewModel.selectedChart == TickerViewModel.ChartType.area {
-                            AreaChartView(candles: viewModel.candles)
-                        } else {
-                            LineChartView(candles: viewModel.candles)
-                        }
-                    }
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [
-                                (symbol.dailyChange < 0 ? Color.theme.red : Color.theme.green),
-                                (symbol.dailyChange < 0 ? Color.theme.red : Color.theme.green).opacity(0.2)
-                            ],
-                            startPoint: .center,
-                            endPoint: .bottom
-                        )
-                    )
-                }
+                LineChartView(viewModel: viewModel)
             }
         }
     }

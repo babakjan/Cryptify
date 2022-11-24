@@ -9,22 +9,39 @@ import SwiftUI
 import Charts
 
 struct LineChartView: View {
-    @State var candles: [Candle]
+    @StateObject var viewModel: TickerViewModel
     
     var body: some View {
-        Chart(candles.indices, id: \.self) { index in
+        Chart(viewModel.candles) { candle in
+            //line chart
             LineMark(
-                x: .value("Mont", index),
-                y: .value("Price", candles[index].openCloseAvg)
+                x: .value("Date", candle.startTime),
+                y: .value("Price", candle.animate ? candle.openCloseAvg : 0)
             )
             .lineStyle(.init(lineWidth: 4, lineCap: .round))
             .interpolationMethod(.cardinal)
+            .foregroundStyle(viewModel.graphColor)
+            
+            //gradient area under the line chart
+            AreaMark(
+                x: .value("Date", candle.startTime),
+                y: .value("Price", candle.animate ? candle.openCloseAvg : 0)
+            )
+            .lineStyle(.init(lineWidth: 4, lineCap: .round))
+            .interpolationMethod(.cardinal)
+            .foregroundStyle(Gradient(colors: [viewModel.graphColor.opacity(0.65), viewModel.graphColor.opacity(0)]))
+        }
+        .chartYScale(domain: 0...viewModel.candles.max(by: {
+            (a, b)-> Bool in return a.openCloseAvg < b.openCloseAvg
+        })!.openCloseAvg * 1.05)
+        .onAppear() {
+            viewModel.animateChart()
         }
     }
 }
 
 struct LineChart_Previews: PreviewProvider {
     static var previews: some View {
-        LineChartView(candles: [])
+        LineChartView(viewModel: .init(symbolId: "BTC_USDT"))
     }
 }

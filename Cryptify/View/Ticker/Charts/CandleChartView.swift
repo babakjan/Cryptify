@@ -12,23 +12,25 @@ struct CandleChartView: View {
     @State var candles: [Candle]
 
     var body: some View {
-        Chart(candles.indices, id: \.self) { index in
+        Chart(candles) { candle in
+            //high low
             RectangleMark(
-                x: .value("Month", index),
-                yStart: .value("Low price", candles[index].low),
-                yEnd: .value("High price", candles[index].high),
+                x: .value("Date", candle.startTime),
+                yStart: .value("Low price", candle.low),
+                yEnd: .value("High price", candle.high),
                 width: 2
             )
-            .foregroundStyle(candles[index].color)
+            .foregroundStyle(candle.color)
             .opacity(0.4)
             
+            //open close
             RectangleMark(
-                x: .value("Month", index),
-                yStart: .value("Open price", candles[index].open),
-                yEnd: .value("Close price", candles[index].close),
-                width: 6
+                x: .value("Price", candle.startTime),
+                yStart: .value("Open price", candle.open),
+                yEnd: .value("Close price", candle.close),
+                width: 8
             )
-            .foregroundStyle(candles[index].color)
+            .foregroundStyle(candle.color)
         }
     }
 }

@@ -54,9 +54,9 @@ struct TickerDetailView: View {
         .task {
             await viewModel.fetchData()
         }
-        .refreshable {
-            await viewModel.fetchData() //TODO cancelled, fix
-        }
+//        .refreshable {
+//            await viewModel.fetchData(refresh: true) //TODO when refreshable, chart animation not working
+//        }
     }
 
     var chartTypePicker: some View {

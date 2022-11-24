@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class TickerViewModel: ObservableObject {
     
@@ -29,6 +30,10 @@ final class TickerViewModel: ObservableObject {
         self.symbolId = symbolId
     }
     
+    var graphColor: Color {
+        !candles.isEmpty && candles.last!.openCloseAvg - candles.first!.openCloseAvg < 0 ? Color.theme.red : Color.theme.green
+    }
+    
     @MainActor
     func fetchData() async {
         (ticker, symbol, candles) = await (
@@ -36,6 +41,7 @@ final class TickerViewModel: ObservableObject {
             symbolApi.fetchSymbol(symbolId: symbolId),
             candleApi.fetchAllCandles(symbolId: symbolId)
         )
+        //TODO choose nicer way
         
 //        await fetchCandles()
 //        await fetchSymbol()
@@ -55,6 +61,20 @@ final class TickerViewModel: ObservableObject {
     @MainActor
     func fetchCandles() async {
         candles = await candleApi.fetchAllCandles(symbolId: symbolId)
+    }
+    
+    //animate chart
+    func animateChart() {
+        if !self.candles.isEmpty && self.candles.first!.animate {
+            return //already animated
+        }
+        for (index, _) in candles.enumerated() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.01) {
+                withAnimation(.interactiveSpring(response: 0.8, dampingFraction: 0.8, blendDuration: 0.8)) {
+                    self.candles[index].animate = true
+                }
+            }
+        }
     }
     
     enum ChartType: String, CaseIterable, Identifiable {
