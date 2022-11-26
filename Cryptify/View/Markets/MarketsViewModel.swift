@@ -10,6 +10,7 @@ import Foundation
 final class MarketsViewModel: ObservableObject {
     @Published var symbols: [Symbol]
     @Published public var searchedText = ""
+    @Published var lastUpdateDate: Date?
     
     let symbolApi: SymbolAPI = .init()
     
@@ -30,5 +31,6 @@ final class MarketsViewModel: ObservableObject {
     @MainActor
     func fetchSymbols() async {
         symbols = await symbolApi.fetchAllSymbols().sorted(by: { $0.price > $1.price })
+        lastUpdateDate = Date.now
     }
 }
