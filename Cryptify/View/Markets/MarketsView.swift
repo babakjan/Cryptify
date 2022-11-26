@@ -12,34 +12,14 @@ struct MarketsView: View {
     @StateObject var viewModel: MarketsViewModel = MarketsViewModel()
     @State private var searchedText = ""
     
-    //search filter
-    var searchResult: [Symbol] {
-        if searchedText.isEmpty {
-            return viewModel.symbols
-        }
-        return viewModel.symbols.filter { symbol in
-            symbol.firstCurrency.lowercased().contains(searchedText.lowercased())
-        }
-    }
-    
     var body: some View {
         Group {
             if viewModel.symbols.isEmpty {
                 SymbolsGridLoading()
             } else {
                 ScrollView {
-                    HStack {
-                        TodayHeadingView()
-                        Spacer()
-                        ConnectionStatus()
-                    }
-                    .padding(.horizontal, 16)
-                    .navigationTitle("Markets")
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            MarketsHeaderView()
-                        }
-                    }
+                    LastUpdateView(lastUpdateDate: viewModel.lastUpdateDate)
+                        .padding(.horizontal, 16)
                     
                     let columns = [
                         GridItem(.flexible(), spacing: 0, alignment: .leading),
@@ -47,30 +27,9 @@ struct MarketsView: View {
                         GridItem(.flexible(), spacing: 0, alignment: .trailing)
                     ]
                     LazyVGrid(columns: columns, spacing: 16) {
-                        //header
-                        Text("Pair").font(.headline).fontWeight(.semibold)
-                        Text("Price").font(.headline).fontWeight(.semibold)
-                        Text("24h change").font(.headline).fontWeight(.semibold)
+                        gridHeader
                         
-                        //body
-                        ForEach(searchResult, id: \.symbol) { symbol in
-                            PairView(symbol: symbol)
-                                .onTapGesture { //TODO how to create link, when row is clicked???
-                                    navigationPath.append(symbol)
-                                }
-                            
-                            Text(symbol.formattedPrice)
-                                .onTapGesture {
-                                    navigationPath.append(symbol)
-                                }
-                            
-                            DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
-                                .onTapGesture {
-                                    navigationPath.append(symbol)
-                                }
-                            
-                            RowSeparatorView()
-                        }
+                        gridBody()
                     }
                     .padding(.horizontal, 16)
                     .searchable(text: $searchedText)
@@ -80,11 +39,64 @@ struct MarketsView: View {
                 }
             }
         }
+        .navigationTitle("Markets")
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                MarketsHeaderView()
+            }
+        }
         .task {
             await viewModel.fetchSymbols()
         }
         .refreshable {
             await viewModel.fetchSymbols()
+        }
+    }
+    
+    @ViewBuilder
+    var gridHeader: some View {
+        Text("Pair").font(.headline).fontWeight(.semibold)
+        Text("Price").font(.headline).fontWeight(.semibold)
+        Text("24h change").font(.headline).fontWeight(.semibold)
+    }
+    
+    @ViewBuilder
+    func gridBody() -> some View {
+        ForEach(searchResult, id: \.symbol) { symbol in
+            gridRow(symbol: symbol)
+                .onTapGesture {
+                    navigationPath.append(symbol)
+                }
+        }
+    }
+    
+    @ViewBuilder
+    func gridRow(symbol: Symbol) -> some View {
+        PairView(symbol: symbol)
+        
+        Text(symbol.formattedPrice)
+        
+        DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
+        
+        rowSeparator
+    }
+    
+    //work around for creating grid row separator
+    var rowSeparator: some View {
+        ForEach(0..<3) { _ in //if adding new columns, don't forget to increment range
+            Rectangle()
+                .fill(Color.theme.lightGray)
+                .frame(height: 1)
+        }
+    }
+    
+    //filtered symbols after search
+    var searchResult: [Symbol] {
+        if searchedText.isEmpty {
+            return viewModel.symbols
+        }
+        return viewModel.symbols.filter { symbol in
+            symbol.firstCurrency.lowercased().contains(searchedText.lowercased())
         }
     }
 }
