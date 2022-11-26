@@ -19,6 +19,6 @@ final class MarketsViewModel: ObservableObject {
     
     @MainActor
     func fetchSymbols() async {
-        symbols = await symbolApi.fetchAllSymbols()
+        symbols = await symbolApi.fetchAllSymbols().sorted(by: { $0.price > $1.price })
     }
 }

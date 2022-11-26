@@ -11,7 +11,6 @@ struct MarketsView: View {
     @Binding var navigationPath: NavigationPath
     @StateObject var viewModel: MarketsViewModel = MarketsViewModel()
     @State private var searchedText = ""
-    let styles: Styles = Styles()
     
     //search filter
     var searchResult: [Symbol] {
@@ -30,9 +29,9 @@ struct MarketsView: View {
             } else {
                 ScrollView {
                     HStack {
-                        TodayHeadingView(styles: styles)
+                        TodayHeadingView()
                         Spacer()
-                        ConnectionStatus(styles: styles)
+                        ConnectionStatus()
                     }
                     .padding(.horizontal, 16)
                     .navigationTitle("Markets")
@@ -55,7 +54,7 @@ struct MarketsView: View {
                         
                         //body
                         ForEach(searchResult, id: \.symbol) { symbol in
-                            PairView(symbol: symbol, styles: styles) //TODO where to instantiate styles???
+                            PairView(symbol: symbol)
                                 .onTapGesture { //TODO how to create link, when row is clicked???
                                     navigationPath.append(symbol)
                                 }
@@ -65,16 +64,12 @@ struct MarketsView: View {
                                     navigationPath.append(symbol)
                                 }
                             
-                            DailyChangeView(
-                                dailyChage: symbol.dailyChange,
-                                dailyChangeFormatted: symbol.formattedDailyChange,
-                                styles: styles
-                            )
-                            .onTapGesture {
-                                navigationPath.append(symbol)
-                            }
+                            DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
+                                .onTapGesture {
+                                    navigationPath.append(symbol)
+                                }
                             
-                            RowSeparatorView(styles: styles)
+                            RowSeparatorView()
                         }
                     }
                     .padding(.horizontal, 16)

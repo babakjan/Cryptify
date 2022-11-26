@@ -9,11 +9,10 @@ import SwiftUI
 
 //header logo
 struct HeaderLogoView: View {
-    let styles: Styles = Styles()
     
     var body: some View {
         Text("_cryptify")
-            .foregroundColor(styles.colors["primary"])
+            .foregroundColor(.theme.accent)
             .font(.custom("Menlo",fixedSize: 24)) //TODO change font
             .fontWeight(.bold)
             .padding(.bottom, 16)

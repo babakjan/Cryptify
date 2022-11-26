@@ -26,7 +26,7 @@ struct Candle: Hashable, Identifiable {
     var animate = false //for chart animations
     
     var color: Color { //color of candle
-        open < close ? Styles().colors["green"]! : Styles().colors["red"]!
+        open < close ? Color.theme.green : Color.theme.red
     }
     
     var openCloseAvg: Double {

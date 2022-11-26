@@ -29,7 +29,7 @@ struct LineChartView: View {
             )
             .lineStyle(.init(lineWidth: 4, lineCap: .round))
             .interpolationMethod(.cardinal)
-            .foregroundStyle(Gradient(colors: [viewModel.graphColor.opacity(0.65), viewModel.graphColor.opacity(0)]))
+            .foregroundStyle(Gradient(colors: [viewModel.graphColor.opacity(0.5), viewModel.graphColor.opacity(0)]))
         }
         .chartYScale(domain: 0...viewModel.candles.max(by: {
             (a, b)-> Bool in return a.openCloseAvg < b.openCloseAvg

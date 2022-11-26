@@ -10,7 +10,6 @@ import SwiftUI
 //first column in grid - eg. BTC / USDT
 struct PairView: View {
     let symbol: Symbol
-    let styles: Styles
     
     var body: some View {
         Text(symbol.firstCurrency)
@@ -20,7 +19,7 @@ struct PairView: View {
         Text(" / \(symbol.secondCurrency)")
             .font(.body)
             .fontWeight(.light)
-            .foregroundColor(styles.colors["black50"])
+            .foregroundColor(.theme.secondaryText)
     }
 }
 
@@ -35,8 +34,7 @@ struct PairView_Previews: PreviewProvider {
                 time: 5435234523,
                 dailyChange: 4.43,
                 ts: 485930458
-            ),
-            styles: .init()
+            )
         )
     }
 }

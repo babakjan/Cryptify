@@ -9,13 +9,11 @@ import SwiftUI
 
 //row separators workaround
 struct RowSeparatorView: View {
-    let styles: Styles
-    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         ForEach(0..<3) { _ in //if adding new columns, don't forget to increment range
             Rectangle()
-                .fill(colorScheme == .light ? styles.colors["black10"]! : styles.colors["black75"]!)
+                .fill(Color.theme.lightGray)
                 .frame(height: 1)
         }
     }
@@ -23,6 +21,6 @@ struct RowSeparatorView: View {
 
 struct RowSeparatorView_Previews: PreviewProvider {
     static var previews: some View {
-        RowSeparatorView(styles: .init())
+        RowSeparatorView()
     }
 }
