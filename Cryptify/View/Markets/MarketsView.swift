@@ -49,20 +49,13 @@ struct MarketsView: View {
             GridItem(.flexible(), spacing: 0, alignment: .trailing)
         ]
         LazyVGrid(columns: columns, spacing: 16) {
-            gridHeader
+            GridHeaderView(viewModel: viewModel)
             
             gridBody()
         }
         .navigationDestination(for: Symbol.self) { symbol in
             TickerDetailView(symbol: symbol.symbol, navigationPath: $navigationPath)
         }
-    }
-    
-    @ViewBuilder
-    var gridHeader: some View {
-        Text("Pair").font(.headline).fontWeight(.semibold)
-        Text("Price").font(.headline).fontWeight(.semibold)
-        Text("24h change").font(.headline).fontWeight(.semibold)
     }
     
     @ViewBuilder
