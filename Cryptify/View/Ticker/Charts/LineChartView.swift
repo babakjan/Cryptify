@@ -36,7 +36,7 @@ struct LineChartView: View {
         })!.openCloseAvg * 1.05)
         .onAppear() {
             viewModel.animateChart()
-        }
+        } 
     }
 }
 
@@ -45,3 +45,7 @@ struct LineChart_Previews: PreviewProvider {
         LineChartView(viewModel: .init(symbolId: "BTC_USDT"))
     }
 }
+
+
+
+

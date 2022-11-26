@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailsView: View {
-    var ticker: Ticker
+    @State var ticker: Ticker
     
     var body: some View {
         LazyVGrid(

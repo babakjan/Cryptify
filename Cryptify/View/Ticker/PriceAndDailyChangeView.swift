@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PriceAndDailyChangeView: View {
-    var symbol: Symbol
+    @State var symbol: Symbol
     
     var body: some View {
         HStack {

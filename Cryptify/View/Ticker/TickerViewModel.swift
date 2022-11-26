@@ -13,13 +13,15 @@ final class TickerViewModel: ObservableObject {
     @Published var ticker: Ticker? = nil
     @Published var symbol: Symbol? = nil
     @Published var candles: [Candle] = []
-    @Published var selectedChart = ChartType.candles
-    
-    let chartTypeOptions = [
-        ChartType.candles,
-        ChartType.line,
-        ChartType.area
-    ]
+    @Published var selectedChartHelper = ChartType.line
+    var selectedChart: ChartType { //because of the animation
+        get { selectedChartHelper }
+        set {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                selectedChartHelper = newValue
+            }
+        }
+    }
     
     private let symbolId: String
     private let tickerApi: TickerAPI = .init()
@@ -69,8 +71,8 @@ final class TickerViewModel: ObservableObject {
             return //already animated
         }
         for (index, _) in candles.enumerated() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.01) {
-                withAnimation(.interactiveSpring(response: 0.8, dampingFraction: 0.8, blendDuration: 0.8)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.007) {
+                withAnimation(.interactiveSpring(response: 1.1, dampingFraction: 1.1, blendDuration: 1.1)) {
                     self.candles[index].animate = true
                 }
             }
@@ -78,9 +80,9 @@ final class TickerViewModel: ObservableObject {
     }
     
     enum ChartType: String, CaseIterable, Identifiable {
-        case candles
         case line
         case area
+        case candles
         
         var id: String {
             self.rawValue
