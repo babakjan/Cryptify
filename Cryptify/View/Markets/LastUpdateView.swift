@@ -15,14 +15,14 @@ struct LastUpdateView: View {
     init(lastUpdateDate: Date?) {
         self.lastUpdateDate = lastUpdateDate
         formatter = DateFormatter()
-        formatter.dateFormat = "MMM d HH:mm"
+        formatter.dateFormat = "MMMM d HH:mm"
         formatter.locale = Locale(identifier: "en_US_POSIX") //translate from localized to english
     }
     
     var body: some View {
         HStack(alignment: .center) {
             Text("Last update: ")
-                .font(.title)
+                .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.theme.secondaryText)
             

@@ -17,56 +17,20 @@ struct MarketsView: View {
                 SymbolsGridLoading()
             } else {
                 ScrollView {
-                    HStack {
-                        TodayHeadingView()
-                        Spacer()
-                        ConnectionStatus()
-                    }
-                    .padding(.horizontal, 16)
-                    .navigationTitle("Markets")
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            MarketsHeaderView()
-                        }
-                    }
-                    
-                    let columns = [
-                        GridItem(.flexible(), spacing: 0, alignment: .leading),
-                        GridItem(.flexible(), spacing: 0, alignment: .leading),
-                        GridItem(.flexible(), spacing: 0, alignment: .trailing)
-                    ]
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        //header
-                        Text("Pair").font(.headline).fontWeight(.semibold)
-                        Text("Price").font(.headline).fontWeight(.semibold)
-                        Text("24h change").font(.headline).fontWeight(.semibold)
-                        
-                        //body
-                        ForEach(viewModel.searchResult, id: \.symbol) { symbol in
-                            PairView(symbol: symbol)
-                                .onTapGesture { //TODO how to create link, when row is clicked???
-                                    navigationPath.append(symbol)
-                                }
-                            
-                            Text(symbol.formattedPrice)
-                                .onTapGesture {
-                                    navigationPath.append(symbol)
-                                }
-                            
-                            DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
-                                .onTapGesture {
-                                    navigationPath.append(symbol)
-                                }
-                            
-                            RowSeparatorView()
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                    .searchable(text: $viewModel.searchedText)
-                    .navigationDestination(for: Symbol.self) { symbol in
-                        TickerDetailView(symbol: symbol.symbol, navigationPath: $navigationPath)
-                    }
+                    LastUpdateView(lastUpdateDate: viewModel.lastUpdateDate)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 16)
+
+                    symbolsGrid
+                        .padding(.horizontal, 16)
                 }
+            }
+        }
+        .searchable(text: $viewModel.searchedText)
+        .navigationTitle("Markets")
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                MarketsHeaderView()
             }
         }
         .task {
@@ -76,6 +40,62 @@ struct MarketsView: View {
             await viewModel.fetchSymbols()
         }
     }
+    
+    @ViewBuilder
+    var symbolsGrid: some View {
+        let columns = [
+            GridItem(.flexible(), spacing: 0, alignment: .leading),
+            GridItem(.flexible(), spacing: 0, alignment: .leading),
+            GridItem(.flexible(), spacing: 0, alignment: .trailing)
+        ]
+        LazyVGrid(columns: columns, spacing: 16) {
+            gridHeader
+            
+            gridBody()
+        }
+        .navigationDestination(for: Symbol.self) { symbol in
+            TickerDetailView(symbol: symbol.symbol, navigationPath: $navigationPath)
+        }
+    }
+    
+    @ViewBuilder
+    var gridHeader: some View {
+        Text("Pair").font(.headline).fontWeight(.semibold)
+        Text("Price").font(.headline).fontWeight(.semibold)
+        Text("24h change").font(.headline).fontWeight(.semibold)
+    }
+    
+    @ViewBuilder
+    func gridBody() -> some View {
+        ForEach(viewModel.searchResult, id: \.symbol) { symbol in
+            gridRow(symbol: symbol)
+                .onTapGesture {
+                    navigationPath.append(symbol)
+                }
+        }
+    }
+
+    @ViewBuilder
+    func gridRow(symbol: Symbol) -> some View {
+        PairView(symbol: symbol)
+        
+        Text(symbol.formattedPrice)
+        
+        DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
+        
+        rowSeparator
+    }
+
+    
+    //work around for creating grid row separator
+    var rowSeparator: some View {
+        ForEach(0..<3) { _ in //if adding new columns, don't forget to increment range
+            Rectangle()
+                .fill(Color.theme.lightGray)
+                .frame(height: 1)
+        }
+    }
+
 }
 
 struct SymbolView_Previews: PreviewProvider {
