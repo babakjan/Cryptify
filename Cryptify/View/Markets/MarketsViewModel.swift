@@ -13,6 +13,16 @@ final class MarketsViewModel: ObservableObject {
     
     let symbolApi: SymbolAPI = .init()
     
+    //search filter
+    var searchResult: [Symbol] {
+        if searchedText.isEmpty {
+            return symbols
+        }
+        return symbols.filter { symbol in
+            symbol.firstCurrency.lowercased().contains(searchedText.lowercased())
+        }
+    }
+    
     init(symbols: [Symbol] = []) {
         self.symbols = symbols
     }

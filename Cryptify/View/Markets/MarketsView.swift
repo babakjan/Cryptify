@@ -10,17 +10,6 @@ import SwiftUI
 struct MarketsView: View {
     @Binding var navigationPath: NavigationPath
     @StateObject var viewModel: MarketsViewModel = MarketsViewModel()
-    @State private var searchedText = ""
-    
-    //search filter
-    var searchResult: [Symbol] {
-        if searchedText.isEmpty {
-            return viewModel.symbols
-        }
-        return viewModel.symbols.filter { symbol in
-            symbol.firstCurrency.lowercased().contains(searchedText.lowercased())
-        }
-    }
     
     var body: some View {
         Group {
@@ -53,7 +42,7 @@ struct MarketsView: View {
                         Text("24h change").font(.headline).fontWeight(.semibold)
                         
                         //body
-                        ForEach(searchResult, id: \.symbol) { symbol in
+                        ForEach(viewModel.searchResult, id: \.symbol) { symbol in
                             PairView(symbol: symbol)
                                 .onTapGesture { //TODO how to create link, when row is clicked???
                                     navigationPath.append(symbol)
@@ -73,7 +62,7 @@ struct MarketsView: View {
                         }
                     }
                     .padding(.horizontal, 16)
-                    .searchable(text: $searchedText)
+                    .searchable(text: $viewModel.searchedText)
                     .navigationDestination(for: Symbol.self) { symbol in
                         TickerDetailView(symbol: symbol.symbol, navigationPath: $navigationPath)
                     }
