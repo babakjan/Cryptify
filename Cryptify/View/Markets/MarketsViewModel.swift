@@ -25,38 +25,6 @@ final class MarketsViewModel: ObservableObject {
         }
     }
     
-    func sortSymbols() {
-        switch sortBy {
-        case .pairAscending: do {
-            self.symbols.sort(by: { $0.symbol < $1.symbol })
-            return
-        }
-        case .pairDescendig: do {
-            self.symbols.sort(by: { $0.symbol > $1.symbol })
-            return
-        }
-        case .priceAscending: do {
-            self.symbols.sort(by: { $0.price < $1.price })
-            return
-        }
-        case .priceDescending: do {
-            self.symbols.sort(by: { $0.price > $1.price })
-            return
-        }
-        case .dailyChangeAscenging: do {
-            self.symbols.sort(by: { $0.dailyChange < $1.dailyChange })
-            return
-        }
-        case .dailyChangeDescending: do {
-            self.symbols.sort(by: { $0.dailyChange > $1.dailyChange })
-            return
-        }
-        default: do {
-            return
-        }
-        }
-    }
-    
     init(symbols: [Symbol] = []) {
         self.symbols = symbols
     }
@@ -65,6 +33,18 @@ final class MarketsViewModel: ObservableObject {
     func fetchSymbols() async {
         symbols = await symbolApi.fetchAllSymbols().sorted(by: { $0.price > $1.price })
         lastUpdateDate = Date.now
+    }
+    
+    func sortSymbols() {
+        switch sortBy {
+        case .pairAscending: self.symbols.sort(by: { $0.symbol < $1.symbol })
+        case .pairDescendig: self.symbols.sort(by: { $0.symbol > $1.symbol })
+        case .priceAscending: self.symbols.sort(by: { $0.price < $1.price })
+        case .priceDescending: self.symbols.sort(by: { $0.price > $1.price })
+        case .dailyChangeAscenging: self.symbols.sort(by: { $0.dailyChange < $1.dailyChange })
+        case .dailyChangeDescending: self.symbols.sort(by: { $0.dailyChange > $1.dailyChange })
+        default: return
+        }
     }
     
     enum SortSymbolsBy {

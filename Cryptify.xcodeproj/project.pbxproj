@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF16FFA42934DFD9005C2CB6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF16FFA32934DFD9005C2CB6 /* SettingsView.swift */; };
 		DF18A9F029296EE100533C8B /* CryptifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18A9EF29296EE100533C8B /* CryptifyApp.swift */; };
 		DF18A9F229296EE100533C8B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18A9F129296EE100533C8B /* ContentView.swift */; };
 		DF18A9F429296EE300533C8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF18A9F329296EE300533C8B /* Assets.xcassets */; };
@@ -16,7 +17,7 @@
 		DF18AA07292972B000533C8B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18AA06292972B000533C8B /* API.swift */; };
 		DF318EF529328D380082922D /* GridHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF318EF429328D380082922D /* GridHeaderView.swift */; };
 		DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC41292CABD800A8C865 /* TickerViewModel.swift */; };
-		DF3FBC44292CD20100A8C865 /* TickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC43292CD20100A8C865 /* TickerHeaderView.swift */; };
+		DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC43292CD20100A8C865 /* ToolbarHeaderView.swift */; };
 		DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC47292CE42A00A8C865 /* DetailsView.swift */; };
 		DF3FBC4B292D0CB100A8C865 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC4A292D0CB100A8C865 /* Formatter.swift */; };
 		DF3FBC4D292D16D200A8C865 /* Candle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC4C292D16D200A8C865 /* Candle.swift */; };
@@ -36,12 +37,12 @@
 		DFC0D89E292A0B2B00907736 /* MarketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D89D292A0B2B00907736 /* MarketsView.swift */; };
 		DFC0D8A2292A4E6500907736 /* HeaderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D8A1292A4E6500907736 /* HeaderLogoView.swift */; };
 		DFC0D8A4292A557C00907736 /* LastUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D8A3292A557C00907736 /* LastUpdateView.swift */; };
-		DFC0D8A6292A580000907736 /* MarketsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D8A5292A580000907736 /* MarketsHeaderView.swift */; };
 		DFE0197D292F4CD1000CCC17 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0197C292F4CD1000CCC17 /* ChartView.swift */; };
 		DFE01980292FA16B000CCC17 /* AreaChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0197F292FA16B000CCC17 /* AreaChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF16FFA32934DFD9005C2CB6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DF18A9EC29296EE100533C8B /* Cryptify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF18A9EF29296EE100533C8B /* CryptifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptifyApp.swift; sourceTree = "<group>"; };
 		DF18A9F129296EE100533C8B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,7 +53,7 @@
 		DF18AA06292972B000533C8B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		DF318EF429328D380082922D /* GridHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridHeaderView.swift; sourceTree = "<group>"; };
 		DF3FBC41292CABD800A8C865 /* TickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewModel.swift; sourceTree = "<group>"; };
-		DF3FBC43292CD20100A8C865 /* TickerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerHeaderView.swift; sourceTree = "<group>"; };
+		DF3FBC43292CD20100A8C865 /* ToolbarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarHeaderView.swift; sourceTree = "<group>"; };
 		DF3FBC47292CE42A00A8C865 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		DF3FBC4A292D0CB100A8C865 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		DF3FBC4C292D16D200A8C865 /* Candle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candle.swift; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		DFC0D89D292A0B2B00907736 /* MarketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsView.swift; sourceTree = "<group>"; };
 		DFC0D8A1292A4E6500907736 /* HeaderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLogoView.swift; sourceTree = "<group>"; };
 		DFC0D8A3292A557C00907736 /* LastUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastUpdateView.swift; sourceTree = "<group>"; };
-		DFC0D8A5292A580000907736 /* MarketsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsHeaderView.swift; sourceTree = "<group>"; };
 		DFE0197C292F4CD1000CCC17 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DFE0197F292FA16B000CCC17 /* AreaChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF16FFA22934DFC2005C2CB6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DF16FFA32934DFD9005C2CB6 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		DF18A9E329296EE100533C8B = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +151,8 @@
 			children = (
 				DF18A9F129296EE100533C8B /* ContentView.swift */,
 				DFC0D8A1292A4E6500907736 /* HeaderLogoView.swift */,
+				DF3FBC43292CD20100A8C865 /* ToolbarHeaderView.swift */,
+				DF16FFA22934DFC2005C2CB6 /* Settings */,
 				DF18A9FF29296FEE00533C8B /* Markets */,
 				DF9F74C1292BFE4C00D1F411 /* Ticker */,
 			);
@@ -154,7 +164,6 @@
 			children = (
 				DF18AA02292970A500533C8B /* MarketsViewModel.swift */,
 				DFC0D89D292A0B2B00907736 /* MarketsView.swift */,
-				DFC0D8A5292A580000907736 /* MarketsHeaderView.swift */,
 				DFC0D8A3292A557C00907736 /* LastUpdateView.swift */,
 				DF4E7D68292A7925004881A0 /* SymbolsGridLoading.swift */,
 				DF4E7D60292A763D004881A0 /* PairView.swift */,
@@ -196,7 +205,6 @@
 			children = (
 				DF9F74C2292BFE6A00D1F411 /* TickerDetailView.swift */,
 				DF3FBC41292CABD800A8C865 /* TickerViewModel.swift */,
-				DF3FBC43292CD20100A8C865 /* TickerHeaderView.swift */,
 				DF3FBC47292CE42A00A8C865 /* DetailsView.swift */,
 				DF74F39F292EC2FC00F194FC /* PriceAndDailyChangeView.swift */,
 				DFE0197E292F4ED3000CCC17 /* Charts */,
@@ -293,14 +301,13 @@
 				DF74F39B292E5A9400F194FC /* LineChartView.swift in Sources */,
 				DF18AA052929718B00533C8B /* Symbol.swift in Sources */,
 				DF318EF529328D380082922D /* GridHeaderView.swift in Sources */,
-				DFC0D8A6292A580000907736 /* MarketsHeaderView.swift in Sources */,
 				DF3FBC50292D2B5200A8C865 /* CandleAPI.swift in Sources */,
 				DFE0197D292F4CD1000CCC17 /* ChartView.swift in Sources */,
 				DF74F3A0292EC2FC00F194FC /* PriceAndDailyChangeView.swift in Sources */,
 				DF74F399292E440D00F194FC /* CandleChartView.swift in Sources */,
 				DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */,
 				DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */,
-				DF3FBC44292CD20100A8C865 /* TickerHeaderView.swift in Sources */,
+				DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */,
 				DF3FBC52292D393300A8C865 /* SymbolAPI.swift in Sources */,
 				DF3FBC56292D6B8600A8C865 /* Either.swift in Sources */,
 				DF18A9F229296EE100533C8B /* ContentView.swift in Sources */,
@@ -314,6 +321,7 @@
 				DF9F74C5292C1DCC00D1F411 /* Ticker.swift in Sources */,
 				DFC0D89E292A0B2B00907736 /* MarketsView.swift in Sources */,
 				DF4E7D63292A769D004881A0 /* DailyChangeView.swift in Sources */,
+				DF16FFA42934DFD9005C2CB6 /* SettingsView.swift in Sources */,
 				DFC0D8A4292A557C00907736 /* LastUpdateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -45,7 +45,7 @@ struct TickerDetailView: View {
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    TickerHeaderView {
+                    ToolbarHeaderView(icon: "xmark") {
                         navigationPath.removeLast()
                     }
                 }

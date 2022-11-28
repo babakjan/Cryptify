@@ -30,7 +30,9 @@ struct MarketsView: View {
         .navigationTitle("Markets")
         .toolbar {
             ToolbarItem(placement: .principal) {
-                MarketsHeaderView()
+                ToolbarHeaderView(icon: "gearshape.2", iconIsNavigationLink: true) {
+                    SettingsView(navigationPath: $navigationPath)
+                }
             }
         }
         .task {
