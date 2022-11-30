@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var navigationPath: [Symbol] = []
+    @AppStorage("colorScheme") private var colorScheme = Theme.system
     
     var body: some View {
         NavigationView {
@@ -17,6 +18,7 @@ struct ContentView: View {
                     .foregroundColor(.theme.text)
             }
         }
+        .preferredColorScheme(colorScheme == Theme.light ? .light : colorScheme == Theme.dark ? .dark : .none)
     }
 }
 

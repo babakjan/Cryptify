@@ -8,23 +8,20 @@
 import SwiftUI
 
 struct SettingsView: View {
-//    @Binding var navigationPath: [Symbol]
-    @Environment(\.dismiss) private var dismiss
     @State var textFieldValue = ""
     @State var notificationsOn = true
     @State var soundEffects = false
-    @State var theme = "dark"
-    var themes = ["dark", "light", "system"]
-    @Environment(\.colorScheme) var colorScheme
+    @AppStorage("colorScheme") private var colorScheme: String = Theme.system
+    var themes = [Theme.light, Theme.dark, Theme.system]
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         Form {
-            Picker(selection: $theme, label: Text("Theme")) {
-                ForEach(themes, id: \.self) { theme in
-                    Text(theme)
+            Picker(selection: $colorScheme, label: Text("Theme")) {
+                ForEach(themes, id: \.self) {
+                    Text($0)
                 }
             }
-            .onChange(of: theme, perform: chooseTheme)
             
             Toggle(isOn: $notificationsOn) {
                 Text("Notifications")
@@ -46,17 +43,6 @@ struct SettingsView: View {
                 ToolbarHeaderView(icon: "xmark", iconAction: { self.dismiss() })
             }
         }
-    }
-    
-    func chooseTheme(newValue: String) {
-        print("theme:", newValue, theme)
-//        switch newValue {
-//        case "light": colorScheme = .light
-//        case "dark": colorScheme = .dark
-//        case "system": colorScheme = .allCases
-//        default: return
-//        }
-        
     }
 }
 
