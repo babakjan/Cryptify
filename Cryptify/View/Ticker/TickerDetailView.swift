@@ -54,9 +54,13 @@ struct TickerDetailView: View {
         .task {
             await viewModel.fetchData()
         }
-//        .refreshable {
-//            await viewModel.fetchData(refresh: true) //TODO when refreshable, chart animation not working
-//        }
+        .refreshable {
+            await viewModel.fetchData()
+
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                viewModel.animateChart()
+            }
+        }
     }
 
     var chartTypePicker: some View {

@@ -33,7 +33,7 @@ final class TickerViewModel: ObservableObject {
     }
     
     var graphColor: Color {
-        !candles.isEmpty && candles.last!.openCloseAvg - candles.first!.openCloseAvg < 0 ? Color.theme.red : Color.theme.green
+        !candles.isEmpty && candles.last!.close - candles.first!.close < 0 ? Color.theme.red : Color.theme.green
     }
     
     @MainActor
@@ -43,11 +43,6 @@ final class TickerViewModel: ObservableObject {
             symbolApi.fetchSymbol(symbolId: symbolId),
             candleApi.fetchAllCandles(symbolId: symbolId)
         )
-        //TODO choose nicer way
-        
-//        await fetchCandles()
-//        await fetchSymbol()
-//        await fetchTicker()
     }
     
     @MainActor

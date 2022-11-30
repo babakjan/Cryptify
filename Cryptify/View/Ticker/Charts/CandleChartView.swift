@@ -32,6 +32,7 @@ struct CandleChartView: View {
             )
             .foregroundStyle(candle.color)
         }
+        .chartYScale(domain: 0...candles.max(by: { $0.close < $1.close})!.close * 1.05)
     }
 }
 

@@ -28,10 +28,6 @@ struct Candle: Hashable, Identifiable {
     var color: Color { //color of candle
         open < close ? Color.theme.green : Color.theme.red
     }
-    
-    var openCloseAvg: Double {
-        (open + close) / 2
-    }
 }
 
 extension Candle {

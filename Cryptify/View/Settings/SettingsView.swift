@@ -10,10 +10,34 @@ import SwiftUI
 struct SettingsView: View {
     @Binding var navigationPath: NavigationPath
     @Environment(\.dismiss) private var dismiss
+    @State var textFieldValue = ""
+    @State var notificationsOn = true
+    @State var soundEffects = false
+    @State var theme = "dark"
+    var themes = ["dark", "light", "system"]
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        Group {
-            Text("Hello, World!, settings")
+        Form {
+            Picker(selection: $theme, label: Text("Theme")) {
+                ForEach(themes, id: \.self) { theme in
+                    Text(theme)
+                }
+            }
+            .onChange(of: theme, perform: chooseTheme)
+            
+            Toggle(isOn: $notificationsOn) {
+                Text("Notifications")
+            }
+            
+            Toggle(isOn: $soundEffects) {
+                Text("Sound effects")
+            }
+            
+            Button(action: {}) {
+                Text("Rest All Settings")
+            }
+            
         }
         .navigationTitle("Settings")
         .navigationBarBackButtonHidden(true)
@@ -22,6 +46,17 @@ struct SettingsView: View {
                 ToolbarHeaderView(icon: "xmark", iconAction: { self.dismiss() })
             }
         }
+    }
+    
+    func chooseTheme(newValue: String) {
+        print("theme:", newValue, theme)
+//        switch newValue {
+//        case "light": colorScheme = .light
+//        case "dark": colorScheme = .dark
+//        case "system": colorScheme = .allCases
+//        default: return
+//        }
+        
     }
 }
 

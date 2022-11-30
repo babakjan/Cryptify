@@ -16,7 +16,7 @@ struct LineChartView: View {
             //line chart
             LineMark(
                 x: .value("Date", candle.startTime),
-                y: .value("Price", candle.animate ? candle.openCloseAvg : 0)
+                y: .value("Price", candle.animate ? candle.close : 0)
             )
             .lineStyle(.init(lineWidth: 4, lineCap: .round))
             .interpolationMethod(.cardinal)
@@ -25,15 +25,13 @@ struct LineChartView: View {
             //gradient area under the line chart
             AreaMark(
                 x: .value("Date", candle.startTime),
-                y: .value("Price", candle.animate ? candle.openCloseAvg : 0)
+                y: .value("Price", candle.animate ? candle.close : 0)
             )
             .lineStyle(.init(lineWidth: 4, lineCap: .round))
             .interpolationMethod(.cardinal)
             .foregroundStyle(Gradient(colors: [viewModel.graphColor.opacity(0.5), viewModel.graphColor.opacity(0)]))
         }
-        .chartYScale(domain: 0...viewModel.candles.max(by: {
-            (a, b)-> Bool in return a.openCloseAvg < b.openCloseAvg
-        })!.openCloseAvg * 1.05)
+        .chartYScale(domain: 0...viewModel.candles.max(by: { $0.close < $1.close })!.close * 1.05)
         .onAppear() {
             viewModel.animateChart()
         } 

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChartView: View {
     @StateObject var viewModel: TickerViewModel
+    private let scrennWidth = UIScreen.main.bounds.size.width - 70
     
     var body: some View {
         GroupBox {
@@ -16,12 +17,13 @@ struct ChartView: View {
                 ScrollView (.horizontal) {
                     ScrollViewReader { scroller in
                         chart
-                        .frame(width: CGFloat(viewModel.candles.count) * 12, height: 250)
+                        .frame(width: CGFloat(viewModel.candles.count) * 12 < scrennWidth ? scrennWidth : CGFloat(viewModel.candles.count) * 12, height: 250)
                         .padding(4)
                         .id(1) //for scroller
                         .onAppear {
                             //scroll chart to the end of graph, because there is y axis
                             scroller.scrollTo(1, anchor: .trailing)
+                            print("sika", UIScreen.main.bounds.size.width)
                         }
                     }
                 }
