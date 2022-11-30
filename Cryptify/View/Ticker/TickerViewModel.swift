@@ -37,12 +37,18 @@ final class TickerViewModel: ObservableObject {
     }
     
     @MainActor
-    func fetchData() async {
+    func fetchData(animate: Bool = true) async {
         (ticker, symbol, candles) = await (
             tickerApi.fetchTicker(symbolId: symbolId),
             symbolApi.fetchSymbol(symbolId: symbolId),
             candleApi.fetchAllCandles(symbolId: symbolId)
         )
+        
+        if animate {
+            DispatchQueue.main.async {
+                self.animateChart()
+            }
+        }
     }
     
     @MainActor

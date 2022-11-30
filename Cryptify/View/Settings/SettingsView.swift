@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Binding var navigationPath: NavigationPath
+//    @Binding var navigationPath: [Symbol]
     @Environment(\.dismiss) private var dismiss
     @State var textFieldValue = ""
     @State var notificationsOn = true
@@ -62,6 +62,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(navigationPath: .constant(NavigationPath()))
+        SettingsView()
     }
 }

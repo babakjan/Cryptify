@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct TickerDetailView: View {
-    @Binding var navigationPath: NavigationPath
-    @StateObject var viewModel: TickerViewModel
+    @Binding var navigationPath: [Symbol]
+    @StateObject var tickerViewModel: TickerViewModel
+    @StateObject var marketsViewModel: MarketsViewModel
     
-    init(symbol: String, navigationPath: Binding<NavigationPath>) {
-        self._viewModel = StateObject(wrappedValue: TickerViewModel(symbolId: symbol))
+    init(symbol: String, navigationPath: Binding<[Symbol]>, marketsViewModel: MarketsViewModel) {
+        self._tickerViewModel = StateObject(wrappedValue: TickerViewModel(symbolId: symbol))
         self._navigationPath = navigationPath
+        self._marketsViewModel = StateObject(wrappedValue: marketsViewModel)
     }
     
     var body: some View {
         ScrollView {
             VStack {
-                if let ticker = viewModel.ticker, let symbol = viewModel.symbol {
+                if let ticker = tickerViewModel.ticker, let symbol = tickerViewModel.symbol {
                     VStack(alignment: .leading) {
                         
                         PriceAndDailyChangeView(symbol: symbol)
@@ -28,13 +30,29 @@ struct TickerDetailView: View {
                         chartTypePicker
                             .padding(.bottom, 8)
                         
-                        if viewModel.candles.count != 0 {
-                            ChartView(viewModel: viewModel)
+                        if tickerViewModel.candles.count != 0 {
+                            ChartView(viewModel: tickerViewModel)
                         }//TODO progress view when loading
                         
                         DetailsView(ticker: ticker)
                     }
                     .navigationTitle(ticker.displayName)
+                    .gesture(DragGesture(minimumDistance: 10, coordinateSpace: .local)
+                        .onEnded({ value in
+                            if value.translation.width < 0, let symbolId = tickerViewModel.symbol?.symbol {
+                                let symbol = marketsViewModel.getNextSymbol(symbolId: symbolId)
+                                if let symbol {
+                                    navigationPath.append(symbol)
+                                } else {
+                                    print("end of list")
+                                }
+                            }
+
+                            if value.translation.width > 0 {
+                                navigationPath.removeLast()
+                            }
+                    }))
+                    
                 } else {
                     ProgressView()
                         .progressViewStyle(.circular)
@@ -46,25 +64,21 @@ struct TickerDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     ToolbarHeaderView(icon: "xmark") {
-                        navigationPath.removeLast()
+                        navigationPath.removeAll()
                     }
                 }
             }
         }
         .task {
-            await viewModel.fetchData()
+            await tickerViewModel.fetchData()
         }
         .refreshable {
-            await viewModel.fetchData()
-
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                viewModel.animateChart()
-            }
+            await tickerViewModel.fetchData()
         }
     }
 
     var chartTypePicker: some View {
-        Picker("Chart type", selection: $viewModel.selectedChart) {
+        Picker("Chart type", selection: $tickerViewModel.selectedChart) {
             ForEach(TickerViewModel.ChartType.allCases) { chartType in
                 Text(chartType.rawValue)
                     .tag(chartType)
@@ -76,8 +90,6 @@ struct TickerDetailView: View {
 
 struct TickerDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        TickerDetailView(
-            symbol: "BTC / USDT",navigationPath: .constant(NavigationPath())
-        )
+        TickerDetailView(symbol: "BTC / USDT", navigationPath: .constant([]), marketsViewModel: .init())
     }
 }

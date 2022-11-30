@@ -47,6 +47,15 @@ final class MarketsViewModel: ObservableObject {
         }
     }
     
+    //used for listing through symbols, when user is in ticker view and swipe for next symbol
+    func getNextSymbol(symbolId: String) -> Symbol? {
+        let index = symbols.firstIndex(where: { $0.symbol == symbolId })
+        if let index {
+            return index < symbols.count - 1 ? symbols[index + 1] : nil
+        }
+        return nil
+    }
+    
     enum SortSymbolsBy {
         case priceAscending
         case priceDescending

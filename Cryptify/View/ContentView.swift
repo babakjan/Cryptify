@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var navigationPath = NavigationPath()
+    @State var navigationPath: [Symbol] = []
     
     var body: some View {
         NavigationView {

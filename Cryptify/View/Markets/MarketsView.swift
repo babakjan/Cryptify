@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MarketsView: View {
-    @Binding var navigationPath: NavigationPath
+    @Binding var navigationPath: [Symbol]
     @StateObject var viewModel: MarketsViewModel = MarketsViewModel()
     
     var body: some View {
@@ -31,7 +31,7 @@ struct MarketsView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 ToolbarHeaderView(icon: "gearshape.2", iconIsNavigationLink: true) {
-                    SettingsView(navigationPath: $navigationPath)
+                    SettingsView()
                 }
             }
         }
@@ -56,7 +56,7 @@ struct MarketsView: View {
             gridBody()
         }
         .navigationDestination(for: Symbol.self) { symbol in
-            TickerDetailView(symbol: symbol.symbol, navigationPath: $navigationPath)
+            TickerDetailView(symbol: symbol.symbol, navigationPath: $navigationPath, marketsViewModel: viewModel)
         }
     }
     
@@ -96,7 +96,7 @@ struct MarketsView: View {
 struct SymbolView_Previews: PreviewProvider {
     static var previews: some View {
         MarketsView(
-            navigationPath: .constant(NavigationPath()),
+            navigationPath: .constant([]),
             viewModel: MarketsViewModel(
                 symbols: [
                     Symbol(

@@ -32,9 +32,6 @@ struct LineChartView: View {
             .foregroundStyle(Gradient(colors: [viewModel.graphColor.opacity(0.5), viewModel.graphColor.opacity(0)]))
         }
         .chartYScale(domain: 0...viewModel.candles.max(by: { $0.close < $1.close })!.close * 1.05)
-        .onAppear() {
-            viewModel.animateChart()
-        } 
     }
 }
 
