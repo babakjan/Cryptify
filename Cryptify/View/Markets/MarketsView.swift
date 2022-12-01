@@ -65,6 +65,7 @@ struct MarketsView: View {
         ForEach(viewModel.searchResult, id: \.symbol) { symbol in
             gridRow(symbol: symbol)
                 .onTapGesture {
+                    SoundManager.instance.playTab()
                     navigationPath.append(symbol)
                 }
         }

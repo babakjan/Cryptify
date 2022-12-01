@@ -42,6 +42,7 @@ struct TickerDetailView: View {
                             if value.translation.width < 0, let symbolId = tickerViewModel.symbol?.symbol {
                                 let symbol = marketsViewModel.getNextSymbol(symbolId: symbolId)
                                 if let symbol {
+                                    SoundManager.instance.playTransitionRight()
                                     navigationPath.append(symbol)
                                 } else {
                                     print("end of list")
@@ -49,6 +50,7 @@ struct TickerDetailView: View {
                             }
 
                             if value.translation.width > 0 {
+                                SoundManager.instance.playTransitionLeft()
                                 navigationPath.removeLast()
                             }
                     }))
@@ -85,6 +87,9 @@ struct TickerDetailView: View {
             }
         }
         .pickerStyle(.segmented)
+        .onChange(of: tickerViewModel.selectedChart) { newValue in
+            SoundManager.instance.playTab()
+        }
     }
 }
 

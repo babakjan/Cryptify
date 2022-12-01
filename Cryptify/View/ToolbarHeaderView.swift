@@ -36,9 +36,13 @@ struct ToolbarHeaderView<Destination: View>: View {
                     NavigationLink(destination: destination) {
                         iconView
                     }
+                    .simultaneousGesture(TapGesture().onEnded{
+                        SoundManager.instance.playTab()
+                    })
                 } else {
                     iconView
                         .onTapGesture {
+                            SoundManager.instance.playTab()
                             iconAction()
                         }
                 }

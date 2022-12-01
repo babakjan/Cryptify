@@ -8,33 +8,14 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var textFieldValue = ""
-    @State var notificationsOn = true
-    @State var soundEffects = false
-    @AppStorage("colorScheme") private var colorScheme: String = Theme.system
-    var themes = [Theme.light, Theme.dark, Theme.system]
+    @StateObject private var settingViewModel = SettingsViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         Form {
-            Picker(selection: $colorScheme, label: Text("Theme")) {
-                ForEach(themes, id: \.self) {
-                    Text($0)
-                }
-            }
+            settingsSection
             
-            Toggle(isOn: $notificationsOn) {
-                Text("Notifications")
-            }
-            
-            Toggle(isOn: $soundEffects) {
-                Text("Sound effects")
-            }
-            
-            Button(action: {}) {
-                Text("Rest All Settings")
-            }
-            
+            aboutSection
         }
         .navigationTitle("Settings")
         .navigationBarBackButtonHidden(true)
@@ -42,6 +23,87 @@ struct SettingsView: View {
             ToolbarItem(placement: .principal) {
                 ToolbarHeaderView(icon: "xmark", iconAction: { self.dismiss() })
             }
+        }
+    }
+    
+    private var settingsSection: some View {
+        Section(header: Text("Settings")) {
+            themePicker
+            
+            notificationsToggle
+            
+            soundEffectsToggle
+            
+            resetBtn
+        }
+    }
+    
+    private var aboutSection: some View {
+        Section(header: Text("About")) {
+            Label("[Source code](https://gitlab.fit.cvut.cz/babakjan/cryptify)", systemImage: "link")
+            Label("[Follow me on GitHub](https://github.com/babakjan)", systemImage: "person")
+            Label("[Message me on LinkedIn](https://www.linkedin.com/in/janbabak/)", systemImage: "paperplane")
+        }
+    }
+    
+    private var themePicker: some View {
+        Picker(selection: settingViewModel.$colorScheme) {
+            ForEach(Theme.allCases) { theme in
+                Text(theme.rawValue)
+                    .tag(theme)
+            }
+        } label: {
+            labelWithIcon(
+                text: "Theme",
+                systemImage: settingViewModel.colorScheme == .dark ? "moon" :
+                    settingViewModel.colorScheme == .light ? "sun.max" : "apps.iphone"
+            )
+        }.onChange(of: settingViewModel.colorScheme) { newValue in
+            SoundManager.instance.playTab()
+        }
+    }
+    
+    private var notificationsToggle: some View {
+        Toggle(isOn: settingViewModel.$notificationsOn) {
+            labelWithIcon(
+                text: "Notifications",
+                systemImage: settingViewModel.notificationsOn ? "bell.badge" : "bell.slash"
+            )
+        }.onChange(of: settingViewModel.notificationsOn) { newValue in
+            SoundManager.instance.playTab()
+        }
+    }
+    
+    private var soundEffectsToggle: some View {
+        Toggle(isOn: settingViewModel.$soundOn) {
+            labelWithIcon(
+                text: "Sound effects",
+                systemImage: settingViewModel.soundOn ? "speaker.wave.2" : "speaker.slash"
+            )
+        }.onChange(of: settingViewModel.soundOn) { newValue in
+            SoundManager.instance.playTab()
+        }
+    }
+    
+    private var resetBtn: some View {
+        Button {
+            SoundManager.instance.playTab()
+            settingViewModel.resetAllSettings()
+        } label: {
+            labelWithIcon(
+                text: "Reset all settings",
+                systemImage: "arrow.counterclockwise"
+            )
+        }
+    }
+    
+    @ViewBuilder
+    private func labelWithIcon(text: String, systemImage: String, iconPadding: Double = 8) -> some View {
+        HStack {
+            Image(systemName: systemImage)
+                .padding(.horizontal, iconPadding)
+                .foregroundColor(.theme.accent)
+            Text(text)
         }
     }
 }

@@ -26,6 +26,7 @@
 		DF3FBC54292D3C3D00A8C865 /* TickerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC53292D3C3D00A8C865 /* TickerAPI.swift */; };
 		DF3FBC56292D6B8600A8C865 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC55292D6B8600A8C865 /* Either.swift */; };
 		DF41C6A32937F282000EC205 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF41C6A22937F282000EC205 /* Theme.swift */; };
+		DF41C6AA293802E5000EC205 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF41C6A9293802E5000EC205 /* SoundManager.swift */; };
 		DF4E7D61292A763D004881A0 /* PairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D60292A763D004881A0 /* PairView.swift */; };
 		DF4E7D63292A769D004881A0 /* DailyChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D62292A769D004881A0 /* DailyChangeView.swift */; };
 		DF4E7D69292A7925004881A0 /* SymbolsGridLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D68292A7925004881A0 /* SymbolsGridLoading.swift */; };
@@ -33,6 +34,10 @@
 		DF74F39B292E5A9400F194FC /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF74F39A292E5A9400F194FC /* LineChartView.swift */; };
 		DF74F39E292EBDDB00F194FC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF74F39D292EBDDB00F194FC /* Color.swift */; };
 		DF74F3A0292EC2FC00F194FC /* PriceAndDailyChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF74F39F292EC2FC00F194FC /* PriceAndDailyChangeView.swift */; };
+		DF83CD7E293888CA00775F4C /* transitionLeft.wav in Resources */ = {isa = PBXBuildFile; fileRef = DF83CD7D293888CA00775F4C /* transitionLeft.wav */; };
+		DF83CD80293888D100775F4C /* transitionRight.wav in Resources */ = {isa = PBXBuildFile; fileRef = DF83CD7F293888D100775F4C /* transitionRight.wav */; };
+		DF83CD82293888DB00775F4C /* tab.wav in Resources */ = {isa = PBXBuildFile; fileRef = DF83CD81293888DB00775F4C /* tab.wav */; };
+		DF83CD862938EB1500775F4C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83CD852938EB1500775F4C /* SettingsViewModel.swift */; };
 		DF9F74C3292BFE6A00D1F411 /* TickerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9F74C2292BFE6A00D1F411 /* TickerDetailView.swift */; };
 		DF9F74C5292C1DCC00D1F411 /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9F74C4292C1DCC00D1F411 /* Ticker.swift */; };
 		DFC0D89E292A0B2B00907736 /* MarketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D89D292A0B2B00907736 /* MarketsView.swift */; };
@@ -63,6 +68,7 @@
 		DF3FBC53292D3C3D00A8C865 /* TickerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerAPI.swift; sourceTree = "<group>"; };
 		DF3FBC55292D6B8600A8C865 /* Either.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
 		DF41C6A22937F282000EC205 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		DF41C6A9293802E5000EC205 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		DF4E7D60292A763D004881A0 /* PairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairView.swift; sourceTree = "<group>"; };
 		DF4E7D62292A769D004881A0 /* DailyChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChangeView.swift; sourceTree = "<group>"; };
 		DF4E7D68292A7925004881A0 /* SymbolsGridLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolsGridLoading.swift; sourceTree = "<group>"; };
@@ -70,6 +76,10 @@
 		DF74F39A292E5A9400F194FC /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		DF74F39D292EBDDB00F194FC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		DF74F39F292EC2FC00F194FC /* PriceAndDailyChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceAndDailyChangeView.swift; sourceTree = "<group>"; };
+		DF83CD7D293888CA00775F4C /* transitionLeft.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = transitionLeft.wav; sourceTree = "<group>"; };
+		DF83CD7F293888D100775F4C /* transitionRight.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = transitionRight.wav; sourceTree = "<group>"; };
+		DF83CD81293888DB00775F4C /* tab.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tab.wav; sourceTree = "<group>"; };
+		DF83CD852938EB1500775F4C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		DF9F74C2292BFE6A00D1F411 /* TickerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerDetailView.swift; sourceTree = "<group>"; };
 		DF9F74C4292C1DCC00D1F411 /* Ticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticker.swift; sourceTree = "<group>"; };
 		DFC0D89D292A0B2B00907736 /* MarketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsView.swift; sourceTree = "<group>"; };
@@ -94,6 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				DF16FFA32934DFD9005C2CB6 /* SettingsView.swift */,
+				DF83CD852938EB1500775F4C /* SettingsViewModel.swift */,
+				DF41C6A22937F282000EC205 /* Theme.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -118,12 +130,12 @@
 			isa = PBXGroup;
 			children = (
 				DF18A9EF29296EE100533C8B /* CryptifyApp.swift */,
-				DF41C6A22937F282000EC205 /* Theme.swift */,
 				DF74F39C292EBDC100F194FC /* Extensions */,
 				DF3FBC4E292D2B1100A8C865 /* Api */,
 				DF3FBC49292D0C9A00A8C865 /* Utils */,
 				DF18A9FD29296FA800533C8B /* Model */,
 				DF18A9FE29296FB100533C8B /* View */,
+				DF41C6A6293802A1000EC205 /* Sounds */,
 				DF18A9F329296EE300533C8B /* Assets.xcassets */,
 				DF18A9F529296EE300533C8B /* Preview Content */,
 			);
@@ -180,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				DF3FBC4A292D0CB100A8C865 /* Formatter.swift */,
+				DF41C6A9293802E5000EC205 /* SoundManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -193,6 +206,16 @@
 				DF3FBC53292D3C3D00A8C865 /* TickerAPI.swift */,
 			);
 			path = Api;
+			sourceTree = "<group>";
+		};
+		DF41C6A6293802A1000EC205 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				DF83CD81293888DB00775F4C /* tab.wav */,
+				DF83CD7F293888D100775F4C /* transitionRight.wav */,
+				DF83CD7D293888CA00775F4C /* transitionLeft.wav */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		DF74F39C292EBDC100F194FC /* Extensions */ = {
@@ -284,6 +307,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF83CD80293888D100775F4C /* transitionRight.wav in Resources */,
+				DF83CD7E293888CA00775F4C /* transitionLeft.wav in Resources */,
+				DF83CD82293888DB00775F4C /* tab.wav in Resources */,
 				DF18A9F729296EE300533C8B /* Preview Assets.xcassets in Resources */,
 				DF18A9F429296EE300533C8B /* Assets.xcassets in Resources */,
 			);
@@ -313,12 +339,14 @@
 				DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */,
 				DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */,
 				DF3FBC52292D393300A8C865 /* SymbolAPI.swift in Sources */,
+				DF41C6AA293802E5000EC205 /* SoundManager.swift in Sources */,
 				DF3FBC56292D6B8600A8C865 /* Either.swift in Sources */,
 				DF18A9F229296EE100533C8B /* ContentView.swift in Sources */,
 				DFE01980292FA16B000CCC17 /* AreaChartView.swift in Sources */,
 				DFC0D8A2292A4E6500907736 /* HeaderLogoView.swift in Sources */,
 				DF3FBC54292D3C3D00A8C865 /* TickerAPI.swift in Sources */,
 				DF4E7D69292A7925004881A0 /* SymbolsGridLoading.swift in Sources */,
+				DF83CD862938EB1500775F4C /* SettingsViewModel.swift in Sources */,
 				DF74F39E292EBDDB00F194FC /* Color.swift in Sources */,
 				DF18AA07292972B000533C8B /* API.swift in Sources */,
 				DF18A9F029296EE100533C8B /* CryptifyApp.swift in Sources */,
