@@ -37,12 +37,15 @@
 		DF83CD7E293888CA00775F4C /* transitionLeft.wav in Resources */ = {isa = PBXBuildFile; fileRef = DF83CD7D293888CA00775F4C /* transitionLeft.wav */; };
 		DF83CD80293888D100775F4C /* transitionRight.wav in Resources */ = {isa = PBXBuildFile; fileRef = DF83CD7F293888D100775F4C /* transitionRight.wav */; };
 		DF83CD82293888DB00775F4C /* tab.wav in Resources */ = {isa = PBXBuildFile; fileRef = DF83CD81293888DB00775F4C /* tab.wav */; };
+		DF83CD842938E90E00775F4C /* OrderBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83CD832938E90E00775F4C /* OrderBook.swift */; };
 		DF83CD862938EB1500775F4C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83CD852938EB1500775F4C /* SettingsViewModel.swift */; };
+		DF83CD8829391CBF00775F4C /* OrderBookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83CD8729391CBF00775F4C /* OrderBookAPI.swift */; };
 		DF9F74C3292BFE6A00D1F411 /* TickerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9F74C2292BFE6A00D1F411 /* TickerDetailView.swift */; };
 		DF9F74C5292C1DCC00D1F411 /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9F74C4292C1DCC00D1F411 /* Ticker.swift */; };
 		DFC0D89E292A0B2B00907736 /* MarketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D89D292A0B2B00907736 /* MarketsView.swift */; };
 		DFC0D8A2292A4E6500907736 /* HeaderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D8A1292A4E6500907736 /* HeaderLogoView.swift */; };
 		DFC0D8A4292A557C00907736 /* LastUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D8A3292A557C00907736 /* LastUpdateView.swift */; };
+		DFCF438F293F567D00E352C9 /* OrderBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCF438E293F567D00E352C9 /* OrderBookView.swift */; };
 		DFE0197D292F4CD1000CCC17 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0197C292F4CD1000CCC17 /* ChartView.swift */; };
 		DFE01980292FA16B000CCC17 /* AreaChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0197F292FA16B000CCC17 /* AreaChartView.swift */; };
 /* End PBXBuildFile section */
@@ -79,12 +82,15 @@
 		DF83CD7D293888CA00775F4C /* transitionLeft.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = transitionLeft.wav; sourceTree = "<group>"; };
 		DF83CD7F293888D100775F4C /* transitionRight.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = transitionRight.wav; sourceTree = "<group>"; };
 		DF83CD81293888DB00775F4C /* tab.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tab.wav; sourceTree = "<group>"; };
+		DF83CD832938E90E00775F4C /* OrderBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBook.swift; sourceTree = "<group>"; };
 		DF83CD852938EB1500775F4C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		DF83CD8729391CBF00775F4C /* OrderBookAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookAPI.swift; sourceTree = "<group>"; };
 		DF9F74C2292BFE6A00D1F411 /* TickerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerDetailView.swift; sourceTree = "<group>"; };
 		DF9F74C4292C1DCC00D1F411 /* Ticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticker.swift; sourceTree = "<group>"; };
 		DFC0D89D292A0B2B00907736 /* MarketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsView.swift; sourceTree = "<group>"; };
 		DFC0D8A1292A4E6500907736 /* HeaderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLogoView.swift; sourceTree = "<group>"; };
 		DFC0D8A3292A557C00907736 /* LastUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastUpdateView.swift; sourceTree = "<group>"; };
+		DFCF438E293F567D00E352C9 /* OrderBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookView.swift; sourceTree = "<group>"; };
 		DFE0197C292F4CD1000CCC17 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DFE0197F292FA16B000CCC17 /* AreaChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,6 +163,7 @@
 				DF9F74C4292C1DCC00D1F411 /* Ticker.swift */,
 				DF3FBC4C292D16D200A8C865 /* Candle.swift */,
 				DF3FBC55292D6B8600A8C865 /* Either.swift */,
+				DF83CD832938E90E00775F4C /* OrderBook.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,6 +211,7 @@
 				DF3FBC4F292D2B5200A8C865 /* CandleAPI.swift */,
 				DF3FBC51292D393300A8C865 /* SymbolAPI.swift */,
 				DF3FBC53292D3C3D00A8C865 /* TickerAPI.swift */,
+				DF83CD8729391CBF00775F4C /* OrderBookAPI.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -234,6 +242,7 @@
 				DF3FBC47292CE42A00A8C865 /* DetailsView.swift */,
 				DF74F39F292EC2FC00F194FC /* PriceAndDailyChangeView.swift */,
 				DFE0197E292F4ED3000CCC17 /* Charts */,
+				DFCF438E293F567D00E352C9 /* OrderBookView.swift */,
 			);
 			path = Ticker;
 			sourceTree = "<group>";
@@ -326,8 +335,10 @@
 				DF4E7D61292A763D004881A0 /* PairView.swift in Sources */,
 				DF3FBC4D292D16D200A8C865 /* Candle.swift in Sources */,
 				DF9F74C3292BFE6A00D1F411 /* TickerDetailView.swift in Sources */,
+				DFCF438F293F567D00E352C9 /* OrderBookView.swift in Sources */,
 				DF18AA03292970A500533C8B /* MarketsViewModel.swift in Sources */,
 				DF74F39B292E5A9400F194FC /* LineChartView.swift in Sources */,
+				DF83CD8829391CBF00775F4C /* OrderBookAPI.swift in Sources */,
 				DF18AA052929718B00533C8B /* Symbol.swift in Sources */,
 				DF318EF529328D380082922D /* GridHeaderView.swift in Sources */,
 				DF3FBC50292D2B5200A8C865 /* CandleAPI.swift in Sources */,
@@ -335,6 +346,7 @@
 				DFE0197D292F4CD1000CCC17 /* ChartView.swift in Sources */,
 				DF74F3A0292EC2FC00F194FC /* PriceAndDailyChangeView.swift in Sources */,
 				DF74F399292E440D00F194FC /* CandleChartView.swift in Sources */,
+				DF83CD842938E90E00775F4C /* OrderBook.swift in Sources */,
 				DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */,
 				DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */,
 				DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */,

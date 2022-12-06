@@ -12,6 +12,8 @@ struct TickerDetailView: View {
     @StateObject var tickerViewModel: TickerViewModel
     @StateObject var marketsViewModel: MarketsViewModel
     
+    @State private var timer: Timer?
+    
     init(symbol: String, navigationPath: Binding<[Symbol]>, marketsViewModel: MarketsViewModel) {
         self._tickerViewModel = StateObject(wrappedValue: TickerViewModel(symbolId: symbol))
         self._navigationPath = navigationPath
@@ -35,6 +37,9 @@ struct TickerDetailView: View {
                         }//TODO progress view when loading
                         
                         DetailsView(ticker: ticker)
+                        
+                        OrderBookView(tickerViewModel: tickerViewModel)
+                            .padding(.top, 16)
                     }
                     .navigationTitle(ticker.displayName)
                     .gesture(
@@ -63,6 +68,20 @@ struct TickerDetailView: View {
         }
         .refreshable {
             await tickerViewModel.fetchData()
+        }
+        .onAppear {
+            timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: refreshOrderBook)
+        }
+        .onDisappear() {
+            if let timer { timer.invalidate() }
+        }
+    }
+    
+    //helper function, because timer doesn't support async functions
+    //don't know if it's neccessary, api doen't change that frequently
+    private func refreshOrderBook(timer: Timer) {
+        Task {
+            await tickerViewModel.fetchSymbol()
         }
     }
 

@@ -34,7 +34,7 @@ class CandleAPI: API<[Either<UInt64, String>]> {
     }
     
     //api parameter
-    enum Interval: CustomStringConvertible {
+    enum Interval: CustomStringConvertible { //TODO String and row value
         case MINUTE_1
         case MINUTE_5
         case MINUTE_10

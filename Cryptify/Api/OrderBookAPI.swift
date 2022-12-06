@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+final class OrderBookAPI: API<OrderBook> {
+    
+    @MainActor
+    func fetchOrderBook(symbolId: String) async -> OrderBook? {
+        return await fetch(path: "/\(symbolId)/orderBook", parameters: ["limit": "20"])
+    }
+}
