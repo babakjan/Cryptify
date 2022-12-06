@@ -37,23 +37,10 @@ struct TickerDetailView: View {
                         DetailsView(ticker: ticker)
                     }
                     .navigationTitle(ticker.displayName)
-                    .gesture(DragGesture(minimumDistance: 10, coordinateSpace: .local)
-                        .onEnded({ value in
-                            if value.translation.width < 0, let symbolId = tickerViewModel.symbol?.symbol {
-                                let symbol = marketsViewModel.getNextSymbol(symbolId: symbolId)
-                                if let symbol {
-                                    SoundManager.instance.playTransitionRight()
-                                    navigationPath.append(symbol)
-                                } else {
-                                    print("end of list")
-                                }
-                            }
-
-                            if value.translation.width > 0 {
-                                SoundManager.instance.playTransitionLeft()
-                                navigationPath.removeLast()
-                            }
-                    }))
+                    .gesture(
+                        DragGesture(minimumDistance: 10, coordinateSpace: .local)
+                            .onEnded(onDragGesture)
+                    )
                     
                 } else {
                     ProgressView()
@@ -89,6 +76,22 @@ struct TickerDetailView: View {
         .pickerStyle(.segmented)
         .onChange(of: tickerViewModel.selectedChart) { newValue in
             SoundManager.instance.playTab()
+        }
+    }
+    
+    //on drag
+    private func onDragGesture(value: DragGesture.Value) {
+        if value.translation.width < 0, let symbolId = tickerViewModel.symbol?.symbol {
+            let symbol = marketsViewModel.getNextSymbol(symbolId: symbolId)
+            if let symbol {
+                SoundManager.instance.playTransitionRight()
+                navigationPath.append(symbol)
+            }
+        }
+
+        if value.translation.width > 0 {
+            SoundManager.instance.playTransitionLeft()
+            navigationPath.removeLast()
         }
     }
 }
