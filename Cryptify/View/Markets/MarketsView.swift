@@ -44,7 +44,7 @@ struct MarketsView: View {
     }
     
     @ViewBuilder
-    var symbolsGrid: some View {
+    private var symbolsGrid: some View {
         let columns = [
             GridItem(.flexible(), spacing: 0, alignment: .leading),
             GridItem(.flexible(), spacing: 0, alignment: .leading),
@@ -61,7 +61,7 @@ struct MarketsView: View {
     }
     
     @ViewBuilder
-    func gridBody() -> some View {
+    private func gridBody() -> some View {
         ForEach(viewModel.searchResult, id: \.symbol) { symbol in
             gridRow(symbol: symbol)
                 .onTapGesture {
@@ -72,7 +72,7 @@ struct MarketsView: View {
     }
 
     @ViewBuilder
-    func gridRow(symbol: Symbol) -> some View {
+    private func gridRow(symbol: Symbol) -> some View {
         PairView(symbol: symbol)
         
         Text(symbol.formattedPrice)
@@ -84,7 +84,7 @@ struct MarketsView: View {
 
     
     //work around for creating grid row separator
-    var rowSeparator: some View {
+    private var rowSeparator: some View {
         ForEach(0..<3) { _ in //if adding new columns, don't forget to increment range
             Rectangle()
                 .fill(Color.theme.lightGray)

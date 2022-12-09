@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ToolbarHeaderView<Destination: View>: View {
-    var icon: String //system name of icon and place it on the right side
-    var iconAction: () -> Void //icon on tab gesture action
-    var iconIsNavigationLink: Bool //if icon is navigation link
-    var destination: Destination //if action is navigation link, this is destination for that link
+    private var icon: String //system name of icon - place it on the right side
+    private var iconAction: () -> Void //icon on tab gesture action
+    private var iconIsNavigationLink: Bool //if icon is navigation link
+    private var destination: Destination //if action is navigation link, this is the destination for that link
     
     init(
         icon: String = "",
@@ -50,7 +50,7 @@ struct ToolbarHeaderView<Destination: View>: View {
         }
     }
     
-    var iconView: some View {
+    private var iconView: some View {
         Image(systemName: icon)
             .resizable()
             .aspectRatio(contentMode: .fit)

@@ -9,7 +9,7 @@ import Foundation
 
 //api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-candles
 
-class CandleAPI: API<[Either<UInt64, String>]> {
+final class CandleAPI: API<[Either<UInt64, String>]> {
     
     @MainActor
     func fetchAllCandles(symbolId: String, interval: Interval = .MONTH_1, limit: String = "500") async -> [Candle] {

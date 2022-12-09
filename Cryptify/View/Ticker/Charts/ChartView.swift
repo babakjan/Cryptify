@@ -31,7 +31,7 @@ struct ChartView: View {
         }
     }
     
-    var chart: some View {
+    private var chart: some View {
         Group {
             if viewModel.selectedChart == TickerViewModel.ChartType.candles {
                 CandleChartView(candles: viewModel.candles)

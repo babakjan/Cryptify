@@ -10,10 +10,10 @@ import AVKit
 import SwiftUI
 
 //sound manager implemented as singleton patter
-class SoundManager {
+final class SoundManager {
     static let instance = SoundManager()
     
-    @AppStorage("soundOn") static var soundOn = false
+    @AppStorage("soundOn") static private(set) var soundOn = false
     
     private var player: AVAudioPlayer?
     

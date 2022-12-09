@@ -10,11 +10,11 @@ import SwiftUI
 
 final class TickerViewModel: ObservableObject {
     
-    @Published var ticker: Ticker? = nil
-    @Published var symbol: Symbol? = nil
-    @Published var candles: [Candle] = []
-    @Published var orderBook: OrderBook? = nil
-    @Published var selectedChartHelper = ChartType.line
+    @Published private(set) var ticker: Ticker? = nil
+    @Published private(set) var symbol: Symbol? = nil
+    @Published private(set) var candles: [Candle] = []
+    @Published private(set) var orderBook: OrderBook? = nil
+    @Published private var selectedChartHelper = ChartType.line
     
     var selectedChart: ChartType { //because of the animation
         get { selectedChartHelper }

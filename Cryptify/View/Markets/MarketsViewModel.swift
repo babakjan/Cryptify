@@ -8,12 +8,12 @@
 import Foundation
 
 final class MarketsViewModel: ObservableObject {
-    @Published var symbols: [Symbol]
-    @Published public var searchedText = ""
-    @Published var lastUpdateDate: Date?
+    @Published private(set) var symbols: [Symbol]
+    @Published var searchedText = ""
+    @Published private(set) var lastUpdateDate: Date?
     @Published var sortBy: SortSymbolsBy = .priceDescending
     
-    let symbolApi: SymbolAPI = .init()
+    private let symbolApi: SymbolAPI = .init()
     
     //search filter
     var searchResult: [Symbol] {

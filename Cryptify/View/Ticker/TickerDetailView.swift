@@ -86,7 +86,7 @@ struct TickerDetailView: View {
         }
     }
 
-    var chartTypePicker: some View {
+    private var chartTypePicker: some View {
         Picker("Chart type", selection: $tickerViewModel.selectedChart) {
             ForEach(TickerViewModel.ChartType.allCases) { chartType in
                 Text(chartType.rawValue)

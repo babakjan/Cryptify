@@ -9,8 +9,8 @@ import SwiftUI
 
 //display date of last update of markets data (symbols)
 struct LastUpdateView: View {
-    let lastUpdateDate: Date?
-    let formatter: DateFormatter
+    private let lastUpdateDate: Date?
+    private let formatter: DateFormatter
     
     init(lastUpdateDate: Date?) {
         self.lastUpdateDate = lastUpdateDate

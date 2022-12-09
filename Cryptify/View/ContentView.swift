@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var navigationPath: [Symbol] = []
+    @State private var navigationPath: [Symbol] = []
     @AppStorage("colorScheme") private var colorScheme = Theme.system
     
     var body: some View {

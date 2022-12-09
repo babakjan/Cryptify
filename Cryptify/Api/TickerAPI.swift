@@ -9,7 +9,7 @@ import Foundation
 
 //api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-ticker
 
-class TickerAPI: API<Ticker> {
+final class TickerAPI: API<Ticker> {
     
     @MainActor
     func fetchTicker(symbolId: String) async -> Ticker? {

@@ -8,7 +8,6 @@
 import Foundation
 
 //singleton class for formatting prices and numbers
-
 final class Formatter {
     static let shared = Formatter()
     

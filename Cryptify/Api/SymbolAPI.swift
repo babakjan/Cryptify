@@ -9,7 +9,7 @@ import Foundation
 
 //api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-prices
 
-class SymbolAPI: API<Symbol> {
+final class SymbolAPI: API<Symbol> {
     
     @MainActor
     func fetchAllSymbols() async -> [Symbol] {
