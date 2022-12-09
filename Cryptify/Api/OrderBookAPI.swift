@@ -7,6 +7,8 @@
 
 import Foundation
 
+//api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-order-book
+
 final class OrderBookAPI: API<OrderBook> {
     
     @MainActor
