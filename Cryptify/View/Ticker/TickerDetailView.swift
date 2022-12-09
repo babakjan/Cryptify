@@ -29,12 +29,17 @@ struct TickerDetailView: View {
                         PriceAndDailyChangeView(symbol: symbol)
                             .padding(.top, 8)
                         
-                        chartTypePicker
-                            .padding(.bottom, 8)
+                        HStack {
+                            chartTypePicker
+                            //                            .padding(.bottom, 8)
+                            intervalPicker
+                        }
                         
                         if !tickerViewModel.candles.isEmpty {
                             ChartView(viewModel: tickerViewModel)
                         }//TODO progress view when loading
+                        
+                        
                         
                         DetailsView(ticker: ticker)
                             .padding(.top, 16)
@@ -93,9 +98,24 @@ struct TickerDetailView: View {
                     .tag(chartType)
             }
         }
-        .pickerStyle(.segmented)
+//        .pickerStyle(.segmented)
         .onChange(of: tickerViewModel.selectedChart) { newValue in
             SoundManager.instance.playTab()
+        }
+    }
+    
+    private var intervalPicker: some View {
+        Picker("Interval", selection: $tickerViewModel.selectedInterval) {
+            ForEach(TickerViewModel.Interval.allCases) { interval in
+                Text(interval.rawValue)
+                    .tag(interval)
+            }
+        }
+        .onChange(of: tickerViewModel.selectedInterval) { interval in
+            Task {
+                await tickerViewModel.fetchCandles()
+                tickerViewModel.animateChart()
+            }
         }
     }
     

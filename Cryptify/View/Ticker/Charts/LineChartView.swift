@@ -31,7 +31,7 @@ struct LineChartView: View {
             .interpolationMethod(.cardinal)
             .foregroundStyle(Gradient(colors: [viewModel.graphColor.opacity(0.5), viewModel.graphColor.opacity(0)]))
         }
-        .chartYScale(domain: 0...viewModel.candles.max(by: { $0.close < $1.close })!.close * 1.05)
+        .chartYScale(domain: 0...(viewModel.candles.max(by: { $0.close < $1.close })?.close ?? 0) * 1.05)
     }
 }
 

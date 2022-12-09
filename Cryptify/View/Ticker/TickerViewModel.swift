@@ -15,6 +15,7 @@ final class TickerViewModel: ObservableObject {
     @Published private(set) var candles: [Candle] = []
     @Published private(set) var orderBook: OrderBook? = nil
     @Published private var selectedChartHelper = ChartType.line
+    @Published var selectedInterval = Interval.all
     
     private let symbolId: String
     private let tickerApi: TickerAPI = .init()
@@ -44,7 +45,7 @@ final class TickerViewModel: ObservableObject {
         (ticker, symbol, candles, orderBook) = await (
             tickerApi.fetchTicker(symbolId: symbolId),
             symbolApi.fetchSymbol(symbolId: symbolId),
-            candleApi.fetchAllCandles(symbolId: symbolId),
+            candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval),
             orderBookApi.fetchOrderBook(symbolId: symbolId)
         )
         
@@ -67,7 +68,7 @@ final class TickerViewModel: ObservableObject {
     
     @MainActor
     func fetchCandles() async {
-        candles = await candleApi.fetchAllCandles(symbolId: symbolId)
+        candles = await candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval)
     }
     
     @MainActor
@@ -90,9 +91,28 @@ final class TickerViewModel: ObservableObject {
     }
     
     enum ChartType: String, CaseIterable, Identifiable {
-        case line
-        case area
-        case candles
+        case line = "Line"
+        case area = "Area"
+        case candles = "Candles"
+        
+        var id: String {
+            self.rawValue
+        }
+    }
+    
+    enum Interval: String, CaseIterable, Identifiable {
+        case all = "All"
+        case years10 = "10Y"
+        case years5 = "5Y"
+        case years2 = "2Y"
+        case year1 = "1Y"
+        case month6 = "6M"
+        case month3 = "3M"
+        case month1 = "1M"
+        case week1 = "1W"
+        case day1 = "1D"
+        case hour1 = "1H"
+        case minut30 = "30m"
         
         var id: String {
             self.rawValue

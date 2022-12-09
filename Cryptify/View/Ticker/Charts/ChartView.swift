@@ -13,16 +13,20 @@ struct ChartView: View {
     
     var body: some View {
         GroupBox {
-            VStack(alignment: .trailing) {
-                ScrollView (.horizontal) {
-                    ScrollViewReader { scroller in
-                        chart
-                        .frame(width: CGFloat(viewModel.candles.count) * 12 < scrennWidth ? scrennWidth : CGFloat(viewModel.candles.count) * 12, height: 250)
-                        .padding(4)
-                        .id(1) //for scroller
-                        .onAppear {
-                            //scroll chart to the end of graph, because there is current price
-                            scroller.scrollTo(1, anchor: .trailing)
+            if viewModel.candles.isEmpty {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                VStack(alignment: .trailing) {
+                    ScrollView (.horizontal) {
+                        ScrollViewReader { scroller in
+                            chart
+                                .frame(width: CGFloat(viewModel.candles.count) * 12 < scrennWidth ? scrennWidth : CGFloat(viewModel.candles.count) * 12, height: 250)
+                                .padding(4)
+                                .id(1) //for scroller
+                                .onAppear {
+                                    //scroll chart to the end of graph, because there is current price
+                                    scroller.scrollTo(1, anchor: .trailing)
+                                }
                         }
                     }
                 }
