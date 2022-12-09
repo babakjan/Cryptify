@@ -39,7 +39,7 @@ struct OrderBookView: View {
         
         Text(title)
             .font(.title3)
-            .fontWeight(.bold)
+            .fontWeight(.semibold)
         
         LazyVGrid(columns: columns, spacing: 8) {
             Text("Price")

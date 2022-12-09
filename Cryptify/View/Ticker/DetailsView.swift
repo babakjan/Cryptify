@@ -11,24 +11,33 @@ struct DetailsView: View {
     @State var ticker: Ticker
     
     var body: some View {
-        LazyVGrid(
-            columns: [
-                GridItem(.flexible(), alignment: .leading),
-                GridItem(.flexible(), alignment: .leading)
-            ],
-            spacing: 16
-        ) {
-            LabelPropertyView(label: "Low:", property: ticker.formattedLow)
+        VStack(alignment: .leading) {
+            Text("Details")
+                .font(.title2)
+                .fontWeight(.bold)
+                .padding(.bottom, 16)
             
-            LabelPropertyView(label: "High:", property: ticker.formattedHigh)
-
-            LabelPropertyView(label: "Open:", property: ticker.formattedOpen)
-            
-            LabelPropertyView(label: "Close:", property: ticker.formattedClose)
-            
-            LabelPropertyView(label: "Quantity:", property: ticker.formattedQuantity)
-        
-            LabelPropertyView(label: "TradeCount:", property: "\(ticker.tradeCount)")
+            HStack {
+                //left column
+                VStack(alignment: .leading, spacing: 16) {
+                    LabelPropertyView(label: "Low:", property: ticker.formattedLow)
+                    
+                    LabelPropertyView(label: "High:", property: ticker.formattedHigh)
+                    
+                    LabelPropertyView(label: "Open:", property: ticker.formattedOpen)
+                }
+                
+                Spacer()
+                
+                //right column
+                VStack(alignment: .leading, spacing: 16) {
+                    LabelPropertyView(label: "Close:", property: ticker.formattedClose)
+                    
+                    LabelPropertyView(label: "Quantity:", property: ticker.formattedQuantity)
+                    
+                    LabelPropertyView(label: "TradeCount:", property: "\(ticker.tradeCount)")
+                }
+            }
         }
     }
 }

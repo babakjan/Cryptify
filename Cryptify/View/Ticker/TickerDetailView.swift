@@ -37,6 +37,7 @@ struct TickerDetailView: View {
                         }//TODO progress view when loading
                         
                         DetailsView(ticker: ticker)
+                            .padding(.top, 16)
                         
                         OrderBookView(tickerViewModel: tickerViewModel)
                             .padding(.top, 16)
