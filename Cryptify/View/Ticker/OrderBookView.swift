@@ -55,8 +55,8 @@ struct OrderBookView: View {
                 .fontWeight(.medium)
             
             ForEach(data.indices, id: \.self) { index in
-                Text(formattPrice(of: data[index].price, maxNumberOfDigits: 8))
-                Text(formattPrice(of: data[index].price * data[index].amount, maxNumberOfDigits: 8))
+                Text(Formatter.shared.formatPrice(of: data[index].price, maxNumberOfDigits: 8))
+                Text(Formatter.shared.formatPrice(of: data[index].price * data[index].amount, maxNumberOfDigits: 8))
                 Text("\(data[index].amount)")
             }
             .foregroundColor(foregroundColor)

@@ -18,11 +18,11 @@ struct Symbol: Hashable {
     var ts: UInt64 //time the record was published
     
     var formattedDailyChange: String {
-        formattTwoDecimalsPercent(number: dailyChange)
+        Formatter.shared.formattTwoDecimalsPercent(number: dailyChange)
     }
     
     var formattedPrice: String {
-        formattPrice(of: price, maxNumberOfDigits: 9)
+        Formatter.shared.formatPrice(of: price, maxNumberOfDigits: 9)
     }
 }
 

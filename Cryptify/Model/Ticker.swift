@@ -24,27 +24,27 @@ struct Ticker: Hashable {
     var ts: UInt64 //time recordd was pushed
     
     var formattedOpen: String {
-        formattPrice(of: open)
+        Formatter.shared.formatPrice(of: open)
     }
     
     var formattedClose: String {
-        formattPrice(of: close)
+        Formatter.shared.formatPrice(of: close)
     }
     
     var formattedLow: String {
-        formattPrice(of: low)
+        Formatter.shared.formatPrice(of: low)
     }
     
     var formattedHigh: String {
-        formattPrice(of: high)
+        Formatter.shared.formatPrice(of: high)
     }
 
     var formattedQuantity: String {
-        formattTwoDecimals(number: quantity)
+        Formatter.shared.formattTwoDecimals(number: quantity)
     }
     
     var formattedAmount: String {
-        formattTwoDecimals(number: amount)
+        Formatter.shared.formattTwoDecimals(number: amount)
     }
 }
 
