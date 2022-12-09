@@ -31,53 +31,53 @@ final class CandleAPI: API<[Either<UInt64, String>]> {
         }
     }
     
-    func createParameters(interval: TickerViewModel.Interval) -> [String: String] {
-        var parameters: [String: String] = [:]
+    private func createParameters(interval: TickerViewModel.Interval) -> [Parameter: String] {
+        var parameters: [Parameter: String] = [:]
         
-        parameters[Parameter.limit.rawValue] = "500"
+        parameters[Parameter.limit] = "500"
         
         switch interval {
         case .all:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.MONTH_1.rawValue
+            parameters[Parameter.interval] = AgreggateByInterval.MONTH_1.rawValue
         case .years10:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.MONTH_1.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 10, unit: .year)
+            parameters[Parameter.interval] = AgreggateByInterval.MONTH_1.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 10, unit: .year)
         case .years5:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.MONTH_1.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 5, unit: .year)
+            parameters[Parameter.interval] = AgreggateByInterval.MONTH_1.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 5, unit: .year)
         case .years2:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.MONTH_1.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 2, unit: .year)
+            parameters[Parameter.interval] = AgreggateByInterval.MONTH_1.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 2, unit: .year)
         case .year1:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.MONTH_1.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 1, unit: .year)
+            parameters[Parameter.interval] = AgreggateByInterval.MONTH_1.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 1, unit: .year)
         case .month6:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.WEEK_1.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 6, unit: .month)
+            parameters[Parameter.interval] = AgreggateByInterval.WEEK_1.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 6, unit: .month)
         case .month3:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.WEEK_1.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 3, unit: .month)
+            parameters[Parameter.interval] = AgreggateByInterval.WEEK_1.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 3, unit: .month)
         case .month1:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.DAY_3.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 1, unit: .month)
+            parameters[Parameter.interval] = AgreggateByInterval.DAY_3.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 1, unit: .month)
         case .week1:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.HOUR_1.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 1, unit: .weekday)
+            parameters[Parameter.interval] = AgreggateByInterval.HOUR_12.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 7, unit: .day)
         case .day1:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.HOUR_2.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 1, unit: .day)
+            parameters[Parameter.interval] = AgreggateByInterval.HOUR_2.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 1, unit: .day)
         case .hour1:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.MINUTE_30.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 1, unit: .hour)
+            parameters[Parameter.interval] = AgreggateByInterval.MINUTE_30.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 1, unit: .hour)
         case .minut30:
-            parameters[Parameter.interval.rawValue] = AgreggateByInterval.MINUTE_1.rawValue
-            parameters[Parameter.startTime.rawValue] = beforeXUnitsToString(value: 30, unit: .minute)
+            parameters[Parameter.interval] = AgreggateByInterval.MINUTE_1.rawValue
+            parameters[Parameter.startTime] = beforeXUnitsToString(value: 30, unit: .minute)
         }
         
         return parameters
     }
     
-    // return date before x units in unix format as string
+    // return date before x units in unix format as a string
     private func beforeXUnitsToString(value: Int, unit: Calendar.Component) -> String {
         String(UInt64(Calendar.current.date(
                 byAdding: unit,
@@ -103,12 +103,5 @@ final class CandleAPI: API<[Either<UInt64, String>]> {
         case DAY_3
         case WEEK_1
         case MONTH_1
-    }
-    
-    enum Parameter: String {
-        case limit
-        case interval
-        case startTime
-        case endTime
     }
 }

@@ -10,8 +10,7 @@ import Foundation
 class API<T: Decodable> {
     let serverUrl = "https://api.poloniex.com/markets"
     
-    @MainActor
-    func fetchAll(path: String, parameters: [String: String] = [:]) async -> [T] {
+    func fetchAll(path: String, parameters: [Parameter: String] = [:]) async -> [T] {
         let url = createUrl(path: path, parameters: parameters)
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -26,8 +25,7 @@ class API<T: Decodable> {
         }
     }
     
-    @MainActor
-    func fetch(path: String, parameters: [String: String] = [:]) async -> T? {
+    func fetch(path: String, parameters: [Parameter: String] = [:]) async -> T? {
         let url = createUrl(path: path, parameters: parameters)
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -43,13 +41,25 @@ class API<T: Decodable> {
     }
     
     //create url from server url, path and parameters
-    func createUrl(path: String, parameters: [String: String] = [:]) -> URL {
+    private func createUrl(path: String, parameters: [Parameter: String] = [:]) -> URL {
+        let stringParameters = Dictionary(uniqueKeysWithValues: parameters.map { (key, value) in
+            (key.rawValue, value)
+        })
+        
         var url = path
         var connector = "?"
-        for (label, value) in parameters {
+        for (label, value) in stringParameters {
             url = url + connector + label + "=" + value
             connector = "&"
         }
         return URL(string: serverUrl + url)!
+    }
+    
+    //available parameters for Poloniex API
+    enum Parameter: String {
+        case limit
+        case interval
+        case startTime
+        case endTime
     }
 }
