@@ -42,17 +42,9 @@ struct OrderBookView: View {
             .fontWeight(.semibold)
         
         LazyVGrid(columns: columns, spacing: 8) {
-            Text("Price")
-                .foregroundColor(.theme.secondaryText)
-                .fontWeight(.medium)
-            
-            Text("Sum")
-                .foregroundColor(.theme.secondaryText)
-                .fontWeight(.medium)
-            
-            Text("Amount")
-                .foregroundColor(.theme.secondaryText)
-                .fontWeight(.medium)
+            gridHeaderItem(label: "Price")
+            gridHeaderItem(label: "Sum")
+            gridHeaderItem(label: "Amount")
             
             ForEach(data.indices, id: \.self) { index in
                 Text(Formatter.shared.formatPrice(of: data[index].price, maxNumberOfDigits: 8))
@@ -61,6 +53,12 @@ struct OrderBookView: View {
             }
             .foregroundColor(foregroundColor)
         }
+    }
+    
+    private func gridHeaderItem(label: String) -> some View {
+        Text(label)
+            .foregroundColor(.theme.secondaryText)
+            .fontWeight(.medium)
     }
 }
 

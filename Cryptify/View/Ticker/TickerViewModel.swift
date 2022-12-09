@@ -16,6 +16,12 @@ final class TickerViewModel: ObservableObject {
     @Published private(set) var orderBook: OrderBook? = nil
     @Published private var selectedChartHelper = ChartType.line
     
+    private let symbolId: String
+    private let tickerApi: TickerAPI = .init()
+    private let symbolApi: SymbolAPI = .init()
+    private let candleApi: CandleAPI = .init()
+    private let orderBookApi: OrderBookAPI = .init()
+    
     var selectedChart: ChartType { //because of the animation
         get { selectedChartHelper }
         set {
@@ -25,18 +31,12 @@ final class TickerViewModel: ObservableObject {
         }
     }
     
-    private let symbolId: String
-    private let tickerApi: TickerAPI = .init()
-    private let symbolApi: SymbolAPI = .init()
-    private let candleApi: CandleAPI = .init()
-    private let orderBookApi: OrderBookAPI = .init()
+    var graphColor: Color {
+        !candles.isEmpty && candles.last!.close - candles.first!.close < 0 ? Color.theme.red : Color.theme.green
+    }
     
     init(symbolId: String) {
         self.symbolId = symbolId
-    }
-    
-    var graphColor: Color {
-        !candles.isEmpty && candles.last!.close - candles.first!.close < 0 ? Color.theme.red : Color.theme.green
     }
     
     @MainActor

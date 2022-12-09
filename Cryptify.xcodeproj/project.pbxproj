@@ -241,8 +241,8 @@
 				DF3FBC41292CABD800A8C865 /* TickerViewModel.swift */,
 				DF3FBC47292CE42A00A8C865 /* DetailsView.swift */,
 				DF74F39F292EC2FC00F194FC /* PriceAndDailyChangeView.swift */,
-				DFE0197E292F4ED3000CCC17 /* Charts */,
 				DFCF438E293F567D00E352C9 /* OrderBookView.swift */,
+				DFE0197E292F4ED3000CCC17 /* Charts */,
 			);
 			path = Ticker;
 			sourceTree = "<group>";

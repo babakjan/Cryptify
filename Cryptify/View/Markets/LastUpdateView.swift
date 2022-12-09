@@ -28,7 +28,6 @@ struct LastUpdateView: View {
             
             if let date = lastUpdateDate {
                 Text(formatter.string(from: date).capitalized)
-                    .font(.title3)
                     .fontWeight(.semibold)
             } else {
                 Text("-") //TODO get last updated date from disk?

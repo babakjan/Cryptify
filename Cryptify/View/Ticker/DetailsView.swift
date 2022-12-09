@@ -20,33 +20,28 @@ struct DetailsView: View {
             HStack {
                 //left column
                 VStack(alignment: .leading, spacing: 16) {
-                    LabelPropertyView(label: "Low:", property: ticker.formattedLow)
+                    labelPropertyView(label: "Low:", property: ticker.formattedLow)
                     
-                    LabelPropertyView(label: "High:", property: ticker.formattedHigh)
+                    labelPropertyView(label: "High:", property: ticker.formattedHigh)
                     
-                    LabelPropertyView(label: "Open:", property: ticker.formattedOpen)
+                    labelPropertyView(label: "Open:", property: ticker.formattedOpen)
                 }
                 
                 Spacer()
                 
                 //right column
                 VStack(alignment: .leading, spacing: 16) {
-                    LabelPropertyView(label: "Close:", property: ticker.formattedClose)
+                    labelPropertyView(label: "Close:", property: ticker.formattedClose)
                     
-                    LabelPropertyView(label: "Quantity:", property: ticker.formattedQuantity)
+                    labelPropertyView(label: "Quantity:", property: ticker.formattedQuantity)
                     
-                    LabelPropertyView(label: "TradeCount:", property: "\(ticker.tradeCount)")
+                    labelPropertyView(label: "TradeCount:", property: "\(ticker.tradeCount)")
                 }
             }
         }
     }
-}
-
-struct LabelPropertyView: View {
-    var label: String
-    var property: String
     
-    var body: some View {
+    private func labelPropertyView(label: String, property: String) -> some View {
         HStack() {
             Text(label)
                 .foregroundColor(Color.theme.secondaryText)

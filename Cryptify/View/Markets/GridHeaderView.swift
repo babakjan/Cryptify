@@ -13,52 +13,61 @@ struct GridHeaderView: View {
     
     var body: some View {
         Group {
-            //pair
-            HStack {
-                Text("Pair")
-                Image(systemName: "chevron.down")
-                    .opacity(viewModel.sortBy == .pairAscending || viewModel.sortBy == .pairDescendig ? 1 : 0)
-                    .rotationEffect(Angle(degrees: viewModel.sortBy == .pairAscending ? 180 : 0))
-            }
-            .onTapGesture {
-                SoundManager.instance.playTab()
-                withAnimation {
-                    viewModel.sortBy = viewModel.sortBy == .pairAscending ? .pairDescendig : .pairAscending
-                }
-                viewModel.sortSymbols()
-            }
+            pair
             
-            //price
-            HStack {
-                Text("Price")
-                Image(systemName: "chevron.down")
-                    .opacity(viewModel.sortBy == .priceAscending || viewModel.sortBy == .priceDescending ? 1 : 0)
-                    .rotationEffect(Angle(degrees: viewModel.sortBy == .priceAscending ? 180 : 0))
-            }
-            .onTapGesture {
-                SoundManager.instance.playTab()
-                withAnimation {
-                    viewModel.sortBy = viewModel.sortBy == .priceAscending ? .priceDescending : .priceAscending
-                }
-                viewModel.sortSymbols()
-            }
+            price
             
-            //daily change
-            HStack {
-                Text("24h")
-                Image(systemName: "chevron.down")
-                    .opacity(viewModel.sortBy == .dailyChangeAscenging || viewModel.sortBy == .dailyChangeDescending ? 1 : 0)
-                    .rotationEffect(Angle(degrees: viewModel.sortBy == .dailyChangeAscenging ? 180 : 0))
-            }
-            .onTapGesture {
-                SoundManager.instance.playTab()
-                withAnimation {
-                    viewModel.sortBy = viewModel.sortBy == .dailyChangeAscenging ? .dailyChangeDescending : .dailyChangeAscenging
-                }
-                viewModel.sortSymbols()
-            }
+            dailyChange
         }
         .fontWeight(.semibold)
+    }
+    
+    private var pair: some View {
+        HStack {
+            Text("Pair")
+            Image(systemName: "chevron.down")
+                .opacity(viewModel.sortBy == .pairAscending || viewModel.sortBy == .pairDescendig ? 1 : 0)
+                .rotationEffect(Angle(degrees: viewModel.sortBy == .pairAscending ? 180 : 0))
+        }
+        .onTapGesture {
+            SoundManager.instance.playTab()
+            withAnimation {
+                viewModel.sortBy = viewModel.sortBy == .pairAscending ? .pairDescendig : .pairAscending
+            }
+            viewModel.sortSymbols()
+        }
+    }
+    
+    private var price: some View {
+        HStack {
+            Text("Price")
+            Image(systemName: "chevron.down")
+                .opacity(viewModel.sortBy == .priceAscending || viewModel.sortBy == .priceDescending ? 1 : 0)
+                .rotationEffect(Angle(degrees: viewModel.sortBy == .priceAscending ? 180 : 0))
+        }
+        .onTapGesture {
+            SoundManager.instance.playTab()
+            withAnimation {
+                viewModel.sortBy = viewModel.sortBy == .priceAscending ? .priceDescending : .priceAscending
+            }
+            viewModel.sortSymbols()
+        }
+    }
+    
+    private var dailyChange: some View {
+        HStack {
+            Text("24h")
+            Image(systemName: "chevron.down")
+                .opacity(viewModel.sortBy == .dailyChangeAscenging || viewModel.sortBy == .dailyChangeDescending ? 1 : 0)
+                .rotationEffect(Angle(degrees: viewModel.sortBy == .dailyChangeAscenging ? 180 : 0))
+        }
+        .onTapGesture {
+            SoundManager.instance.playTab()
+            withAnimation {
+                viewModel.sortBy = viewModel.sortBy == .dailyChangeAscenging ? .dailyChangeDescending : .dailyChangeAscenging
+            }
+            viewModel.sortSymbols()
+        }
     }
 }
 

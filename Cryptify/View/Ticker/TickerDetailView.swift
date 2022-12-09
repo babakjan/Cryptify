@@ -32,7 +32,7 @@ struct TickerDetailView: View {
                         chartTypePicker
                             .padding(.bottom, 8)
                         
-                        if tickerViewModel.candles.count != 0 {
+                        if !tickerViewModel.candles.isEmpty {
                             ChartView(viewModel: tickerViewModel)
                         }//TODO progress view when loading
                         
