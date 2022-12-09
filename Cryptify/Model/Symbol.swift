@@ -22,7 +22,7 @@ struct Symbol: Hashable {
     }
     
     var formattedPrice: String {
-        Formatter.shared.formatPrice(of: price, maxNumberOfDigits: 9)
+        Formatter.shared.formatToNumberOfdigits(of: price, maxNumberOfDigits: 9)
     }
 }
 

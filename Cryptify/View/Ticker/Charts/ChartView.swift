@@ -21,9 +21,8 @@ struct ChartView: View {
                         .padding(4)
                         .id(1) //for scroller
                         .onAppear {
-                            //scroll chart to the end of graph, because there is y axis
+                            //scroll chart to the end of graph, because there is current price
                             scroller.scrollTo(1, anchor: .trailing)
-                            print("sika", UIScreen.main.bounds.size.width)
                         }
                     }
                 }

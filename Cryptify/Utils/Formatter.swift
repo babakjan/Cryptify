@@ -20,7 +20,7 @@ final class Formatter {
     }
     
     //return formatted price to requested max number of digits
-    func formatPrice(of price: Double, maxNumberOfDigits: Int = 8) -> String {
+    func formatToNumberOfdigits(of price: Double, maxNumberOfDigits: Int = 8) -> String {
         //maxNumberOfDigits minus num of non decimal digits
         let maximumFractionDigits = maxNumberOfDigits - price.description.components(separatedBy: ".")[0].count
         

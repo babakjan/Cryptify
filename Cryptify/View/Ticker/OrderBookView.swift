@@ -15,11 +15,10 @@ struct OrderBookView: View {
             Text("Order Book")
                 .font(.title2)
                 .fontWeight(.bold)
-                .padding(.bottom, 16)
+                .padding(.bottom, -8)
             
             if let orderBook = tickerViewModel.orderBook {
                 grid(title: "Bids", data: orderBook.bids, foregroundColor: .theme.green)
-                    .padding(.bottom, 16)
                 
                 grid(title: "Asks", data: orderBook.asks, foregroundColor: .theme.red)
             } else {
@@ -37,22 +36,27 @@ struct OrderBookView: View {
             GridItem(.flexible(), alignment: .trailing)
         ]
         
-        Text(title)
-            .font(.title3)
-            .fontWeight(.semibold)
-        
-        LazyVGrid(columns: columns, spacing: 8) {
-            gridHeaderItem(label: "Price")
-            gridHeaderItem(label: "Sum")
-            gridHeaderItem(label: "Amount")
+        Group {
+            Text(title)
+                .font(.title3)
+                .fontWeight(.semibold)
+                .padding(.bottom, -16)
             
-            ForEach(data.indices, id: \.self) { index in
-                Text(Formatter.shared.formatPrice(of: data[index].price, maxNumberOfDigits: 8))
-                Text(Formatter.shared.formatPrice(of: data[index].price * data[index].amount, maxNumberOfDigits: 8))
-                Text("\(data[index].amount)")
+            LazyVGrid(columns: columns, spacing: 8) {
+                gridHeaderItem(label: "Price")
+                gridHeaderItem(label: "Sum")
+                gridHeaderItem(label: "Amount")
+                
+                ForEach(data.indices, id: \.self) { index in
+                    Text(Formatter.shared.formatToNumberOfdigits(of: data[index].price))
+                    Text(Formatter.shared.formatToNumberOfdigits(of: data[index].price * data[index].amount))
+                    Text("\(Formatter.shared.formatToNumberOfdigits(of: data[index].amount))")
+                }
+                .foregroundColor(foregroundColor)
             }
-            .foregroundColor(foregroundColor)
+            .padding(.top, 0)
         }
+        .padding(.top, 16)
     }
     
     private func gridHeaderItem(label: String) -> some View {

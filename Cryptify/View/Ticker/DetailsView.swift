@@ -15,11 +15,11 @@ struct DetailsView: View {
             Text("Details")
                 .font(.title2)
                 .fontWeight(.bold)
-                .padding(.bottom, 16)
+                .padding(.bottom, 4)
             
             HStack {
                 //left column
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 8) {
                     labelPropertyView(label: "Low:", property: ticker.formattedLow)
                     
                     labelPropertyView(label: "High:", property: ticker.formattedHigh)
@@ -30,7 +30,7 @@ struct DetailsView: View {
                 Spacer()
                 
                 //right column
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 8) {
                     labelPropertyView(label: "Close:", property: ticker.formattedClose)
                     
                     labelPropertyView(label: "Quantity:", property: ticker.formattedQuantity)
