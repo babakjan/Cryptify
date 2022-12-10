@@ -31,7 +31,7 @@ struct TickerDetailView: View {
                         
                         HStack {
                             chartTypePicker
-                            //                            .padding(.bottom, 8)
+                            
                             intervalPicker
                         }
                         
@@ -49,7 +49,7 @@ struct TickerDetailView: View {
                     }
                     .navigationTitle(ticker.displayName)
                     .gesture(
-                        DragGesture(minimumDistance: 10, coordinateSpace: .local)
+                        DragGesture(minimumDistance: 20, coordinateSpace: .local)
                             .onEnded(onDragGesture)
                     )
                     
@@ -98,7 +98,6 @@ struct TickerDetailView: View {
                     .tag(chartType)
             }
         }
-//        .pickerStyle(.segmented)
         .onChange(of: tickerViewModel.selectedChart) { newValue in
             SoundManager.instance.playTab()
         }
