@@ -30,6 +30,7 @@
 		DF4E7D61292A763D004881A0 /* PairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D60292A763D004881A0 /* PairView.swift */; };
 		DF4E7D63292A769D004881A0 /* DailyChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D62292A769D004881A0 /* DailyChangeView.swift */; };
 		DF4E7D69292A7925004881A0 /* SymbolsGridLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D68292A7925004881A0 /* SymbolsGridLoading.swift */; };
+		DF545E9029451C8800340C66 /* Trade.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF545E8F29451C8800340C66 /* Trade.swift */; };
 		DF74F399292E440D00F194FC /* CandleChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF74F398292E440D00F194FC /* CandleChartView.swift */; };
 		DF74F39B292E5A9400F194FC /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF74F39A292E5A9400F194FC /* LineChartView.swift */; };
 		DF74F39E292EBDDB00F194FC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF74F39D292EBDDB00F194FC /* Color.swift */; };
@@ -75,6 +76,7 @@
 		DF4E7D60292A763D004881A0 /* PairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairView.swift; sourceTree = "<group>"; };
 		DF4E7D62292A769D004881A0 /* DailyChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChangeView.swift; sourceTree = "<group>"; };
 		DF4E7D68292A7925004881A0 /* SymbolsGridLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolsGridLoading.swift; sourceTree = "<group>"; };
+		DF545E8F29451C8800340C66 /* Trade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trade.swift; sourceTree = "<group>"; };
 		DF74F398292E440D00F194FC /* CandleChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleChartView.swift; sourceTree = "<group>"; };
 		DF74F39A292E5A9400F194FC /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		DF74F39D292EBDDB00F194FC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				DF3FBC4C292D16D200A8C865 /* Candle.swift */,
 				DF3FBC55292D6B8600A8C865 /* Either.swift */,
 				DF83CD832938E90E00775F4C /* OrderBook.swift */,
+				DF545E8F29451C8800340C66 /* Trade.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF545E9029451C8800340C66 /* Trade.swift in Sources */,
 				DF3FBC4B292D0CB100A8C865 /* Formatter.swift in Sources */,
 				DF4E7D61292A763D004881A0 /* PairView.swift in Sources */,
 				DF3FBC4D292D16D200A8C865 /* Candle.swift in Sources */,
