@@ -11,6 +11,11 @@ struct ChartView: View {
     @StateObject var viewModel: TickerViewModel
     private let scrennWidth = UIScreen.main.bounds.size.width - 70
     
+    private var chartWidth: CGFloat {
+        let scale = CGFloat(viewModel.candles.count) * 12
+        return viewModel.selectedChart != TickerViewModel.ChartType.candles || scale < scrennWidth ? scrennWidth : scale
+    }
+    
     var body: some View {
         GroupBox {
             if viewModel.candles.isEmpty {
@@ -20,7 +25,8 @@ struct ChartView: View {
                     ScrollView (.horizontal) {
                         ScrollViewReader { scroller in
                             chart
-                                .frame(width: CGFloat(viewModel.candles.count) * 12 < scrennWidth ? scrennWidth : CGFloat(viewModel.candles.count) * 12, height: 250)
+                                .chartYScale(domain: viewModel.candlesAdjustedMinClose!...viewModel.candlesAdjustedMaxClose!)
+                                .frame(width: chartWidth, height: 250)
                                 .padding(4)
                                 .id(1) //for scroller
                                 .onAppear {
@@ -37,7 +43,7 @@ struct ChartView: View {
     private var chart: some View {
         Group {
             if viewModel.selectedChart == TickerViewModel.ChartType.candles {
-                CandleChartView(candles: viewModel.candles)
+                CandleChartView(viewModel: viewModel)
             } else if viewModel.selectedChart == TickerViewModel.ChartType.area {
                 AreaChartView(viewModel: viewModel)
             } else {

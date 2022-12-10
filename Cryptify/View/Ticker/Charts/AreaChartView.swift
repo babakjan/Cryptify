@@ -20,7 +20,6 @@ struct AreaChartView: View {
             .interpolationMethod(.cardinal)
             .foregroundStyle(viewModel.graphColor)
         }
-        .chartYScale(domain: 0...viewModel.candles.max(by: { $0.close < $1.close})!.close * 1.05)
     }
 }
 

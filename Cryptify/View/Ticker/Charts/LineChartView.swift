@@ -18,7 +18,7 @@ struct LineChartView: View {
                 x: .value("Date", candle.startTime),
                 y: .value("Price", candle.animate ? candle.close : 0)
             )
-            .lineStyle(.init(lineWidth: 4, lineCap: .round))
+            .lineStyle(.init(lineWidth: 3, lineCap: .round))
             .interpolationMethod(.cardinal)
             .foregroundStyle(viewModel.graphColor)
             
@@ -31,7 +31,6 @@ struct LineChartView: View {
             .interpolationMethod(.cardinal)
             .foregroundStyle(Gradient(colors: [viewModel.graphColor.opacity(0.5), viewModel.graphColor.opacity(0)]))
         }
-        .chartYScale(domain: 0...(viewModel.candles.max(by: { $0.close < $1.close })?.close ?? 0) * 1.05)
     }
 }
 

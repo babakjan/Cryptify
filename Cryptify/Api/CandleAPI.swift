@@ -46,28 +46,28 @@ final class CandleAPI: API<[Either<UInt64, String>]> {
             parameters[Parameter.interval] = AgreggateByInterval.MONTH_1.rawValue
             parameters[Parameter.startTime] = beforeXUnitsToString(value: 5, unit: .year)
         case .years2:
-            parameters[Parameter.interval] = AgreggateByInterval.MONTH_1.rawValue
+            parameters[Parameter.interval] = AgreggateByInterval.WEEK_1.rawValue
             parameters[Parameter.startTime] = beforeXUnitsToString(value: 2, unit: .year)
         case .year1:
-            parameters[Parameter.interval] = AgreggateByInterval.MONTH_1.rawValue
+            parameters[Parameter.interval] = AgreggateByInterval.WEEK_1.rawValue
             parameters[Parameter.startTime] = beforeXUnitsToString(value: 1, unit: .year)
         case .month6:
-            parameters[Parameter.interval] = AgreggateByInterval.WEEK_1.rawValue
+            parameters[Parameter.interval] = AgreggateByInterval.DAY_3.rawValue
             parameters[Parameter.startTime] = beforeXUnitsToString(value: 6, unit: .month)
         case .month3:
-            parameters[Parameter.interval] = AgreggateByInterval.WEEK_1.rawValue
+            parameters[Parameter.interval] = AgreggateByInterval.DAY_1.rawValue
             parameters[Parameter.startTime] = beforeXUnitsToString(value: 3, unit: .month)
         case .month1:
-            parameters[Parameter.interval] = AgreggateByInterval.DAY_3.rawValue
+            parameters[Parameter.interval] = AgreggateByInterval.HOUR_12.rawValue
             parameters[Parameter.startTime] = beforeXUnitsToString(value: 1, unit: .month)
         case .week1:
-            parameters[Parameter.interval] = AgreggateByInterval.HOUR_12.rawValue
+            parameters[Parameter.interval] = AgreggateByInterval.HOUR_2.rawValue
             parameters[Parameter.startTime] = beforeXUnitsToString(value: 7, unit: .day)
         case .day1:
-            parameters[Parameter.interval] = AgreggateByInterval.HOUR_2.rawValue
+            parameters[Parameter.interval] = AgreggateByInterval.MINUTE_30.rawValue
             parameters[Parameter.startTime] = beforeXUnitsToString(value: 1, unit: .day)
         case .hour1:
-            parameters[Parameter.interval] = AgreggateByInterval.MINUTE_30.rawValue
+            parameters[Parameter.interval] = AgreggateByInterval.MINUTE_1.rawValue
             parameters[Parameter.startTime] = beforeXUnitsToString(value: 1, unit: .hour)
         case .minut30:
             parameters[Parameter.interval] = AgreggateByInterval.MINUTE_1.rawValue

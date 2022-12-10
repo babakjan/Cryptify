@@ -9,10 +9,10 @@ import SwiftUI
 import Charts
 
 struct CandleChartView: View {
-    @State var candles: [Candle]
+    @State var viewModel: TickerViewModel
 
     var body: some View {
-        Chart(candles) { candle in
+        Chart(viewModel.candles) { candle in
             //high low
             RectangleMark(
                 x: .value("Date", candle.startTime),
@@ -32,12 +32,11 @@ struct CandleChartView: View {
             )
             .foregroundStyle(candle.color)
         }
-        .chartYScale(domain: 0...candles.max(by: { $0.close < $1.close})!.close * 1.05)
     }
 }
 
 struct CandleChart_Previews: PreviewProvider {
     static var previews: some View {
-        CandleChartView(candles: [])
+        CandleChartView(viewModel: .init(symbolId: "BTC_USDT"))
     }
 }

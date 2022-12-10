@@ -36,6 +36,16 @@ final class TickerViewModel: ObservableObject {
         !candles.isEmpty && candles.last!.close - candles.first!.close < 0 ? Color.theme.red : Color.theme.green
     }
     
+    //min close value in candles array adjusted in order to fit better in chart
+    var candlesAdjustedMinClose: Double? {
+        0.99998 * (candles.min(by: { $0.close < $1.close })?.close ?? 0)
+    }
+    
+    //max close value in candles array adjusted in order to fit better in chart
+    var candlesAdjustedMaxClose: Double? {
+        1.00005 * (candles.max(by: { $0.close < $1.close })?.close ?? 0)
+    }
+    
     init(symbolId: String) {
         self.symbolId = symbolId
     }
