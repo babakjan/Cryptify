@@ -14,7 +14,7 @@ final class TickerViewModel: ObservableObject {
     @Published private(set) var symbol: Symbol? = nil
     @Published private(set) var candles: [Candle] = []
     @Published private(set) var orderBook: OrderBook? = nil
-    @Published private var selectedChartHelper = ChartType.line
+    @Published private var selectedChartHelper = ChartType.area
     @Published var selectedInterval = Interval.all
     
     private let symbolId: String
@@ -32,6 +32,7 @@ final class TickerViewModel: ObservableObject {
         }
     }
     
+    //red if start is greater than end, green if start is lower than end
     var graphColor: Color {
         !candles.isEmpty && candles.last!.close - candles.first!.close < 0 ? Color.theme.red : Color.theme.green
     }
@@ -101,8 +102,8 @@ final class TickerViewModel: ObservableObject {
     }
     
     enum ChartType: String, CaseIterable, Identifiable {
-        case line = "Line"
         case area = "Area"
+        case line = "Line"
         case candles = "Candles"
         
         var id: String {
