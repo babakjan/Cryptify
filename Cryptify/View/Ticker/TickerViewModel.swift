@@ -17,6 +17,7 @@ final class TickerViewModel: ObservableObject {
     @Published private(set) var trades: [Trade] = []
     @Published private var selectedChartHelper = ChartType.area
     @Published var selectedInterval = Interval.all
+    @Published var displayedViewHelper = DisplayedView.trades
     
     private let symbolId: String
     private let tickerApi: TickerAPI = .init()
@@ -25,11 +26,22 @@ final class TickerViewModel: ObservableObject {
     private let orderBookApi: OrderBookAPI = .init()
     private let tradeApi: TradeAPI = .init()
     
-    var selectedChart: ChartType { //because of the animation
+    //setter using animation
+    var selectedChart: ChartType {
         get { selectedChartHelper }
         set {
             withAnimation(.easeInOut(duration: 0.5)) {
                 selectedChartHelper = newValue
+            }
+        }
+    }
+    
+    //setter using animation
+    var displayedView: DisplayedView {
+        get { displayedViewHelper }
+        set {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                displayedViewHelper = newValue
             }
         }
     }
@@ -95,6 +107,15 @@ final class TickerViewModel: ObservableObject {
         trades = await tradeApi.fetchAllTrades(symbolId: symbolId)
     }
     
+    //refresh currently displayed view
+    func refreshDisplayedView() async {
+        if displayedView == DisplayedView.trades {
+            await fetchTrades()
+        } else if displayedView == DisplayedView.orderBook {
+            await fetchOrderBook()
+        }
+    }
+    
     //animate chart
     func animateChart() {
         if !self.candles.isEmpty && self.candles.first!.animate {
@@ -135,6 +156,15 @@ final class TickerViewModel: ObservableObject {
         
         var id: String {
             self.rawValue
+        }
+    }
+    
+    enum DisplayedView: String, CaseIterable, Identifiable {
+        case trades = "Trades"
+        case orderBook = "OrderBook"
+        
+        var id: String {
+            return self.rawValue
         }
     }
 }

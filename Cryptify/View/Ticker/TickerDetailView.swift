@@ -42,11 +42,16 @@ struct TickerDetailView: View {
                         DetailsView(ticker: ticker)
                             .padding(.top, 16)
                         
-                        TradesView(tickerViewModel: tickerViewModel)
+                        displayedViewPicker
                             .padding(.top, 16)
                         
-                        OrderBookView(tickerViewModel: tickerViewModel)
-                            .padding(.top, 16)
+                        if tickerViewModel.displayedView == TickerViewModel.DisplayedView.trades {
+                            TradesView(tickerViewModel: tickerViewModel)
+                                .padding(.top, 16)
+                        } else if tickerViewModel.displayedView == TickerViewModel.DisplayedView.orderBook {
+                            OrderBookView(tickerViewModel: tickerViewModel)
+                                .padding(.top, 16)
+                        }
                         
                     }
                     .navigationTitle(ticker.displayName)
@@ -78,7 +83,7 @@ struct TickerDetailView: View {
             await tickerViewModel.fetchData()
         }
         .onAppear {
-            timer = Timer.scheduledTimer(withTimeInterval: 7, repeats: true, block: refreshOrderBookAndTrades)
+            timer = Timer.scheduledTimer(withTimeInterval: 7, repeats: true, block: refreshDisplayedView)
         }
         .onDisappear() {
             if let timer { timer.invalidate() }
@@ -87,10 +92,9 @@ struct TickerDetailView: View {
     
     //helper function, because timer doesn't support async functions
     //don't know if it's neccessary, api doen't change that frequently
-    private func refreshOrderBookAndTrades(timer: Timer) {
+    private func refreshDisplayedView(timer: Timer) {
         Task {
-            await tickerViewModel.fetchOrderBook()
-            await tickerViewModel.fetchTrades()
+            await tickerViewModel.refreshDisplayedView()
         }
     }
 
@@ -117,6 +121,22 @@ struct TickerDetailView: View {
             Task {
                 await tickerViewModel.fetchCandles()
                 tickerViewModel.animateChart()
+            }
+        }
+    }
+    
+    private var displayedViewPicker: some View {
+        Picker("Displayed View", selection: $tickerViewModel.displayedView) {
+            ForEach(TickerViewModel.DisplayedView.allCases) { view in
+                Text(view.rawValue)
+                    .tag(view)
+            }
+        }
+        .pickerStyle(.segmented)
+        .onChange(of: tickerViewModel.displayedView) { newValue in
+            SoundManager.instance.playTab()
+            Task {
+                await tickerViewModel.refreshDisplayedView()
             }
         }
     }
