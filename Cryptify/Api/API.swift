@@ -10,6 +10,7 @@ import Foundation
 class API<T: Decodable> {
     let serverUrl = "https://api.poloniex.com/markets"
     
+    @MainActor
     func fetchAll(path: String, parameters: [Parameter: String] = [:]) async -> [T] {
         let url = createUrl(path: path, parameters: parameters)
         var request = URLRequest(url: url)

@@ -39,13 +39,15 @@ struct TickerDetailView: View {
                             ChartView(viewModel: tickerViewModel)
                         }//TODO progress view when loading
                         
-                        
-                        
                         DetailsView(ticker: ticker)
+                            .padding(.top, 16)
+                        
+                        TradesView(tickerViewModel: tickerViewModel)
                             .padding(.top, 16)
                         
                         OrderBookView(tickerViewModel: tickerViewModel)
                             .padding(.top, 16)
+                        
                     }
                     .navigationTitle(ticker.displayName)
                     .gesture(
@@ -76,7 +78,7 @@ struct TickerDetailView: View {
             await tickerViewModel.fetchData()
         }
         .onAppear {
-            timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: refreshOrderBook)
+            timer = Timer.scheduledTimer(withTimeInterval: 7, repeats: true, block: refreshOrderBookAndTrades)
         }
         .onDisappear() {
             if let timer { timer.invalidate() }
@@ -85,9 +87,10 @@ struct TickerDetailView: View {
     
     //helper function, because timer doesn't support async functions
     //don't know if it's neccessary, api doen't change that frequently
-    private func refreshOrderBook(timer: Timer) {
+    private func refreshOrderBookAndTrades(timer: Timer) {
         Task {
-            await tickerViewModel.fetchSymbol()
+            await tickerViewModel.fetchOrderBook()
+            await tickerViewModel.fetchTrades()
         }
     }
 

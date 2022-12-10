@@ -6,15 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
 
-//api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-trades
-
+//trade operation - sel or buy
 struct Trade: Identifiable, Hashable {
     var id: String //trade id
     var price: Double //trade price
     var quantity: Double //base units traded
     var amount: Double //quote units traded
     var takerSide: TakerSide //buy or sell
+    var color: Color { //red for sell, green for buy
+        takerSide == TakerSide.sell ? Color.theme.red : Color.theme.green
+    }
+    
 }
 
 extension Trade: Decodable {

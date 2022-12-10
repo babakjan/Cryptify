@@ -14,6 +14,7 @@ final class TickerViewModel: ObservableObject {
     @Published private(set) var symbol: Symbol? = nil
     @Published private(set) var candles: [Candle] = []
     @Published private(set) var orderBook: OrderBook? = nil
+    @Published private(set) var trades: [Trade] = []
     @Published private var selectedChartHelper = ChartType.area
     @Published var selectedInterval = Interval.all
     
@@ -22,6 +23,7 @@ final class TickerViewModel: ObservableObject {
     private let symbolApi: SymbolAPI = .init()
     private let candleApi: CandleAPI = .init()
     private let orderBookApi: OrderBookAPI = .init()
+    private let tradeApi: TradeAPI = .init()
     
     var selectedChart: ChartType { //because of the animation
         get { selectedChartHelper }
@@ -53,11 +55,12 @@ final class TickerViewModel: ObservableObject {
     
     @MainActor
     func fetchData(animate: Bool = true) async {
-        (ticker, symbol, candles, orderBook) = await (
+        (ticker, symbol, candles, orderBook, trades) = await (
             tickerApi.fetchTicker(symbolId: symbolId),
             symbolApi.fetchSymbol(symbolId: symbolId),
             candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval),
-            orderBookApi.fetchOrderBook(symbolId: symbolId)
+            orderBookApi.fetchOrderBook(symbolId: symbolId),
+            tradeApi.fetchAllTrades(symbolId: symbolId)
         )
         
         if animate {
@@ -85,6 +88,11 @@ final class TickerViewModel: ObservableObject {
     @MainActor
     func fetchOrderBook() async {
         orderBook = await orderBookApi.fetchOrderBook(symbolId: symbolId)
+    }
+    
+    @MainActor
+    func fetchTrades() async {
+        trades = await tradeApi.fetchAllTrades(symbolId: symbolId)
     }
     
     //animate chart

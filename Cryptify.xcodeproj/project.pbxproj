@@ -31,6 +31,8 @@
 		DF4E7D63292A769D004881A0 /* DailyChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D62292A769D004881A0 /* DailyChangeView.swift */; };
 		DF4E7D69292A7925004881A0 /* SymbolsGridLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E7D68292A7925004881A0 /* SymbolsGridLoading.swift */; };
 		DF545E9029451C8800340C66 /* Trade.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF545E8F29451C8800340C66 /* Trade.swift */; };
+		DF545E9229451F2400340C66 /* TradeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF545E9129451F2400340C66 /* TradeAPI.swift */; };
+		DF545E94294520F500340C66 /* TradesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF545E93294520F500340C66 /* TradesView.swift */; };
 		DF74F399292E440D00F194FC /* CandleChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF74F398292E440D00F194FC /* CandleChartView.swift */; };
 		DF74F39B292E5A9400F194FC /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF74F39A292E5A9400F194FC /* LineChartView.swift */; };
 		DF74F39E292EBDDB00F194FC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF74F39D292EBDDB00F194FC /* Color.swift */; };
@@ -77,6 +79,8 @@
 		DF4E7D62292A769D004881A0 /* DailyChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChangeView.swift; sourceTree = "<group>"; };
 		DF4E7D68292A7925004881A0 /* SymbolsGridLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolsGridLoading.swift; sourceTree = "<group>"; };
 		DF545E8F29451C8800340C66 /* Trade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trade.swift; sourceTree = "<group>"; };
+		DF545E9129451F2400340C66 /* TradeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeAPI.swift; sourceTree = "<group>"; };
+		DF545E93294520F500340C66 /* TradesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradesView.swift; sourceTree = "<group>"; };
 		DF74F398292E440D00F194FC /* CandleChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleChartView.swift; sourceTree = "<group>"; };
 		DF74F39A292E5A9400F194FC /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		DF74F39D292EBDDB00F194FC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 				DF3FBC51292D393300A8C865 /* SymbolAPI.swift */,
 				DF3FBC53292D3C3D00A8C865 /* TickerAPI.swift */,
 				DF83CD8729391CBF00775F4C /* OrderBookAPI.swift */,
+				DF545E9129451F2400340C66 /* TradeAPI.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 				DF3FBC47292CE42A00A8C865 /* DetailsView.swift */,
 				DF74F39F292EC2FC00F194FC /* PriceAndDailyChangeView.swift */,
 				DFCF438E293F567D00E352C9 /* OrderBookView.swift */,
+				DF545E93294520F500340C66 /* TradesView.swift */,
 				DFE0197E292F4ED3000CCC17 /* Charts */,
 			);
 			path = Ticker;
@@ -351,6 +357,7 @@
 				DF74F3A0292EC2FC00F194FC /* PriceAndDailyChangeView.swift in Sources */,
 				DF74F399292E440D00F194FC /* CandleChartView.swift in Sources */,
 				DF83CD842938E90E00775F4C /* OrderBook.swift in Sources */,
+				DF545E94294520F500340C66 /* TradesView.swift in Sources */,
 				DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */,
 				DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */,
 				DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */,
@@ -369,6 +376,7 @@
 				DF9F74C5292C1DCC00D1F411 /* Ticker.swift in Sources */,
 				DFC0D89E292A0B2B00907736 /* MarketsView.swift in Sources */,
 				DF4E7D63292A769D004881A0 /* DailyChangeView.swift in Sources */,
+				DF545E9229451F2400340C66 /* TradeAPI.swift in Sources */,
 				DF16FFA42934DFD9005C2CB6 /* SettingsView.swift in Sources */,
 				DFC0D8A4292A557C00907736 /* LastUpdateView.swift in Sources */,
 			);
