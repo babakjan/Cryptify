@@ -29,11 +29,11 @@ struct TickerDetailView: View {
                         PriceAndDailyChangeView(symbol: symbol)
                             .padding(.top, 8)
                         
-                        HStack {
+                        HStack(spacing: 16) {
                             chartTypePicker
                             
                             intervalPicker
-                        }
+                        }.padding(.horizontal, 0)
                         
                         if !tickerViewModel.candles.isEmpty {
                             ChartView(viewModel: tickerViewModel)
@@ -108,6 +108,7 @@ struct TickerDetailView: View {
         .onChange(of: tickerViewModel.selectedChart) { newValue in
             SoundManager.instance.playTab()
         }
+        .padding(.horizontal, -11)
     }
     
     private var intervalPicker: some View {
@@ -123,6 +124,7 @@ struct TickerDetailView: View {
                 tickerViewModel.animateChart()
             }
         }
+        .padding(.horizontal, -11)
     }
     
     private var displayedViewPicker: some View {
