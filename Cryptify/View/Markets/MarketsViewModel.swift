@@ -9,6 +9,7 @@ import Foundation
 
 final class MarketsViewModel: ObservableObject {
     @Published private(set) var symbols: [Symbol]
+    @Published private(set) var symbolsState = ResourceState.ok
     @Published var searchedText = ""
     @Published private(set) var lastUpdateDate: Date?
     @Published var sortBy: SortSymbolsBy = .priceDescending
@@ -31,7 +32,17 @@ final class MarketsViewModel: ObservableObject {
     
     @MainActor
     func fetchSymbols() async {
-        symbols = await symbolApi.fetchAllSymbols().sorted(by: { $0.price > $1.price })
+        symbolsState = .loading
+        
+        do {
+            symbols = try await symbolApi.fetchAllSymbols().sorted(by: { $0.price > $1.price })
+        } catch {
+            symbolsState = .error
+            print("fetch symbols error view model")
+            return
+        }
+        
+        symbolsState = .ok
         lastUpdateDate = Date.now
     }
     

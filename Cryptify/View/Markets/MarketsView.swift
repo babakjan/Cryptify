@@ -9,21 +9,18 @@ import SwiftUI
 
 struct MarketsView: View {
     @Binding var navigationPath: [Symbol]
-    @StateObject var viewModel: MarketsViewModel = MarketsViewModel()
+    @StateObject var viewModel = MarketsViewModel()
     
     var body: some View {
-        Group {
-            if viewModel.symbols.isEmpty {
+        ScrollView {
+            if viewModel.symbolsState == ResourceState.loading {
                 SymbolsGridLoading()
+            } else if viewModel.symbolsState == ResourceState.error {
+                ErrorView()
+                    .padding(.top, 64)
+                    .padding(.horizontal, 16)
             } else {
-                ScrollView {
-                    LastUpdateView(lastUpdateDate: viewModel.lastUpdateDate)
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 16)
-
-                    symbolsGrid
-                        .padding(.horizontal, 16)
-                }
+                loadedBody
             }
         }
         .searchable(text: $viewModel.searchedText)
@@ -39,8 +36,20 @@ struct MarketsView: View {
             await viewModel.fetchSymbols()
         }
         .refreshable {
-            await viewModel.fetchSymbols()
+            Task { //without this, task is cancelled due to ui rebuild, is there a better way?
+                await viewModel.fetchSymbols()
+            }
         }
+    }
+    
+    @ViewBuilder
+    private var loadedBody: some View {
+        LastUpdateView(lastUpdateDate: viewModel.lastUpdateDate)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
+
+        symbolsGrid
+            .padding(.horizontal, 16)
     }
     
     @ViewBuilder

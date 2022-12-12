@@ -12,7 +12,7 @@ import Foundation
 final class TradeAPI: API<Trade> {
     
     @MainActor
-    func fetchAllTrades(symbolId: String) async -> [Trade] {
-        return await fetchAll(path: "/\(symbolId)/trades", parameters: [Parameter.limit: "20"])
+    func fetchAllTrades(symbolId: String) async throws -> [Trade] {
+        return try await fetchAll(path: "/\(symbolId)/trades", parameters: [Parameter.limit: "20"])
     }
 }

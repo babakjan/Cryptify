@@ -12,12 +12,12 @@ import Foundation
 final class SymbolAPI: API<Symbol> {
     
     @MainActor
-    func fetchAllSymbols() async -> [Symbol] {
-        return await fetchAll(path: "/price")
+    func fetchAllSymbols() async throws -> [Symbol] {
+        return try await fetchAll(path: "/price")
     }
     
     @MainActor
-    func fetchSymbol(symbolId: String) async -> Symbol? {
-        return await fetch(path: "/\(symbolId)/price")
+    func fetchSymbol(symbolId: String) async throws -> Symbol? {
+        return try await fetch(path: "/\(symbolId)/price")
     }
 }

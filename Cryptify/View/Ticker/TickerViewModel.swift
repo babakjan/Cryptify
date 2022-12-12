@@ -11,10 +11,15 @@ import SwiftUI
 final class TickerViewModel: ObservableObject {
     
     @Published private(set) var ticker: Ticker? = nil
+    @Published private(set) var tickerState = ResourceState.ok
     @Published private(set) var symbol: Symbol? = nil
+    @Published private(set) var symbolState = ResourceState.ok
     @Published private(set) var candles: [Candle] = []
+    @Published private(set) var candlesState = ResourceState.ok
     @Published private(set) var orderBook: OrderBook? = nil
+    @Published private(set) var orderBookState = ResourceState.ok
     @Published private(set) var trades: [Trade] = []
+    @Published private(set) var tradesState = ResourceState.ok
     @Published private var selectedChartHelper = ChartType.area
     @Published var selectedInterval = Interval.all
     @Published var displayedViewHelper = DisplayedView.trades
@@ -67,13 +72,17 @@ final class TickerViewModel: ObservableObject {
     
     @MainActor
     func fetchData(animate: Bool = true) async {
-        (ticker, symbol, candles, orderBook, trades) = await (
-            tickerApi.fetchTicker(symbolId: symbolId),
-            symbolApi.fetchSymbol(symbolId: symbolId),
-            candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval),
-            orderBookApi.fetchOrderBook(symbolId: symbolId),
-            tradeApi.fetchAllTrades(symbolId: symbolId)
-        )
+        do {
+            (ticker, symbol, candles, orderBook, trades) = try await (
+                tickerApi.fetchTicker(symbolId: symbolId),
+                symbolApi.fetchSymbol(symbolId: symbolId),
+                candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval),
+                orderBookApi.fetchOrderBook(symbolId: symbolId),
+                tradeApi.fetchAllTrades(symbolId: symbolId)
+            )
+        } catch {
+            // TODO
+        }
         
         if animate {
             DispatchQueue.main.async {
@@ -84,27 +93,72 @@ final class TickerViewModel: ObservableObject {
     
     @MainActor
     func fetchTicker() async {
-        ticker = await tickerApi.fetchTicker(symbolId: symbolId)
+        tickerState = .loading
+        
+        do {
+            ticker = try await tickerApi.fetchTicker(symbolId: symbolId)
+        } catch {
+            tickerState = .error
+            return
+        }
+        
+        tickerState = .ok
     }
 
     @MainActor
     func fetchSymbol() async {
-        symbol = await symbolApi.fetchSymbol(symbolId: symbolId)
+        symbolState = .loading
+        
+        do {
+            symbol = try await symbolApi.fetchSymbol(symbolId: symbolId)
+        } catch {
+            symbolState = .error
+            return
+        }
+        
+        symbolState = .ok
     }
     
     @MainActor
     func fetchCandles() async {
-        candles = await candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval)
+        candlesState = .loading
+        
+        do {
+            candles = try await candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval)
+        } catch {
+            candlesState = .error
+            return
+        }
+        
+        candlesState = .ok
     }
     
     @MainActor
     func fetchOrderBook() async {
-        orderBook = await orderBookApi.fetchOrderBook(symbolId: symbolId)
+        orderBookState = .loading
+        
+        do {
+            orderBook = try await orderBookApi.fetchOrderBook(symbolId: symbolId)
+        } catch {
+            orderBookState = .error
+            return
+        }
+        
+        orderBookState = .ok
     }
     
     @MainActor
     func fetchTrades() async {
-        trades = await tradeApi.fetchAllTrades(symbolId: symbolId)
+        tradesState = .loading
+        
+        do {
+            trades = try await tradeApi.fetchAllTrades(symbolId: symbolId)
+        } catch {
+            tradesState = .error
+            return
+        }
+        
+        tradesState = .ok
     }
     
     //refresh currently displayed view

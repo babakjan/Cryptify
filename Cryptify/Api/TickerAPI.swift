@@ -12,7 +12,7 @@ import Foundation
 final class TickerAPI: API<Ticker> {
     
     @MainActor
-    func fetchTicker(symbolId: String) async -> Ticker? {
-        return await fetch(path: "/\(symbolId)/ticker24h")
+    func fetchTicker(symbolId: String) async throws -> Ticker? {
+        return try await fetch(path: "/\(symbolId)/ticker24h")
     }
 }

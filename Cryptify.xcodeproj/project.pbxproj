@@ -51,6 +51,8 @@
 		DFCF438F293F567D00E352C9 /* OrderBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCF438E293F567D00E352C9 /* OrderBookView.swift */; };
 		DFE0197D292F4CD1000CCC17 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0197C292F4CD1000CCC17 /* ChartView.swift */; };
 		DFE01980292FA16B000CCC17 /* AreaChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0197F292FA16B000CCC17 /* AreaChartView.swift */; };
+		DFEFDC63294718A50050847E /* ResourceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFDC62294718A50050847E /* ResourceState.swift */; };
+		DFEFDC66294741DC0050847E /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFDC65294741DC0050847E /* ErrorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +101,8 @@
 		DFCF438E293F567D00E352C9 /* OrderBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookView.swift; sourceTree = "<group>"; };
 		DFE0197C292F4CD1000CCC17 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		DFE0197F292FA16B000CCC17 /* AreaChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaChartView.swift; sourceTree = "<group>"; };
+		DFEFDC62294718A50050847E /* ResourceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceState.swift; sourceTree = "<group>"; };
+		DFEFDC65294741DC0050847E /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +145,9 @@
 		DF18A9EE29296EE100533C8B /* Cryptify */ = {
 			isa = PBXGroup;
 			children = (
+				DFEFDC64294741520050847E /* Error */,
 				DF18A9EF29296EE100533C8B /* CryptifyApp.swift */,
+				DFEFDC612947188C0050847E /* Enums */,
 				DF74F39C292EBDC100F194FC /* Extensions */,
 				DF3FBC4E292D2B1100A8C865 /* Api */,
 				DF3FBC49292D0C9A00A8C865 /* Utils */,
@@ -267,6 +273,22 @@
 			path = Charts;
 			sourceTree = "<group>";
 		};
+		DFEFDC612947188C0050847E /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				DFEFDC62294718A50050847E /* ResourceState.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		DFEFDC64294741520050847E /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				DFEFDC65294741DC0050847E /* ErrorView.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -347,6 +369,7 @@
 				DF9F74C3292BFE6A00D1F411 /* TickerDetailView.swift in Sources */,
 				DFCF438F293F567D00E352C9 /* OrderBookView.swift in Sources */,
 				DF18AA03292970A500533C8B /* MarketsViewModel.swift in Sources */,
+				DFEFDC63294718A50050847E /* ResourceState.swift in Sources */,
 				DF74F39B292E5A9400F194FC /* LineChartView.swift in Sources */,
 				DF83CD8829391CBF00775F4C /* OrderBookAPI.swift in Sources */,
 				DF18AA052929718B00533C8B /* Symbol.swift in Sources */,
@@ -361,6 +384,7 @@
 				DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */,
 				DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */,
 				DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */,
+				DFEFDC66294741DC0050847E /* ErrorView.swift in Sources */,
 				DF3FBC52292D393300A8C865 /* SymbolAPI.swift in Sources */,
 				DF41C6AA293802E5000EC205 /* SoundManager.swift in Sources */,
 				DF3FBC56292D6B8600A8C865 /* Either.swift in Sources */,

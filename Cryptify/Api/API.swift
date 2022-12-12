@@ -11,7 +11,7 @@ class API<T: Decodable> {
     let serverUrl = "https://api.poloniex.com/markets"
     
     @MainActor
-    func fetchAll(path: String, parameters: [Parameter: String] = [:]) async -> [T] {
+    func fetchAll(path: String, parameters: [Parameter: String] = [:]) async throws -> [T] {
         let url = createUrl(path: path, parameters: parameters)
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -22,11 +22,12 @@ class API<T: Decodable> {
             return try JSONDecoder().decode([T].self, from: data)
         } catch {
             print("[FETCH ALL ERROR]", error)
-            return []
+            throw APIError.clientError
+//            return []
         }
     }
     
-    func fetch(path: String, parameters: [Parameter: String] = [:]) async -> T? {
+    func fetch(path: String, parameters: [Parameter: String] = [:]) async throws -> T? {
         let url = createUrl(path: path, parameters: parameters)
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -37,7 +38,8 @@ class API<T: Decodable> {
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
             print("[FETCH ERROR]", error)
-            return nil
+            throw APIError.clientError
+//            return nil
         }
     }
     
@@ -62,5 +64,9 @@ class API<T: Decodable> {
         case interval
         case startTime
         case endTime
+    }
+    
+    enum APIError: Error {
+        case clientError
     }
 }
