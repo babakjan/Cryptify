@@ -8,19 +8,22 @@
 import SwiftUI
 
 struct ErrorView: View {
-    var heading = "Something went wrong!"
-    var paragraph = "You may have lost your connection or the server is currently unavailable. Please try it later."
+    var heading = "Something went wrong!" //for example error name
+    var paragraph = "You may have lost your connection or the server is currently unavailable. Please try it later." //detailet error description, solution, ...
     var showTryAgainButton = false
-    var tryAgainButtonLabel = "Try again"
-    var tryAgainAction: () async -> Void = { } //for example reload
+    var tryAgainAction: () async -> Void = { } //for example reload, when showTryAgainButton is true
+    var showImage = true //if true show image of disconnected server and client
+    var imageWidth: CGFloat = 272
     
     var body: some View {
         VStack(alignment: .center) {
-            Image("error")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 272)
-                .padding(.bottom, 24)
+            if showImage {
+                Image("error")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: imageWidth)
+                    .padding(.bottom, 24)
+            }
             
             Text(heading)
                 .font(.title)
@@ -38,23 +41,19 @@ struct ErrorView: View {
             }
         }
     }
-    
+        
     private var tryAgainButton: some View {
         Button {
             Task {
                 await tryAgainAction()
             }
         } label: {
-            HStack {
-                Text(tryAgainButtonLabel)
-                    .font(.title2)
-                
-                Image(systemName: "arrow.clockwise")
-            }
-            .foregroundColor(.white)
-            .frame(width: 160)
+            Image(systemName: "arrow.clockwise")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 28)
+                .foregroundColor(.theme.accent)
         }
-        .buttonStyle(.borderedProminent)
     }
 }
 

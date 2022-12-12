@@ -11,7 +11,6 @@ import Foundation
 
 final class TradeAPI: API<Trade> {
     
-    @MainActor
     func fetchAllTrades(symbolId: String) async throws -> [Trade] {
         return try await fetchAll(path: "/\(symbolId)/trades", parameters: [Parameter.limit: "20"])
     }

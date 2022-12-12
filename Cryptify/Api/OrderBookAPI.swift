@@ -11,7 +11,6 @@ import Foundation
 
 final class OrderBookAPI: API<OrderBook> {
     
-    @MainActor
     func fetchOrderBook(symbolId: String) async throws -> OrderBook? {
         return try await fetch(path: "/\(symbolId)/orderBook", parameters: [Parameter.limit: "20"])
     }

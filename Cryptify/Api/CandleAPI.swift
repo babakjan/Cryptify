@@ -11,7 +11,6 @@ import Foundation
 
 final class CandleAPI: API<[Either<UInt64, String>]> {
     
-    @MainActor
     func fetchAllCandles(symbolId: String, interval: TickerViewModel.Interval) async throws -> [Candle] {
         let eitherArrays = try await fetchAll(
             path: "/\(symbolId)/candles",

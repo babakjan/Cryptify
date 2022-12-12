@@ -23,6 +23,9 @@ final class TickerViewModel: ObservableObject {
     @Published private var selectedChartHelper = ChartType.area
     @Published var selectedInterval = Interval.all
     @Published var displayedViewHelper = DisplayedView.trades
+    private var tradesInRowFails = 0 //number of failed requests in a row of trades
+    private var orderBookInRowFails = 0 //number of failed requests in a row of order book
+    static let maxNumberOfAutoReloadTrys = 3 //if auto realoading request fails more than this times in a row, stop trying
     
     private let symbolId: String
     private let tickerApi: TickerAPI = .init()
@@ -70,24 +73,15 @@ final class TickerViewModel: ObservableObject {
         self.symbolId = symbolId
     }
     
-    @MainActor
-    func fetchData(animate: Bool = true) async {
-        do {
-            (ticker, symbol, candles, orderBook, trades) = try await (
-                tickerApi.fetchTicker(symbolId: symbolId),
-                symbolApi.fetchSymbol(symbolId: symbolId),
-                candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval),
-                orderBookApi.fetchOrderBook(symbolId: symbolId),
-                tradeApi.fetchAllTrades(symbolId: symbolId)
-            )
-        } catch {
-            // TODO
-        }
+    func fetchData() async {
+            await fetchTicker()
+            await fetchSymbol()
+            await fetchCandles()
+            await fetchTrades()
+            await fetchOrderBook()
         
-        if animate {
-            DispatchQueue.main.async {
-                self.animateChart()
-            }
+        DispatchQueue.main.async {
+            self.animateChart()
         }
     }
     
@@ -98,7 +92,8 @@ final class TickerViewModel: ObservableObject {
         do {
             ticker = try await tickerApi.fetchTicker(symbolId: symbolId)
         } catch {
-            tickerState = .error()
+            print("[ERROR] fetch ticker ticker view model")
+            tickerState = .error(message: error.localizedDescription)
             return
         }
         
@@ -112,7 +107,8 @@ final class TickerViewModel: ObservableObject {
         do {
             symbol = try await symbolApi.fetchSymbol(symbolId: symbolId)
         } catch {
-            symbolState = .error()
+            print("[ERROR] fetch symbol ticker view model")
+            symbolState = .error(message: error.localizedDescription)
             return
         }
         
@@ -126,7 +122,8 @@ final class TickerViewModel: ObservableObject {
         do {
             candles = try await candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval)
         } catch {
-            candlesState = .error()
+            print("[ERROR] fetch candles ticker view model")
+            candlesState = .error(message: error.localizedDescription)
             return
         }
         
@@ -140,10 +137,13 @@ final class TickerViewModel: ObservableObject {
         do {
             orderBook = try await orderBookApi.fetchOrderBook(symbolId: symbolId)
         } catch {
-            orderBookState = .error()
+            print("[ERROR] fetch order book ticker view model")
+            orderBookInRowFails += 1
+            orderBookState = .error(message: error.localizedDescription)
             return
         }
         
+        orderBookInRowFails = 0
         orderBookState = .ok
     }
     
@@ -154,23 +154,26 @@ final class TickerViewModel: ObservableObject {
         do {
             trades = try await tradeApi.fetchAllTrades(symbolId: symbolId)
         } catch {
-            tradesState = .error()
+            print("[ERROR] fetch trades ticker view model")
+            tradesInRowFails += 1
+            tradesState = .error(message: error.localizedDescription)
             return
         }
         
+        tradesInRowFails = 0
         tradesState = .ok
     }
     
     //refresh currently displayed view
     func refreshDisplayedView() async {
-        if displayedView == DisplayedView.trades {
+        if displayedView == DisplayedView.trades && tradesInRowFails < Self.maxNumberOfAutoReloadTrys {
             await fetchTrades()
-        } else if displayedView == DisplayedView.orderBook {
+        } else if displayedView == DisplayedView.orderBook && orderBookInRowFails < Self.maxNumberOfAutoReloadTrys {
             await fetchOrderBook()
         }
     }
     
-    //animate chart
+    //animate chart - look like chart is growing from bottom to top and from leading to trailing
     func animateChart() {
         if !self.candles.isEmpty && self.candles.first!.animate {
             return //already animated
@@ -213,6 +216,7 @@ final class TickerViewModel: ObservableObject {
         }
     }
     
+    //which subview is displayed in ticker detail view
     enum DisplayedView: String, CaseIterable, Identifiable {
         case trades = "Trades"
         case orderBook = "OrderBook"
