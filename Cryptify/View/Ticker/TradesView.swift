@@ -15,13 +15,18 @@ struct TradesView: View {
             Text("Trades")
                 .font(.title2)
                 .fontWeight(.bold)
-//                .padding(.bottom, -8)
-            
-            if !tickerViewModel.trades.isEmpty {
-                grid()
+
+            if tickerViewModel.tradesState == .loading && tickerViewModel.trades.isEmpty {
+                LoadingView()
+            } else if tickerViewModel.tradesState == .error(), case let .error(message) = tickerViewModel.tradesState {
+                ErrorView(
+                    heading: "Trades are not available!",
+                    paragraph: message,
+                    showTryAgainButton: true, tryAgainAction: tickerViewModel.fetchTrades,
+                    showImage: false
+                )
             } else {
-                ProgressView()
-                    .progressViewStyle(.circular)
+                grid()
             }
         }
     }

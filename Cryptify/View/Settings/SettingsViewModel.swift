@@ -13,6 +13,7 @@ final class SettingsViewModel: ObservableObject {
     @AppStorage("soundOn") var soundOn = false
     @AppStorage("notificationsOn") var notificationsOn = true
     
+    @MainActor
     func resetAllSettings() {
         colorScheme = Theme.system
         soundOn = false

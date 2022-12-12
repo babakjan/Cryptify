@@ -54,6 +54,7 @@
 		DFEFDC63294718A50050847E /* ResourceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFDC62294718A50050847E /* ResourceState.swift */; };
 		DFEFDC66294741DC0050847E /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFDC65294741DC0050847E /* ErrorView.swift */; };
 		DFEFDC68294759880050847E /* HTTPURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFDC67294759880050847E /* HTTPURLResponse.swift */; };
+		DFEFDC6A2947C1FB0050847E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFDC692947C1FB0050847E /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,7 @@
 		DFEFDC62294718A50050847E /* ResourceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceState.swift; sourceTree = "<group>"; };
 		DFEFDC65294741DC0050847E /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		DFEFDC67294759880050847E /* HTTPURLResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPURLResponse.swift; sourceTree = "<group>"; };
+		DFEFDC692947C1FB0050847E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,7 +193,7 @@
 				DF16FFA22934DFC2005C2CB6 /* Settings */,
 				DF18A9FF29296FEE00533C8B /* Markets */,
 				DF9F74C1292BFE4C00D1F411 /* Ticker */,
-				DFEFDC64294741520050847E /* Error */,
+				DFEFDC64294741520050847E /* State */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -284,12 +286,13 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
-		DFEFDC64294741520050847E /* Error */ = {
+		DFEFDC64294741520050847E /* State */ = {
 			isa = PBXGroup;
 			children = (
 				DFEFDC65294741DC0050847E /* ErrorView.swift */,
+				DFEFDC692947C1FB0050847E /* LoadingView.swift */,
 			);
-			path = Error;
+			path = State;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,6 +387,7 @@
 				DF74F399292E440D00F194FC /* CandleChartView.swift in Sources */,
 				DF83CD842938E90E00775F4C /* OrderBook.swift in Sources */,
 				DF545E94294520F500340C66 /* TradesView.swift in Sources */,
+				DFEFDC6A2947C1FB0050847E /* LoadingView.swift in Sources */,
 				DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */,
 				DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */,
 				DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */,

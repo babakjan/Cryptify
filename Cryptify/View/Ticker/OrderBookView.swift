@@ -17,13 +17,20 @@ struct OrderBookView: View {
                 .fontWeight(.bold)
                 .padding(.bottom, -8)
             
-            if let orderBook = tickerViewModel.orderBook {
+            if tickerViewModel.orderBookState == .loading && tickerViewModel.orderBook == nil {
+                LoadingView()
+            } else if tickerViewModel.orderBookState == .error(), case let .error(message) = tickerViewModel.orderBookState {
+                ErrorView(
+                    heading: "Order Book isn't available!",
+                    paragraph: message,
+                    showTryAgainButton: true,
+                    tryAgainAction: tickerViewModel.fetchOrderBook,
+                    showImage: false
+                )
+            } else if let orderBook = tickerViewModel.orderBook {
                 grid(title: "Bids", data: orderBook.bids, foregroundColor: .theme.green)
-                
+
                 grid(title: "Asks", data: orderBook.asks, foregroundColor: .theme.red)
-            } else {
-                ProgressView()
-                    .progressViewStyle(.circular)
             }
         }
     }

@@ -28,7 +28,9 @@ struct TickerDetailView: View {
             await tickerViewModel.fetchData()
         }
         .refreshable {
-            await tickerViewModel.fetchData()
+            Task {
+                await tickerViewModel.fetchData()
+            }
         }
         .onAppear {
             timer = Timer.scheduledTimer(withTimeInterval: 7, repeats: true, block: refreshDisplayedView)
@@ -41,8 +43,8 @@ struct TickerDetailView: View {
     private var bodyContent: some View {
         VStack {
             if tickerViewModel.tickerState == .loading || tickerViewModel.symbolState == .loading {
-                ProgressView()
-                    .progressViewStyle(.circular)
+                LoadingView()
+                    .padding(.top, 128)
             } else if tickerViewModel.tickerState == .error(), case let .error(message) = tickerViewModel.tickerState {
                 ErrorView(
                     paragraph: message,
@@ -61,6 +63,7 @@ struct TickerDetailView: View {
         }
         .padding(.horizontal, 16)
         .padding(.bottom, 16)
+        .padding(.top, 8)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -74,7 +77,6 @@ struct TickerDetailView: View {
     private var loadedContent: some View {
         VStack(alignment: .leading) {
             priceAndDailyChange
-                .padding(.top, 8)
                 
             chartControlls
             
@@ -88,9 +90,9 @@ struct TickerDetailView: View {
                 .padding(.bottom, 16)
             
             if tickerViewModel.displayedView == TickerViewModel.DisplayedView.trades {
-                trades
+                TradesView(tickerViewModel: tickerViewModel)
             } else if tickerViewModel.displayedView == TickerViewModel.DisplayedView.orderBook {
-                orderBook
+                OrderBookView(tickerViewModel: tickerViewModel)
             }
         }
         .navigationTitle(tickerViewModel.ticker?.displayName ?? "")
@@ -118,7 +120,7 @@ struct TickerDetailView: View {
     @ViewBuilder
     private var chart: some View {
         if tickerViewModel.candlesState == .loading {
-            ProgressView().progressViewStyle(.circular)
+            LoadingView()
         } else if tickerViewModel.candlesState == .error(), case let .error(message) = tickerViewModel.candlesState {
             ErrorView(
                 heading: "Chart's not available!",
@@ -137,40 +139,7 @@ struct TickerDetailView: View {
         if let ticker = tickerViewModel.ticker {
             DetailsView(ticker: ticker)
         } else {
-            ProgressView().progressViewStyle(.circular)
-        }
-    }
-    
-    @ViewBuilder
-    private var trades: some View {
-        if tickerViewModel.tradesState == .loading && tickerViewModel.trades.isEmpty {
-            ProgressView().progressViewStyle(.circular)
-        } else if tickerViewModel.tradesState == .error(), case let .error(message) = tickerViewModel.tradesState {
-            ErrorView(
-                heading: "Trades are not available!",
-                paragraph: message,
-                showTryAgainButton: true, tryAgainAction: tickerViewModel.fetchTrades,
-                showImage: false
-            )
-        } else {
-            TradesView(tickerViewModel: tickerViewModel)
-        }
-    }
-    
-    @ViewBuilder
-    private var orderBook: some View {
-        if tickerViewModel.orderBookState == .loading && tickerViewModel.orderBook == nil {
-            ProgressView().progressViewStyle(.circular)
-        } else if tickerViewModel.orderBookState == .error(), case let .error(message) = tickerViewModel.orderBookState {
-            ErrorView(
-                heading: "Order Book isn't available!",
-                paragraph: message,
-                showTryAgainButton: true,
-                tryAgainAction: tickerViewModel.fetchOrderBook,
-                showImage: false
-            )
-        } else {
-            OrderBookView(tickerViewModel: tickerViewModel)
+            LoadingView()
         }
     }
 
