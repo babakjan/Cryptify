@@ -53,6 +53,7 @@
 		DFE01980292FA16B000CCC17 /* AreaChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0197F292FA16B000CCC17 /* AreaChartView.swift */; };
 		DFEFDC63294718A50050847E /* ResourceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFDC62294718A50050847E /* ResourceState.swift */; };
 		DFEFDC66294741DC0050847E /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFDC65294741DC0050847E /* ErrorView.swift */; };
+		DFEFDC68294759880050847E /* HTTPURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFDC67294759880050847E /* HTTPURLResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		DFE0197F292FA16B000CCC17 /* AreaChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaChartView.swift; sourceTree = "<group>"; };
 		DFEFDC62294718A50050847E /* ResourceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceState.swift; sourceTree = "<group>"; };
 		DFEFDC65294741DC0050847E /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		DFEFDC67294759880050847E /* HTTPURLResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPURLResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +147,6 @@
 		DF18A9EE29296EE100533C8B /* Cryptify */ = {
 			isa = PBXGroup;
 			children = (
-				DFEFDC64294741520050847E /* Error */,
 				DF18A9EF29296EE100533C8B /* CryptifyApp.swift */,
 				DFEFDC612947188C0050847E /* Enums */,
 				DF74F39C292EBDC100F194FC /* Extensions */,
@@ -190,6 +191,7 @@
 				DF16FFA22934DFC2005C2CB6 /* Settings */,
 				DF18A9FF29296FEE00533C8B /* Markets */,
 				DF9F74C1292BFE4C00D1F411 /* Ticker */,
+				DFEFDC64294741520050847E /* Error */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -244,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				DF74F39D292EBDDB00F194FC /* Color.swift */,
+				DFEFDC67294759880050847E /* HTTPURLResponse.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				DF3FBC54292D3C3D00A8C865 /* TickerAPI.swift in Sources */,
 				DF4E7D69292A7925004881A0 /* SymbolsGridLoading.swift in Sources */,
 				DF83CD862938EB1500775F4C /* SettingsViewModel.swift in Sources */,
+				DFEFDC68294759880050847E /* HTTPURLResponse.swift in Sources */,
 				DF74F39E292EBDDB00F194FC /* Color.swift in Sources */,
 				DF18AA07292972B000533C8B /* API.swift in Sources */,
 				DF18A9F029296EE100533C8B /* CryptifyApp.swift in Sources */,

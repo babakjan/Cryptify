@@ -98,7 +98,7 @@ final class TickerViewModel: ObservableObject {
         do {
             ticker = try await tickerApi.fetchTicker(symbolId: symbolId)
         } catch {
-            tickerState = .error
+            tickerState = .error()
             return
         }
         
@@ -112,7 +112,7 @@ final class TickerViewModel: ObservableObject {
         do {
             symbol = try await symbolApi.fetchSymbol(symbolId: symbolId)
         } catch {
-            symbolState = .error
+            symbolState = .error()
             return
         }
         
@@ -126,7 +126,7 @@ final class TickerViewModel: ObservableObject {
         do {
             candles = try await candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval)
         } catch {
-            candlesState = .error
+            candlesState = .error()
             return
         }
         
@@ -140,7 +140,7 @@ final class TickerViewModel: ObservableObject {
         do {
             orderBook = try await orderBookApi.fetchOrderBook(symbolId: symbolId)
         } catch {
-            orderBookState = .error
+            orderBookState = .error()
             return
         }
         
@@ -154,7 +154,7 @@ final class TickerViewModel: ObservableObject {
         do {
             trades = try await tradeApi.fetchAllTrades(symbolId: symbolId)
         } catch {
-            tradesState = .error
+            tradesState = .error()
             return
         }
         

@@ -15,8 +15,8 @@ struct MarketsView: View {
         ScrollView {
             if viewModel.symbolsState == ResourceState.loading {
                 SymbolsGridLoading()
-            } else if viewModel.symbolsState == ResourceState.error {
-                ErrorView()
+            } else if viewModel.symbolsState == ResourceState.error(), case let .error(message) = viewModel.symbolsState {
+                ErrorView(paragraph: message)
                     .padding(.top, 64)
                     .padding(.horizontal, 16)
             } else {

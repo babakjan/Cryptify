@@ -10,7 +10,7 @@ import Foundation
 class API<T: Decodable> {
     let serverUrl = "https://api.poloniex.com/markets"
     
-    @MainActor
+    //fetch collection - return array of T
     func fetchAll(path: String, parameters: [Parameter: String] = [:]) async throws -> [T] {
         let url = createUrl(path: path, parameters: parameters)
         var request = URLRequest(url: url)
@@ -18,15 +18,25 @@ class API<T: Decodable> {
         request.timeoutInterval = 16
         
         do {
-            let (data, _) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let response = response as? HTTPURLResponse else {
+                throw APIError.clientError
+            }
+            if response.isClientError() {
+                throw APIError.clientError
+            } else if response.isServerError() {
+                throw APIError.serverError
+            }
+            
             return try JSONDecoder().decode([T].self, from: data)
         } catch {
-            print("[FETCH ALL ERROR]", error)
+            print("[FETCH ALL ERROR]", error.localizedDescription)
             throw APIError.clientError
-//            return []
         }
     }
     
+    //fetch single entity - return instance of T?
     func fetch(path: String, parameters: [Parameter: String] = [:]) async throws -> T? {
         let url = createUrl(path: path, parameters: parameters)
         var request = URLRequest(url: url)
@@ -34,12 +44,21 @@ class API<T: Decodable> {
         request.timeoutInterval = 16
         
         do {
-            let (data, _) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let response = response as? HTTPURLResponse else {
+                throw APIError.clientError
+            }
+            if response.isClientError() {
+                throw APIError.clientError
+            } else if response.isServerError() {
+                throw APIError.serverError
+            }
+            
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
-            print("[FETCH ERROR]", error)
+            print("[FETCH ERROR]", error.localizedDescription)
             throw APIError.clientError
-//            return nil
         }
     }
     
@@ -66,7 +85,18 @@ class API<T: Decodable> {
         case endTime
     }
     
-    enum APIError: Error {
+    //errors thrown by API
+    enum APIError: Error, LocalizedError {
         case clientError
+        case serverError
+        
+        var errorDescription: String? {
+            switch self {
+            case .serverError:
+                return NSLocalizedString("The server is currently unavailable. Please wait, we are working on that.", comment: "")
+            case .clientError:
+                return NSLocalizedString("You may have lost your connection or something have broken on your device.", comment: "")
+            }
+        }
     }
 }

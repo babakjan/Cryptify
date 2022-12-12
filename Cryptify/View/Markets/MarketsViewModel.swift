@@ -10,9 +10,9 @@ import Foundation
 final class MarketsViewModel: ObservableObject {
     @Published private(set) var symbols: [Symbol]
     @Published private(set) var symbolsState = ResourceState.ok
-    @Published var searchedText = ""
     @Published private(set) var lastUpdateDate: Date?
     @Published var sortBy: SortSymbolsBy = .priceDescending
+    @Published var searchedText = ""
     
     private let symbolApi: SymbolAPI = .init()
     
@@ -37,8 +37,8 @@ final class MarketsViewModel: ObservableObject {
         do {
             symbols = try await symbolApi.fetchAllSymbols().sorted(by: { $0.price > $1.price })
         } catch {
-            symbolsState = .error
-            print("fetch symbols error view model")
+            symbolsState = .error(message: error.localizedDescription)
+            print("[ERROR] fetch symbols error view model")
             return
         }
         
