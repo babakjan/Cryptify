@@ -16,9 +16,7 @@ struct MarketsView: View {
             if viewModel.symbolsState == ResourceState.loading {
                 SymbolsGridLoading()
             } else if viewModel.symbolsState == ResourceState.error(), case let .error(message) = viewModel.symbolsState {
-                ErrorView(paragraph: message)
-                    .padding(.top, 64)
-                    .padding(.horizontal, 16)
+                error(message: message)
             } else {
                 loadedBody
             }
@@ -40,6 +38,16 @@ struct MarketsView: View {
                 await viewModel.fetchSymbols()
             }
         }
+    }
+    
+    private func error(message: String) -> some View {
+        ErrorView(
+            paragraph: message,
+            showTryAgainButton: true,
+            tryAgainAction: viewModel.fetchSymbols
+        )
+            .padding(.top, 64)
+            .padding(.horizontal, 16)
     }
     
     @ViewBuilder
