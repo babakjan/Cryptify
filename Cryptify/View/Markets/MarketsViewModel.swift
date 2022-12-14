@@ -11,7 +11,9 @@ import SwiftUI
 final class MarketsViewModel: ObservableObject {
     @Published private(set) var symbols: [Symbol]
     @Published private(set) var symbolsState = ResourceState.ok
+    @Published private(set) var watchlistIds = Set<String>()
     @Published private(set) var lastUpdateDate: Date?
+    @Published var activeList = ActiveList.all
     @Published var searchedText = ""
     @Published var sortBy: SortSymbolsBy = .priceDescending {
         didSet {
@@ -24,10 +26,17 @@ final class MarketsViewModel: ObservableObject {
     //search filter
     var searchResult: [Symbol] {
         if searchedText.isEmpty {
-            return symbols
+            return activeList == ActiveList.watchlist ? watchlist : symbols
         }
-        return symbols.filter { symbol in
+        return (activeList == ActiveList.watchlist ? watchlist : symbols).filter { symbol in
             symbol.firstCurrency.lowercased().contains(searchedText.lowercased())
+        }
+    }
+    
+    //list of symbols in watchlist
+    var watchlist: [Symbol] {
+        return symbols.filter { symbol in
+            watchlistIds.contains(symbol.symbol)
         }
     }
     
@@ -74,6 +83,14 @@ final class MarketsViewModel: ObservableObject {
         return nil
     }
     
+    func addSymbolToWatchlist(symbolId: String) {
+        watchlistIds.insert(symbolId)
+    }
+    
+    func removeSymbolFromWatchlist(symbolId: String) {
+        watchlistIds.remove(symbolId)
+    }
+    
     enum SortSymbolsBy {
         case priceAscending
         case priceDescending
@@ -82,5 +99,14 @@ final class MarketsViewModel: ObservableObject {
         case dailyChangeAscenging
         case dailyChangeDescending
         case none
+    }
+    
+    enum ActiveList: String, CaseIterable, Identifiable {
+        case all = "All"
+        case watchlist = "Watchlist"
+        
+        var id: String {
+            self.rawValue
+        }
     }
 }

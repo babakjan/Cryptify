@@ -69,14 +69,27 @@ struct MarketsView: View {
     }
     
     private var symbolListHeader: some View {
-        VStack {
+        VStack(alignment: .leading) {
             LastUpdateView(lastUpdateDate: viewModel.lastUpdateDate)
+                .padding(.bottom, 16)
+            
+            listPicker
                 .padding(.bottom, 16)
 
             GridHeaderView(viewModel: viewModel)
         }
         .listRowSeparator(.hidden)
         .padding(.bottom, -8)
+    }
+    
+    private var listPicker: some View {
+        Picker("List", selection: $viewModel.activeList) {
+            ForEach(MarketsViewModel.ActiveList.allCases) { list in
+                Text(list.rawValue)
+                    .tag(list)
+            }
+        }
+        .foregroundColor(.theme.accent)
     }
     
     @ViewBuilder
@@ -107,6 +120,26 @@ struct MarketsView: View {
             DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
         }
         .padding(.vertical, 6)
+        .swipeActions(edge: .leading, content: {
+            if viewModel.activeList == MarketsViewModel.ActiveList.all {
+                Button {
+                    viewModel.addSymbolToWatchlist(symbolId: symbol.symbol)
+                } label: {
+                    Label("Watched", systemImage: "eye")
+                }
+                .tint(.theme.accent)
+            }
+        })
+        .swipeActions(edge: .trailing, content: {
+            if viewModel.activeList == MarketsViewModel.ActiveList.watchlist {
+                Button {
+                    viewModel.removeSymbolFromWatchlist(symbolId: symbol.symbol)
+                } label: {
+                    Label("Remove from watchlist", systemImage: "trash")
+                }
+                .tint(.theme.red)
+            }
+        })
     }
 }
 
