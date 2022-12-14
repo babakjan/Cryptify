@@ -8,7 +8,7 @@
 import SwiftUI
 
 //header of the grid, contains sorting functionality
-struct GridHeaderView: View {
+struct ListHeaderView: View {
     @StateObject var viewModel: MarketsViewModel
     
     var body: some View {
@@ -73,6 +73,6 @@ struct GridHeaderView: View {
 
 struct GridHeader_Previews: PreviewProvider {
     static var previews: some View {
-        GridHeaderView(viewModel: .init())
+        ListHeaderView(viewModel: .init())
     }
 }
