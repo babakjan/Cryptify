@@ -123,25 +123,39 @@ struct MarketsView: View {
         }
         .padding(.vertical, 6)
         .swipeActions(edge: .leading, content: {
-            if viewModel.activeList == MarketsViewModel.ActiveList.all {
-                Button {
-                    viewModel.addSymbolToWatchlist(symbolId: symbol.symbol)
-                } label: {
-                    Label("Watched", systemImage: "eye")
-                }
+            addToWatchListButton(symbol: symbol)
                 .tint(.theme.accent)
-            }
         })
         .swipeActions(edge: .trailing, content: {
-            if viewModel.activeList == MarketsViewModel.ActiveList.watchlist {
-                Button {
-                    viewModel.removeSymbolFromWatchlist(symbolId: symbol.symbol)
-                } label: {
-                    Label("Remove from watchlist", systemImage: "trash")
-                }
+            removeFromWatchListButton(symbol: symbol)
                 .tint(.theme.red)
-            }
         })
+        .contextMenu {
+            addToWatchListButton(symbol: symbol)
+            removeFromWatchListButton(symbol: symbol)
+        }
+    }
+    
+    @ViewBuilder
+    private func addToWatchListButton(symbol: Symbol) -> some View {
+        if viewModel.activeList == MarketsViewModel.ActiveList.all {
+            Button {
+                viewModel.addSymbolToWatchlist(symbolId: symbol.symbol)
+            } label: {
+                Label("Add to watchlist", systemImage: "eye")
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func removeFromWatchListButton(symbol: Symbol) -> some View {
+        if viewModel.activeList == MarketsViewModel.ActiveList.watchlist {
+            Button {
+                viewModel.removeSymbolFromWatchlist(symbolId: symbol.symbol)
+            } label: {
+                Label("Remove from watchlist", systemImage: "trash")
+            }
+        }
     }
 }
 
