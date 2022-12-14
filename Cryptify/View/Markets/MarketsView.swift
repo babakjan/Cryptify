@@ -76,7 +76,7 @@ struct MarketsView: View {
             listPicker
                 .padding(.bottom, 16)
 
-            GridHeaderView(viewModel: viewModel)
+            ListHeaderView(viewModel: viewModel)
         }
         .listRowSeparator(.hidden)
         .padding(.bottom, -8)

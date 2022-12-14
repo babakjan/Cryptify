@@ -15,7 +15,7 @@
 		DF18AA03292970A500533C8B /* MarketsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18AA02292970A500533C8B /* MarketsViewModel.swift */; };
 		DF18AA052929718B00533C8B /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18AA042929718B00533C8B /* Symbol.swift */; };
 		DF18AA07292972B000533C8B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18AA06292972B000533C8B /* API.swift */; };
-		DF318EF529328D380082922D /* GridHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF318EF429328D380082922D /* GridHeaderView.swift */; };
+		DF318EF529328D380082922D /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF318EF429328D380082922D /* ListHeaderView.swift */; };
 		DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC41292CABD800A8C865 /* TickerViewModel.swift */; };
 		DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC43292CD20100A8C865 /* ToolbarHeaderView.swift */; };
 		DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC47292CE42A00A8C865 /* DetailsView.swift */; };
@@ -67,7 +67,7 @@
 		DF18AA02292970A500533C8B /* MarketsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsViewModel.swift; sourceTree = "<group>"; };
 		DF18AA042929718B00533C8B /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 		DF18AA06292972B000533C8B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		DF318EF429328D380082922D /* GridHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridHeaderView.swift; sourceTree = "<group>"; };
+		DF318EF429328D380082922D /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
 		DF3FBC41292CABD800A8C865 /* TickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewModel.swift; sourceTree = "<group>"; };
 		DF3FBC43292CD20100A8C865 /* ToolbarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarHeaderView.swift; sourceTree = "<group>"; };
 		DF3FBC47292CE42A00A8C865 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 				DF4E7D68292A7925004881A0 /* SymbolsGridLoading.swift */,
 				DF4E7D60292A763D004881A0 /* PairView.swift */,
 				DF4E7D62292A769D004881A0 /* DailyChangeView.swift */,
-				DF318EF429328D380082922D /* GridHeaderView.swift */,
+				DF318EF429328D380082922D /* ListHeaderView.swift */,
 			);
 			path = Markets;
 			sourceTree = "<group>";
@@ -379,7 +379,7 @@
 				DF74F39B292E5A9400F194FC /* LineChartView.swift in Sources */,
 				DF83CD8829391CBF00775F4C /* OrderBookAPI.swift in Sources */,
 				DF18AA052929718B00533C8B /* Symbol.swift in Sources */,
-				DF318EF529328D380082922D /* GridHeaderView.swift in Sources */,
+				DF318EF529328D380082922D /* ListHeaderView.swift in Sources */,
 				DF3FBC50292D2B5200A8C865 /* CandleAPI.swift in Sources */,
 				DF41C6A32937F282000EC205 /* Theme.swift in Sources */,
 				DFE0197D292F4CD1000CCC17 /* ChartView.swift in Sources */,

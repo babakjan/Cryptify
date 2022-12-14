@@ -13,7 +13,8 @@ final class MarketsViewModel: ObservableObject {
     @Published private(set) var symbolsState = ResourceState.ok
     @Published private(set) var watchlistIds = Set<String>()
     @Published private(set) var lastUpdateDate: Date?
-    @Published var activeList = ActiveList.all
+    @AppStorage("defaultMarketsList") static var defaultMarketsList = MarketsViewModel.ActiveList.all
+    @Published var activeList = defaultMarketsList
     @Published var searchedText = ""
     @Published var sortBy: SortSymbolsBy = .priceDescending {
         didSet {
@@ -76,9 +77,9 @@ final class MarketsViewModel: ObservableObject {
     
     //used for listing through symbols, when user is in ticker view and swipe for next symbol
     func getNextSymbol(symbolId: String) -> Symbol? {
-        let index = symbols.firstIndex(where: { $0.symbol == symbolId })
+        let index = searchResult.firstIndex(where: { $0.symbol == symbolId })
         if let index {
-            return index < symbols.count - 1 ? symbols[index + 1] : nil
+            return index < searchResult.count - 1 ? searchResult[index + 1] : nil
         }
         return nil
     }

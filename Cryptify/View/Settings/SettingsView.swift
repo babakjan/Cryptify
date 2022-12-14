@@ -34,6 +34,8 @@ struct SettingsView: View {
             
             soundEffectsToggle
             
+            defaultMarketsListPicker
+            
             resetBtn
         }
     }
@@ -59,6 +61,19 @@ struct SettingsView: View {
                     settingViewModel.colorScheme == .light ? "sun.max" : "apps.iphone"
             )
         }.onChange(of: settingViewModel.colorScheme) { newValue in
+            SoundManager.instance.playTab()
+        }
+    }
+    
+    private var defaultMarketsListPicker: some View {
+        Picker(selection: $settingViewModel.defaultMarketsList) {
+            ForEach(MarketsViewModel.ActiveList.allCases) { list in
+                Text(list.rawValue)
+                    .tag(list)
+            }
+        } label: {
+            labelWithIcon(text: "Default Markets list", systemImage: "list.bullet")
+        }.onChange(of: settingViewModel.defaultMarketsList) { newValue in
             SoundManager.instance.playTab()
         }
     }
@@ -103,6 +118,7 @@ struct SettingsView: View {
             Image(systemName: systemImage)
                 .padding(.horizontal, iconPadding)
                 .foregroundColor(.theme.accent)
+                .frame(minWidth: 40, alignment: .leading)
             Text(text)
         }
     }
