@@ -21,7 +21,7 @@ final class MarketsViewModel: ObservableObject {
             sortSymbols()
         }
     }
-    
+    private static let watchlistIdsUserDefaultsKey = "watchlistIds"
     private let symbolApi: SymbolAPI = .init()
     
     //search filter
@@ -43,6 +43,8 @@ final class MarketsViewModel: ObservableObject {
     
     init(symbols: [Symbol] = []) {
         self.symbols = symbols
+        
+        loadWatchlistIdsFromUserDefaults()
     }
     
     @MainActor
@@ -86,10 +88,33 @@ final class MarketsViewModel: ObservableObject {
     
     func addSymbolToWatchlist(symbolId: String) {
         watchlistIds.insert(symbolId)
+        saveWatchlistIdsToUserDefaults()
     }
     
     func removeSymbolFromWatchlist(symbolId: String) {
         watchlistIds.remove(symbolId)
+        saveWatchlistIdsToUserDefaults()
+    }
+    
+    private func saveWatchlistIdsToUserDefaults() {
+        let data = try? JSONEncoder().encode(watchlistIds)
+        UserDefaults.standard.set(data, forKey: Self.watchlistIdsUserDefaultsKey)
+    }
+    
+    private func loadWatchlistIdsFromUserDefaults() {
+        guard let data = UserDefaults.standard.data(forKey: Self.watchlistIdsUserDefaultsKey) else {
+            watchlistIds =  Set<String>()
+            return
+        }
+        
+        do {
+            let decodedData = try JSONDecoder().decode(Set<String>.self, from: data)
+            watchlistIds = decodedData
+            return
+        } catch {
+            print("[DECODING_WATCHLIST_ERROR]", error.localizedDescription)
+            watchlistIds =  Set<String>()
+        }
     }
     
     enum SortSymbolsBy {

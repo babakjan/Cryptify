@@ -89,6 +89,8 @@ struct MarketsView: View {
                     .tag(list)
             }
         }
+        .labelsHidden()
+        .padding(.leading, -8)
         .foregroundColor(.theme.accent)
     }
     
