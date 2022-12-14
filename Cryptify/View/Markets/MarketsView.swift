@@ -12,17 +12,17 @@ struct MarketsView: View {
     @StateObject var viewModel = MarketsViewModel()
     
     var body: some View {
-        ScrollView {
+        Group {
             if viewModel.symbolsState == ResourceState.loading {
                 LoadingView()
                     .padding(.top, 128)
             } else if viewModel.symbolsState == ResourceState.error(), case let .error(message) = viewModel.symbolsState {
                 error(message: message)
             } else {
-                loadedBody
+                symbolList
             }
         }
-        .searchable(text: $viewModel.searchedText)
+        .searchable(text: $viewModel.searchedText, placement: .navigationBarDrawer(displayMode: .always))
         .navigationTitle("Markets")
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -52,64 +52,62 @@ struct MarketsView: View {
     }
     
     @ViewBuilder
-    private var loadedBody: some View {
-        LastUpdateView(lastUpdateDate: viewModel.lastUpdateDate)
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
-
-        symbolsGrid
-            .padding(.horizontal, 16)
-    }
-    
-    @ViewBuilder
-    private var symbolsGrid: some View {
-        let columns = [
-            GridItem(.flexible(), spacing: 0, alignment: .leading),
-            GridItem(.flexible(), spacing: 0, alignment: .leading),
-            GridItem(.flexible(), spacing: 0, alignment: .trailing)
-        ]
-        LazyVGrid(columns: columns, spacing: 16) {
-            GridHeaderView(viewModel: viewModel)
+    private var symbolList: some View {
+        List {
+            symbolListHeader
             
-            gridBody()
+            symbolListBody
         }
+        .listStyle(.plain)
         .navigationDestination(for: Symbol.self) { symbol in
-            TickerDetailView(symbol: symbol.symbol, navigationPath: $navigationPath, marketsViewModel: viewModel)
+            TickerDetailView(
+                symbol: symbol.symbol,
+                navigationPath: $navigationPath,
+                marketsViewModel: viewModel
+            )
         }
     }
     
+    private var symbolListHeader: some View {
+        VStack {
+            LastUpdateView(lastUpdateDate: viewModel.lastUpdateDate)
+                .padding(.bottom, 16)
+
+            GridHeaderView(viewModel: viewModel)
+        }
+        .listRowSeparator(.hidden)
+        .padding(.bottom, -8)
+    }
+    
     @ViewBuilder
-    private func gridBody() -> some View {
+    private var symbolListBody: some View {
         ForEach(viewModel.searchResult, id: \.symbol) { symbol in
-            gridRow(symbol: symbol)
-                .onTapGesture {
-                    SoundManager.instance.playTab()
-                    navigationPath.append(symbol)
+            //workaround in order to get rid of the arrow in the list row containing navigation link
+            ZStack {
+                NavigationLink (value: symbol) {
+                    EmptyView()
                 }
+                .opacity(0)
+    
+                listRow(symbol: symbol)
+            }
         }
     }
 
     @ViewBuilder
-    private func gridRow(symbol: Symbol) -> some View {
-        PairView(symbol: symbol)
-        
-        Text(symbol.formattedPrice)
-        
-        DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
-        
-        rowSeparator
-    }
-
-    
-    //work around for creating grid row separator
-    private var rowSeparator: some View {
-        ForEach(0..<3) { _ in //if adding new columns, don't forget to increment range
-            Rectangle()
-                .fill(Color.theme.lightGray)
-                .frame(height: 1)
+    private func listRow(symbol: Symbol) -> some View {
+        HStack {
+            PairView(symbol: symbol)
+                .frame(minWidth: 148, alignment: .leading)
+            
+            Text(symbol.formattedPrice)
+            
+            Spacer()
+            
+            DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
         }
+        .padding(.vertical, 6)
     }
-
 }
 
 struct SymbolView_Previews: PreviewProvider {

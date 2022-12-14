@@ -12,10 +12,13 @@ struct GridHeaderView: View {
     @StateObject var viewModel: MarketsViewModel
     
     var body: some View {
-        Group {
+        HStack {
             pair
+                .frame(minWidth: 148, alignment: .leading)
             
             price
+            
+            Spacer()
             
             dailyChange
         }
@@ -34,7 +37,6 @@ struct GridHeaderView: View {
             withAnimation {
                 viewModel.sortBy = viewModel.sortBy == .pairAscending ? .pairDescendig : .pairAscending
             }
-            viewModel.sortSymbols()
         }
     }
     
@@ -50,7 +52,6 @@ struct GridHeaderView: View {
             withAnimation {
                 viewModel.sortBy = viewModel.sortBy == .priceAscending ? .priceDescending : .priceAscending
             }
-            viewModel.sortSymbols()
         }
     }
     
@@ -66,7 +67,6 @@ struct GridHeaderView: View {
             withAnimation {
                 viewModel.sortBy = viewModel.sortBy == .dailyChangeAscenging ? .dailyChangeDescending : .dailyChangeAscenging
             }
-            viewModel.sortSymbols()
         }
     }
 }

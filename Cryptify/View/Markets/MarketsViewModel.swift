@@ -6,13 +6,18 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class MarketsViewModel: ObservableObject {
     @Published private(set) var symbols: [Symbol]
     @Published private(set) var symbolsState = ResourceState.ok
     @Published private(set) var lastUpdateDate: Date?
-    @Published var sortBy: SortSymbolsBy = .priceDescending
     @Published var searchedText = ""
+    @Published var sortBy: SortSymbolsBy = .priceDescending {
+        didSet {
+            sortSymbols()
+        }
+    }
     
     private let symbolApi: SymbolAPI = .init()
     
@@ -47,14 +52,16 @@ final class MarketsViewModel: ObservableObject {
     }
     
     func sortSymbols() {
-        switch sortBy {
-        case .pairAscending: self.symbols.sort(by: { $0.symbol < $1.symbol })
-        case .pairDescendig: self.symbols.sort(by: { $0.symbol > $1.symbol })
-        case .priceAscending: self.symbols.sort(by: { $0.price < $1.price })
-        case .priceDescending: self.symbols.sort(by: { $0.price > $1.price })
-        case .dailyChangeAscenging: self.symbols.sort(by: { $0.dailyChange < $1.dailyChange })
-        case .dailyChangeDescending: self.symbols.sort(by: { $0.dailyChange > $1.dailyChange })
-        default: return
+        withAnimation(.none) {
+            switch sortBy {
+            case .pairAscending: self.symbols.sort(by: { $0.symbol < $1.symbol })
+            case .pairDescendig: self.symbols.sort(by: { $0.symbol > $1.symbol })
+            case .priceAscending: self.symbols.sort(by: { $0.price < $1.price })
+            case .priceDescending: self.symbols.sort(by: { $0.price > $1.price })
+            case .dailyChangeAscenging: self.symbols.sort(by: { $0.dailyChange < $1.dailyChange })
+            case .dailyChangeDescending: self.symbols.sort(by: { $0.dailyChange > $1.dailyChange })
+            default: return
+            }
         }
     }
     
