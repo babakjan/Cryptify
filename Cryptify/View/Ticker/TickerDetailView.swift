@@ -9,15 +9,18 @@ import SwiftUI
 
 struct TickerDetailView: View {
     @Binding var navigationPath: [Symbol]
+    
     @StateObject var tickerViewModel: TickerViewModel
     @StateObject var marketsViewModel: MarketsViewModel
     
     @State private var timer: Timer?
+    @State private var watched: Bool //if symbol is in watch list
     
     init(symbol: String, navigationPath: Binding<[Symbol]>, marketsViewModel: MarketsViewModel) {
         self._tickerViewModel = StateObject(wrappedValue: TickerViewModel(symbolId: symbol))
         self._navigationPath = navigationPath
         self._marketsViewModel = StateObject(wrappedValue: marketsViewModel)
+        self.watched = marketsViewModel.watchlistIds.contains(symbol)
     }
     
     var body: some View {
@@ -78,7 +81,7 @@ struct TickerDetailView: View {
         VStack(alignment: .leading) {
             priceAndDailyChange
                 
-            chartControlls
+            controls
             
             chart
                 .padding(.bottom, 16)
@@ -109,11 +112,15 @@ struct TickerDetailView: View {
         }
     }
     
-    private var chartControlls: some View {
+    private var controls: some View {
         HStack(spacing: 16) {
             chartTypePicker
             
             intervalPicker
+            
+            Spacer()
+            
+            watchlistToggle
         }.padding(.horizontal, 0)
     }
     
@@ -170,6 +177,31 @@ struct TickerDetailView: View {
             }
         }
         .padding(.horizontal, -11)
+    }
+    
+    @ViewBuilder
+    private var watchlistToggle: some View {
+        if watched {
+            Button {
+                marketsViewModel.removeSymbolFromWatchlist(symbolId: tickerViewModel.symbol?.symbol ?? "")
+                watched = false
+            } label: {
+                HStack {
+                    Text("Watched")
+                    Image(systemName: "eye")
+                }
+            }
+        } else {
+            Button {
+                marketsViewModel.addSymbolToWatchlist(symbolId: tickerViewModel.symbol?.symbol ?? "")
+                watched = true
+            } label: {
+                HStack {
+                    Text("Not watched")
+                    Image(systemName: "eye.slash")
+                }
+            }
+        }
     }
     
     private var displayedViewPicker: some View {
