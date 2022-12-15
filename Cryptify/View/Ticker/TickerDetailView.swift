@@ -47,7 +47,7 @@ struct TickerDetailView: View {
         VStack {
             if tickerViewModel.tickerState == .loading || tickerViewModel.symbolState == .loading {
                 LoadingView()
-                    .padding(.top, 128)
+                    .frame(height: (UIScreen.main.bounds.height / 2) + 36)
             } else if tickerViewModel.tickerState == .error(), case let .error(message) = tickerViewModel.tickerState {
                 ErrorView(
                     paragraph: message,
@@ -120,7 +120,8 @@ struct TickerDetailView: View {
             
             Spacer()
             
-            watchlistToggle
+//            watchlistToggle
+            addAndRemoveFromListMenu
         }.padding(.horizontal, 0)
     }
     
@@ -128,6 +129,7 @@ struct TickerDetailView: View {
     private var chart: some View {
         if tickerViewModel.candlesState == .loading {
             LoadingView()
+                .frame(height: 290)
         } else if tickerViewModel.candlesState == .error(), case let .error(message) = tickerViewModel.candlesState {
             ErrorView(
                 heading: "Chart's not available!",
@@ -200,6 +202,42 @@ struct TickerDetailView: View {
                     Text("Not watched")
                     Image(systemName: "eye.slash")
                 }
+            }
+        }
+    }
+    
+    private var addAndRemoveFromListMenu: some View {
+        Menu {
+            ForEach(marketsViewModel.listNames, id: \.self) { listName in
+                if marketsViewModel.isSymbolInList(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName) {
+                    removeSymbolFromList(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName)
+                } else {
+                    addSymbolToListButton(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName)
+                }
+            }
+        } label: {
+            Image(systemName: "ellipsis")
+        }
+    }
+    
+    @ViewBuilder
+    private func removeSymbolFromList(symbolId: String, listName: String) -> some View {
+        if listName != "All" {
+            Button(role: .destructive) {
+                marketsViewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
+            } label: {
+                Label("Remove from \(listName)", systemImage: "trash")
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func addSymbolToListButton(symbolId: String, listName: String) -> some View {
+        if listName != "All" {
+            Button {
+                marketsViewModel.addSymbolToList(symbolId: symbolId, listName: listName)
+            } label: {
+                Label("Add to \(listName)", systemImage: listName == "Watchlist" ? "eye" : "plus")
             }
         }
     }

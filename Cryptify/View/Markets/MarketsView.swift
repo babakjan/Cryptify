@@ -15,7 +15,6 @@ struct MarketsView: View {
         Group {
             if viewModel.symbolsState == ResourceState.loading {
                 LoadingView()
-                    .padding(.top, 128)
             } else if viewModel.symbolsState == ResourceState.error(), case let .error(message) = viewModel.symbolsState {
                 error(message: message)
             } else {
@@ -73,8 +72,14 @@ struct MarketsView: View {
             LastUpdateView(lastUpdateDate: viewModel.lastUpdateDate)
                 .padding(.bottom, 16)
             
-            listPicker
-                .padding(.bottom, 16)
+            HStack {
+                listPicker
+                
+                Spacer()
+                
+                editListsMenu
+            }
+            .padding(.bottom, 16)
 
             ListHeaderView(viewModel: viewModel)
         }
@@ -83,15 +88,17 @@ struct MarketsView: View {
     }
     
     private var listPicker: some View {
-        Picker("List", selection: $viewModel.activeList) {
-            ForEach(MarketsViewModel.ActiveList.allCases) { list in
-                Text(list.rawValue)
-                    .tag(list)
+        Menu {
+            ForEach(viewModel.listNames, id: \.self) { listName in
+                Button(listName) {
+                    viewModel.activeList = listName
+                }
             }
+        } label: {
+            Text("\(viewModel.activeList) \(Image(systemName: "chevron.up.chevron.down"))")
+                .foregroundColor(.theme.accent)
         }
-        .labelsHidden()
-        .padding(.leading, -8)
-        .foregroundColor(.theme.accent)
+        .frame(minWidth: 128 , alignment: .leading)
     }
     
     @ViewBuilder
@@ -123,37 +130,107 @@ struct MarketsView: View {
         }
         .padding(.vertical, 6)
         .swipeActions(edge: .leading, content: {
-            addToWatchListButton(symbol: symbol)
-                .tint(.theme.accent)
+            if viewModel.activeList != "Watchlist" {
+                addSymbolToListButton(symbolId: symbol.symbol, listName: "Watchlist")
+                    .tint(.theme.accent)
+            }
         })
         .swipeActions(edge: .trailing, content: {
-            removeFromWatchListButton(symbol: symbol)
-                .tint(.theme.red)
+            if viewModel.activeList != "All" {
+                removeSymbolFromList(symbolId: symbol.symbol, listName: viewModel.activeList)
+                    .tint(.theme.red)
+            }
         })
         .contextMenu {
-            addToWatchListButton(symbol: symbol)
-            removeFromWatchListButton(symbol: symbol)
+            listRowContextMenu(symbolId: symbol.symbol)
+        }
+    }
+    
+    private func listRowContextMenu(symbolId: String) -> some View {
+        ForEach(viewModel.listNames, id: \.self) { listName in
+            if viewModel.isSymbolInList(symbolId: symbolId, listName: listName) {
+                removeSymbolFromList(symbolId: symbolId, listName: listName)
+            } else {
+                addSymbolToListButton(symbolId: symbolId, listName: listName)
+            }
+        }
+    }
+    
+    private var editListsMenu: some View {
+        Menu {
+            createListButton
+            
+            setListAsDefaultButton
+            
+            deleteListButton
+        } label: {
+            Text("\(Image(systemName: "ellipsis"))")
+                .foregroundColor(.theme.accent)
+                .font(.title2)
+                .frame(minWidth: 64, alignment: .trailing)
+        }
+        .alert("Create list", isPresented: $viewModel.createListAlertPresent) {
+            TextField("Name", text: $viewModel.newListName)
+            Button("Create") {
+                viewModel.createList()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Create new list of symbols.")
+        }
+        .confirmationDialog("Delete \(viewModel.activeList)?", isPresented: $viewModel.deleteListConfirmationDialogPresent, titleVisibility: .visible) {
+            Button("Delete", role: .destructive, action: viewModel.deleteActiveList)
+        }
+    }
+    
+    private var createListButton: some View {
+        Button {
+            viewModel.createListAlertPresent = true
+        } label: {
+            Label("Create list", systemImage: "plus")
         }
     }
     
     @ViewBuilder
-    private func addToWatchListButton(symbol: Symbol) -> some View {
-        if viewModel.activeList == MarketsViewModel.ActiveList.all {
+    private var setListAsDefaultButton: some View {
+        if viewModel.activeList != MarketsViewModel.defaultMarketList {
             Button {
-                viewModel.addSymbolToWatchlist(symbolId: symbol.symbol)
+                viewModel.setActiveListAsDefault()
             } label: {
-                Label("Add to watchlist", systemImage: "eye")
+                Label("Set as default", systemImage: "pin")
             }
         }
     }
     
     @ViewBuilder
-    private func removeFromWatchListButton(symbol: Symbol) -> some View {
-        if viewModel.activeList == MarketsViewModel.ActiveList.watchlist {
-            Button {
-                viewModel.removeSymbolFromWatchlist(symbolId: symbol.symbol)
+    private var deleteListButton: some View {
+        if viewModel.activeList != "All" && viewModel.activeList != "Watchlist" {
+            Button(role: .destructive) {
+                viewModel.deleteListConfirmationDialogPresent = true
             } label: {
-                Label("Remove from watchlist", systemImage: "trash")
+                Label("Delete list", systemImage: "trash")
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func removeSymbolFromList(symbolId: String, listName: String) -> some View {
+        if listName != "All" {
+            Button(role: .destructive) {
+                viewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
+            } label: {
+                Label("Remove from \(listName)", systemImage: "trash")
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func addSymbolToListButton(symbolId: String, listName: String) -> some View {
+        if listName != "All" {
+            Button {
+                viewModel.addSymbolToList(symbolId: symbolId, listName: listName)
+            } label: {
+                Label("Add to \(listName)", systemImage: listName == "Watchlist" ? "eye" : "plus")
             }
         }
     }

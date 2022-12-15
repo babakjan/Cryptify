@@ -9,42 +9,55 @@ import Foundation
 import SwiftUI
 
 final class MarketsViewModel: ObservableObject {
+    @AppStorage("defaultMarketsList") static var defaultMarketList = "All"
     @Published private(set) var symbols: [Symbol]
     @Published private(set) var symbolsState = ResourceState.ok
     @Published private(set) var watchlistIds = Set<String>()
     @Published private(set) var lastUpdateDate: Date?
-    @AppStorage("defaultMarketsList") static var defaultMarketsList = MarketsViewModel.ActiveList.all
-    @Published var activeList = defaultMarketsList
+    @Published var marketLists: [String: Set<String>] //id is list name, value is list of symbol ids
+    @Published var activeList = MarketsViewModel.defaultMarketList
+    @Published var newListName = ""
+    @Published var createListAlertPresent = false
+    @Published var deleteListConfirmationDialogPresent = false
     @Published var searchedText = ""
     @Published var sortBy: SortSymbolsBy = .priceDescending {
         didSet {
             sortSymbols()
         }
     }
-    private static let watchlistIdsUserDefaultsKey = "watchlistIds"
+    private static let marketListsUserDefaultsKey = "marketLists"
+    
     private let symbolApi: SymbolAPI = .init()
     
     //search filter
     var searchResult: [Symbol] {
         if searchedText.isEmpty {
-            return activeList == ActiveList.watchlist ? watchlist : symbols
+            return symbolsInActiveList
         }
-        return (activeList == ActiveList.watchlist ? watchlist : symbols).filter { symbol in
+        return symbolsInActiveList.filter { symbol in
             symbol.firstCurrency.lowercased().contains(searchedText.lowercased())
         }
     }
     
     //list of symbols in watchlist
-    var watchlist: [Symbol] {
-        return symbols.filter { symbol in
-            watchlistIds.contains(symbol.symbol)
+    var symbolsInActiveList: [Symbol] {
+        if activeList == "All" {
+            return symbols
         }
+        return symbols.filter { symbol in
+            (marketLists[activeList] ?? []).contains(symbol.symbol)
+        }
+    }
+    
+    var listNames: [String] {
+        ["All"] + marketLists.keys.sorted(by: >)
     }
     
     init(symbols: [Symbol] = []) {
         self.symbols = symbols
+        self.marketLists = ["Watchlist": []]
         
-        loadWatchlistIdsFromUserDefaults()
+        loadMarketListsFromUserDefauls()
     }
     
     @MainActor
@@ -87,33 +100,81 @@ final class MarketsViewModel: ObservableObject {
     }
     
     func addSymbolToWatchlist(symbolId: String) {
-        watchlistIds.insert(symbolId)
-        saveWatchlistIdsToUserDefaults()
+        marketLists["Watchlist"]?.insert(symbolId)
     }
-    
+
     func removeSymbolFromWatchlist(symbolId: String) {
-        watchlistIds.remove(symbolId)
-        saveWatchlistIdsToUserDefaults()
+        marketLists["Watchlist"]?.remove(symbolId)
     }
     
-    private func saveWatchlistIdsToUserDefaults() {
-        let data = try? JSONEncoder().encode(watchlistIds)
-        UserDefaults.standard.set(data, forKey: Self.watchlistIdsUserDefaultsKey)
-    }
-    
-    private func loadWatchlistIdsFromUserDefaults() {
-        guard let data = UserDefaults.standard.data(forKey: Self.watchlistIdsUserDefaultsKey) else {
-            watchlistIds =  Set<String>()
+    func addSymbolToList(symbolId: String, listName: String) {
+        guard marketLists.keys.contains(listName) else {
+            print("[LIST_NOT_EXISTS_ERROR]", listName)
             return
         }
         
+        marketLists[listName]!.insert(symbolId)
+        saveMarketListsToUserDefaults()
+    }
+    
+    func removeSymbolFromList(symbolId: String, listName: String) {
+        guard marketLists.keys.contains(listName) else {
+            print("[LIST_NOT_EXISTS_ERROR]", listName)
+            return
+        }
+        
+        marketLists[listName]!.remove(symbolId)
+        saveMarketListsToUserDefaults()
+    }
+    
+    func createList() {
+        if newListName.isEmpty {
+            print("list is empty") // TODO: display error
+            return
+        }
+        if marketLists.keys.contains(newListName) {
+            print("list exists") // TODO: display error
+            return
+        }
+        marketLists[newListName] = Set<String>()
+        newListName = ""
+    }
+    
+    func setActiveListAsDefault() {
+        Self.defaultMarketList = activeList
+    }
+    
+    func deleteActiveList() {
+        let listToDelete = activeList
+        activeList = "All"
+        marketLists.removeValue(forKey: listToDelete)
+    }
+    
+    func isSymbolInList(symbolId: String, listName: String) -> Bool {
+        guard marketLists.keys.contains(listName) else {
+            return false
+        }
+        return marketLists[listName]!.contains(symbolId)
+    }
+    
+    private func saveMarketListsToUserDefaults() {
+        let data = try? JSONEncoder().encode(marketLists)
+        UserDefaults.standard.set(data, forKey: Self.marketListsUserDefaultsKey)
+    }
+
+    private func loadMarketListsFromUserDefauls() {
+        guard let data = UserDefaults.standard.data(forKey: Self.marketListsUserDefaultsKey) else {
+            marketLists =  ["Watchlist": Set<String>()]
+            return
+        }
+
         do {
-            let decodedData = try JSONDecoder().decode(Set<String>.self, from: data)
-            watchlistIds = decodedData
+            let decodedData = try JSONDecoder().decode([String : Set<String>].self, from: data)
+            marketLists = decodedData
             return
         } catch {
-            print("[DECODING_WATCHLIST_ERROR]", error.localizedDescription)
-            watchlistIds =  Set<String>()
+            print("[DECODING_MARKET_LISTS_ERROR]", error.localizedDescription)
+            marketLists =  ["Watchlist": Set<String>()]
         }
     }
     
