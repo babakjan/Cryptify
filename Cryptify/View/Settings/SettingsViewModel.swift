@@ -9,10 +9,13 @@ import Foundation
 import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
-    @AppStorage("colorScheme") var colorScheme = Theme.system
-    @AppStorage("soundOn") var soundOn = false
-    @AppStorage("notificationsOn") var notificationsOn = true
+    @AppStorage(SettingsViewModel.colorSchemeUserDefaultsKey) var colorScheme = Theme.system
+    @AppStorage(SoundManager.soundOnUserDefaultsKey) var soundOn = false
+    @AppStorage(SettingsViewModel.notificationsOnUserDefaultsKey) var notificationsOn = true
     @AppStorage(MarketsViewModel.defaultMarketListUserDefaultsKey) var defaultMarketsList = SpecialMarketsList.all.rawValue
+    
+    static let colorSchemeUserDefaultsKey = "colorScheme"
+    static let notificationsOnUserDefaultsKey = "notificationsOn"
     
     @MainActor
     func resetAllSettings() {

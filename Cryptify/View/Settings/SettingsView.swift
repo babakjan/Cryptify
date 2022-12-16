@@ -55,11 +55,8 @@ struct SettingsView: View {
                     .tag(theme)
             }
         } label: {
-            labelWithIcon(
-                text: "Theme",
-                systemImage: settingViewModel.colorScheme == .dark ? "moon" :
-                    settingViewModel.colorScheme == .light ? "sun.max" : "apps.iphone"
-            )
+            Label("Theme", systemImage: settingViewModel.colorScheme == .dark ? "moon" :
+                    settingViewModel.colorScheme == .light ? "sun.max" : "apps.iphone")
         }.onChange(of: settingViewModel.colorScheme) { newValue in
             SoundManager.instance.playTab()
         }
@@ -71,7 +68,7 @@ struct SettingsView: View {
                 Text(listName)
             }
         } label: {
-            labelWithIcon(text: "Default Markets list", systemImage: "list.bullet")
+            Label("Default Markets list", systemImage: "list.bullet")
         }.onChange(of: settingViewModel.defaultMarketsList) { newValue in
             SoundManager.instance.playTab()
         }
@@ -79,10 +76,7 @@ struct SettingsView: View {
     
     private var notificationsToggle: some View {
         Toggle(isOn: settingViewModel.$notificationsOn) {
-            labelWithIcon(
-                text: "Notifications",
-                systemImage: settingViewModel.notificationsOn ? "bell.badge" : "bell.slash"
-            )
+            Label("Notifications", systemImage: settingViewModel.notificationsOn ? "bell.badge" : "bell.slash")
         }.onChange(of: settingViewModel.notificationsOn) { newValue in
             SoundManager.instance.playTab()
         }
@@ -90,10 +84,7 @@ struct SettingsView: View {
     
     private var soundEffectsToggle: some View {
         Toggle(isOn: settingViewModel.$soundOn) {
-            labelWithIcon(
-                text: "Sound effects",
-                systemImage: settingViewModel.soundOn ? "speaker.wave.2" : "speaker.slash"
-            )
+            Label("Sound effects", systemImage: settingViewModel.soundOn ? "speaker.wave.2" : "speaker.slash")
         }.onChange(of: settingViewModel.soundOn) { newValue in
             SoundManager.instance.playTab()
         }
@@ -104,21 +95,7 @@ struct SettingsView: View {
             SoundManager.instance.playTab()
             settingViewModel.resetAllSettings()
         } label: {
-            labelWithIcon(
-                text: "Reset all settings",
-                systemImage: "arrow.counterclockwise"
-            )
-        }
-    }
-    
-    @ViewBuilder
-    private func labelWithIcon(text: String, systemImage: String, iconPadding: Double = 8) -> some View {
-        HStack {
-            Image(systemName: systemImage)
-                .padding(.horizontal, iconPadding)
-                .foregroundColor(.theme.accent)
-                .frame(minWidth: 40, alignment: .leading)
-            Text(text)
+            Label("Reset all settings", systemImage: "arrow.counterclockwise")
         }
     }
 }

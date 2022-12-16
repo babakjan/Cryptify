@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var navigationPath: [Symbol] = []
-    @AppStorage("colorScheme") private var colorScheme = Theme.system
+    @AppStorage(SettingsViewModel.colorSchemeUserDefaultsKey) private var colorScheme = Theme.system
     
     var body: some View {
         NavigationView {

@@ -20,12 +20,17 @@ final class TickerViewModel: ObservableObject {
     @Published private(set) var orderBookState = ResourceState.ok
     @Published private(set) var trades: [Trade] = []
     @Published private(set) var tradesState = ResourceState.ok
-    @Published private var selectedChartHelper = ChartType.area
-    @Published var selectedInterval = Interval.all
     @Published var displayedViewHelper = DisplayedView.trades
+    
+    @AppStorage(TickerViewModel.selectedIntervalUserDefaultsKey) var selectedInterval = Interval.all
+    @AppStorage(TickerViewModel.selectedChartUserDefaultsKey) private var selectedChartHelper = ChartType.area
+    
+    static let selectedIntervalUserDefaultsKey = "ChartDefaultInterval"
+    static let selectedChartUserDefaultsKey = "selectedChart"
+    static let maxNumberOfAutoReloadTrys = 3 //if auto realoading request fails more than this times in a row, stop trying
+    
     private var tradesInRowFails = 0 //number of failed requests in a row of trades
     private var orderBookInRowFails = 0 //number of failed requests in a row of order book
-    static let maxNumberOfAutoReloadTrys = 3 //if auto realoading request fails more than this times in a row, stop trying
     
     private let symbolId: String
     private let tickerApi: TickerAPI = .init()

@@ -9,10 +9,6 @@ import Foundation
 import SwiftUI
 
 final class MarketsViewModel: ObservableObject {
-    static let marketListsUserDefaultsKey = "marketLists"
-    static let defaultMarketListUserDefaultsKey = "defaultMarketsList"
-    
-    @AppStorage(MarketsViewModel.defaultMarketListUserDefaultsKey) static var defaultMarketList = SpecialMarketsList.all.rawValue
     
     @Published private(set) var symbols: [Symbol]
     @Published private(set) var symbolsState = ResourceState.ok
@@ -29,6 +25,11 @@ final class MarketsViewModel: ObservableObject {
             sortSymbols()
         }
     }
+    
+    @AppStorage(MarketsViewModel.defaultMarketListUserDefaultsKey) static var defaultMarketList = SpecialMarketsList.all.rawValue
+    
+    static let marketListsUserDefaultsKey = "marketLists"
+    static let defaultMarketListUserDefaultsKey = "defaultMarketsList"
     
     private let symbolApi: SymbolAPI = .init()
     
