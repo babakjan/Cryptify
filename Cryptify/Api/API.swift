@@ -7,37 +7,16 @@
 
 import Foundation
 
-class API<T: Decodable> {
-    let serverUrl = "https://api.poloniex.com/markets"
+//sigleton API, all APIs inherit from it
+class API {
+    static let shared = API()
     
-    //fetch collection - return array of T
-    func fetchAll(path: String, parameters: [Parameter: String] = [:]) async throws -> [T] {
-        let url = createUrl(path: path, parameters: parameters)
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.timeoutInterval = 16
-        
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-            guard let response = response as? HTTPURLResponse else {
-                throw APIError.clientError
-            }
-            if response.isClientError() {
-                throw APIError.clientError
-            } else if response.isServerError() {
-                throw APIError.serverError
-            }
-            
-            return try JSONDecoder().decode([T].self, from: data)
-        } catch {
-            print("[FETCH ALL ERROR]", error.localizedDescription)
-            throw APIError.clientError
-        }
-    }
+    static let serverUrl = "https://api.poloniex.com/markets"
     
+    private init() {} //sigleton hasn't accessible constructor
+
     //fetch single entity - return instance of T?
-    func fetch(path: String, parameters: [Parameter: String] = [:]) async throws -> T? {
+    func fetch<T: Decodable>(path: String, parameters: [Parameter: String] = [:]) async throws -> T? {
         let url = createUrl(path: path, parameters: parameters)
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -74,7 +53,7 @@ class API<T: Decodable> {
             url = url + connector + label + "=" + value
             connector = "&"
         }
-        return URL(string: serverUrl + url)!
+        return URL(string: API.serverUrl + url)!
     }
     
     //available parameters for Poloniex API

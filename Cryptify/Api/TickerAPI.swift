@@ -10,7 +10,7 @@ import Foundation
 //api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-ticker
 
 //singleton API for Ticker
-final class TickerAPI: API<Ticker> {
+final class TickerAPI: API {
     
     static let shared = TickerAPI()
     

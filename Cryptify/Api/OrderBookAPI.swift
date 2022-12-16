@@ -10,7 +10,7 @@ import Foundation
 //api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-order-book
 
 //singleton API for Order book
-final class OrderBookAPI: API<OrderBook> {
+final class OrderBookAPI: API {
     
     static let shared = OrderBookAPI()
     
