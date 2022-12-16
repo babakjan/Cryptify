@@ -148,6 +148,8 @@ struct TickerDetailView: View {
             LoadingView()
         }
     }
+    
+    // MARK: - inputs
 
     private var chartTypePicker: some View {
         Picker("Chart type", selection: $tickerViewModel.selectedChart) {
@@ -182,7 +184,7 @@ struct TickerDetailView: View {
         Menu {
             ForEach(marketsViewModel.listNames, id: \.self) { listName in
                 if marketsViewModel.isSymbolInList(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName) {
-                    removeSymbolFromList(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName)
+                    removeSymbolFromListButton(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName)
                 } else {
                     addSymbolToListButton(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName)
                 }
@@ -195,7 +197,7 @@ struct TickerDetailView: View {
     }
     
     @ViewBuilder
-    private func removeSymbolFromList(symbolId: String, listName: String) -> some View {
+    private func removeSymbolFromListButton(symbolId: String, listName: String) -> some View {
         if listName != SpecialMarketsList.all.rawValue {
             Button(role: .destructive) {
                 marketsViewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
@@ -216,6 +218,7 @@ struct TickerDetailView: View {
         }
     }
     
+    //picker between trades and order book views
     private var displayedViewPicker: some View {
         Picker("Displayed View", selection: $tickerViewModel.displayedView) {
             ForEach(TickerViewModel.DisplayedView.allCases) { view in
@@ -231,6 +234,9 @@ struct TickerDetailView: View {
             }
         }
     }
+    
+    
+    // MARK: - functions
     
     //helper function, because timer doesn't support async functions
     //don't know if it's neccessary, api doen't change that frequently

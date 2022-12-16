@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 final class MarketsViewModel: ObservableObject {
+    private static let marketListsUserDefaultsKey = "marketLists"
+    
     @AppStorage("defaultMarketsList") static var defaultMarketList = SpecialMarketsList.all.rawValue
     
     @Published private(set) var symbols: [Symbol]
@@ -26,7 +28,6 @@ final class MarketsViewModel: ObservableObject {
             sortSymbols()
         }
     }
-    private static let marketListsUserDefaultsKey = "marketLists"
     
     private let symbolApi: SymbolAPI = .init()
     
@@ -140,6 +141,7 @@ final class MarketsViewModel: ObservableObject {
         }
         if listNames.contains(newListName) {
             createListError = .duplicate(name: newListName)
+            newListName = ""
             return
         }
         marketLists[newListName] = Set<String>()
