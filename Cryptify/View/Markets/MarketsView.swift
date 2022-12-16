@@ -38,6 +38,9 @@ struct MarketsView: View {
                 await viewModel.fetchSymbols()
             }
         }
+        .onAppear {
+            print("appear")
+        }
     }
     
     private func error(message: String) -> some View {
@@ -220,12 +223,11 @@ struct MarketsView: View {
     //set list as default - default list = selected list when opening app
     @ViewBuilder
     private var setListAsDefaultButton: some View {
-        if viewModel.activeList != MarketsViewModel.defaultMarketList { // TODO: after setting default, this not work, button still shown
-            Button {
-                viewModel.setActiveListAsDefault()
-            } label: {
-                Label("Set as default", systemImage: "pin")
-            }
+        // TODO: display only if active list != default list
+        Button {
+            viewModel.setActiveListAsDefault()
+        } label: {
+            Label("Set as default", systemImage: "pin")
         }
     }
     

@@ -9,9 +9,10 @@ import Foundation
 import SwiftUI
 
 final class MarketsViewModel: ObservableObject {
-    private static let marketListsUserDefaultsKey = "marketLists"
+    static let marketListsUserDefaultsKey = "marketLists"
+    static let defaultMarketListUserDefaultsKey = "defaultMarketsList"
     
-    @AppStorage("defaultMarketsList") static var defaultMarketList = SpecialMarketsList.all.rawValue
+    @AppStorage(MarketsViewModel.defaultMarketListUserDefaultsKey) static var defaultMarketList = SpecialMarketsList.all.rawValue
     
     @Published private(set) var symbols: [Symbol]
     @Published private(set) var symbolsState = ResourceState.ok
@@ -61,7 +62,7 @@ final class MarketsViewModel: ObservableObject {
         self.symbols = symbols
         self.marketLists = [SpecialMarketsList.watchlist.rawValue: Set<String>()]
         
-        loadMarketListsFromUserDefauls()
+        self.marketLists = Self.loadMarketListsFromUserDefauls()
     }
     
     @MainActor
@@ -112,7 +113,7 @@ final class MarketsViewModel: ObservableObject {
         }
         
         marketLists[listName]!.insert(symbolId)
-        saveMarketListsToUserDefaults()
+        Self.saveMarketListsToUserDefaults(marketLists)
     }
     
     func removeSymbolFromList(symbolId: String, listName: String) {
@@ -122,7 +123,7 @@ final class MarketsViewModel: ObservableObject {
         }
         
         marketLists[listName]!.remove(symbolId)
-        saveMarketListsToUserDefaults()
+        Self.saveMarketListsToUserDefaults(marketLists)
     }
     
     func isSymbolInList(symbolId: String, listName: String) -> Bool {
@@ -147,12 +148,12 @@ final class MarketsViewModel: ObservableObject {
         marketLists[newListName] = Set<String>()
         activeList = newListName
         newListName = ""
-        saveMarketListsToUserDefaults()
+        Self.saveMarketListsToUserDefaults(marketLists)
     }
     
     func setActiveListAsDefault() {
         Self.defaultMarketList = activeList
-        saveMarketListsToUserDefaults()
+        Self.saveMarketListsToUserDefaults(marketLists)
     }
     
     func deleteActiveList() {
@@ -164,28 +165,27 @@ final class MarketsViewModel: ObservableObject {
             Self.defaultMarketList = SpecialMarketsList.all.rawValue
         }
         
-        saveMarketListsToUserDefaults()
+        Self.saveMarketListsToUserDefaults(marketLists)
     }
     
     // MARK: - market lists persistance
     
-    private func saveMarketListsToUserDefaults() {
+    static func saveMarketListsToUserDefaults(_ marketLists: [String: Set<String>]) {
         let data = try? JSONEncoder().encode(marketLists)
         UserDefaults.standard.set(data, forKey: Self.marketListsUserDefaultsKey)
     }
 
-    private func loadMarketListsFromUserDefauls() {
+    static func loadMarketListsFromUserDefauls() -> [String: Set<String>] {
         guard let data = UserDefaults.standard.data(forKey: Self.marketListsUserDefaultsKey) else {
-            marketLists =  [SpecialMarketsList.watchlist.rawValue: Set<String>()]
-            return
+            return [SpecialMarketsList.watchlist.rawValue: Set<String>()]
         }
 
         do {
             let decodedData = try JSONDecoder().decode([String : Set<String>].self, from: data)
-            marketLists = decodedData
+            return decodedData
         } catch {
             print("[DECODING_MARKET_LISTS_ERROR]", error.localizedDescription)
-            marketLists =  [SpecialMarketsList.watchlist.rawValue: Set<String>()]
+            return [SpecialMarketsList.watchlist.rawValue: Set<String>()]
         }
     }
     
