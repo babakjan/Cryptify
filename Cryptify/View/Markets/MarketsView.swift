@@ -119,21 +119,13 @@ struct MarketsView: View {
         .padding(.vertical, 6)
         .swipeActions(edge: .leading, content: { //swipe from leading ege shortcut for adding symbol to watchlist, not available in Watchlist
             if viewModel.activeList != SpecialMarketsList.watchlist.rawValue {
-                AddAndRemoveSymbolFromListMenuContent.addSymbolToListButton(
-                    symbolId: symbol.symbol,
-                    listName: SpecialMarketsList.watchlist.rawValue,
-                    marketsViewModel: viewModel
-                )
+                AddSymbolToListButton(symbolId: symbol.symbol, listName: SpecialMarketsList.watchlist.rawValue, marketsViewModel: viewModel)
                     .tint(.theme.accent)
             }
         })
         .swipeActions(edge: .trailing, content: { //swipe from trailing edge shortcut for removing symbol from active list, not available in All symbols
             if viewModel.activeList != SpecialMarketsList.all.rawValue {
-                AddAndRemoveSymbolFromListMenuContent.removeSymbolFromListButton(
-                    symbolId: symbol.symbol,
-                    listName: viewModel.activeList,
-                    marketsViewModel: viewModel
-                )
+                RemoveSymbolFromListButton(symbolId: symbol.symbol, listName: viewModel.activeList, marketsViewModel: viewModel)
                     .tint(.theme.red)
             }
         })
@@ -144,19 +136,18 @@ struct MarketsView: View {
     
     // MARK: - inputs, menus
     
-    //set visible list TODO: create menu and own lable, label is laggy
+    //set visible list
     private var listSwitcher: some View {
-        Menu {
+        Picker("List", selection: $viewModel.activeList) {
             ForEach(viewModel.listNames, id: \.self) { listName in
-                Button(listName) {
-                    viewModel.activeList = listName
-                }
+                Text(listName)
             }
-        } label: {
-            Text("\(viewModel.activeList) \(Image(systemName: "chevron.up.chevron.down"))")
-                .foregroundColor(.theme.accent)
         }
-        .frame(minWidth: 128 , alignment: .leading)
+        .foregroundColor(.theme.accent)
+        .labelsHidden()
+        .padding(.leading, -8)
+        .pickerStyle(.menu)
+
     }
     
     //can add list, remove list, set list as default

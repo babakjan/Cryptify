@@ -14,15 +14,29 @@ struct AddAndRemoveSymbolFromListMenuContent: View {
     var body: some View {
         ForEach(marketsViewModel.listNames, id: \.self) { listName in
             if marketsViewModel.isSymbolInList(symbolId: symbolId, listName: listName) {
-                Self.removeSymbolFromListButton(symbolId: symbolId, listName: listName, marketsViewModel: marketsViewModel)
+                RemoveSymbolFromListButton(
+                    symbolId: symbolId,
+                    listName: listName,
+                    marketsViewModel: marketsViewModel
+                )
             } else {
-                Self.addSymbolToListButton(symbolId: symbolId, listName: listName, marketsViewModel: marketsViewModel)
+               AddSymbolToListButton(
+                symbolId: symbolId,
+                listName: listName,
+                marketsViewModel: marketsViewModel
+               )
             }
         }
     }
+}
+
+struct RemoveSymbolFromListButton: View {
+    var symbolId: String
+    var listName: String
     
-    @ViewBuilder
-    static func removeSymbolFromListButton(symbolId: String, listName: String, marketsViewModel: MarketsViewModel) -> some View {
+    @StateObject var marketsViewModel: MarketsViewModel
+    
+    var body: some View {
         if listName != SpecialMarketsList.all.rawValue {
             Button(role: .destructive) {
                 marketsViewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
@@ -31,9 +45,15 @@ struct AddAndRemoveSymbolFromListMenuContent: View {
             }
         }
     }
+}
+
+struct AddSymbolToListButton: View {
+    var symbolId: String
+    var listName: String
     
-    @ViewBuilder
-    static func addSymbolToListButton(symbolId: String, listName: String, marketsViewModel: MarketsViewModel) -> some View {
+    @StateObject var marketsViewModel: MarketsViewModel
+    
+    var body: some View {
         if listName != SpecialMarketsList.all.rawValue {
             Button {
                 marketsViewModel.addSymbolToList(symbolId: symbolId, listName: listName)
