@@ -182,39 +182,14 @@ struct TickerDetailView: View {
     
     private var addAndRemoveFromListMenu: some View {
         Menu {
-            ForEach(marketsViewModel.listNames, id: \.self) { listName in
-                if marketsViewModel.isSymbolInList(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName) {
-                    removeSymbolFromListButton(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName)
-                } else {
-                    addSymbolToListButton(symbolId: tickerViewModel.symbol?.symbol ?? "", listName: listName)
-                }
-            }
+            AddAndRemoveSymbolFromListMenuContent(
+                marketsViewModel: marketsViewModel,
+                symbolId: tickerViewModel.symbol?.symbol ?? ""
+            )
         } label: {
             Image(systemName: "ellipsis")
                 .font(.title2)
                 .frame(minWidth: 64, alignment: .trailing)
-        }
-    }
-    
-    @ViewBuilder
-    private func removeSymbolFromListButton(symbolId: String, listName: String) -> some View {
-        if listName != SpecialMarketsList.all.rawValue {
-            Button(role: .destructive) {
-                marketsViewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
-            } label: {
-                Label("Remove from \(listName)", systemImage: "trash")
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private func addSymbolToListButton(symbolId: String, listName: String) -> some View {
-        if listName != SpecialMarketsList.all.rawValue {
-            Button {
-                marketsViewModel.addSymbolToList(symbolId: symbolId, listName: listName)
-            } label: {
-                Label("Add to \(listName)", systemImage: listName == SpecialMarketsList.watchlist.rawValue ? "eye" : "plus")
-            }
         }
     }
     
@@ -234,7 +209,6 @@ struct TickerDetailView: View {
             }
         }
     }
-    
     
     // MARK: - functions
     

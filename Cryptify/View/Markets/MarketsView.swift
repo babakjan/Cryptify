@@ -38,9 +38,6 @@ struct MarketsView: View {
                 await viewModel.fetchSymbols()
             }
         }
-        .onAppear {
-            print("appear")
-        }
     }
     
     private func error(message: String) -> some View {
@@ -122,18 +119,26 @@ struct MarketsView: View {
         .padding(.vertical, 6)
         .swipeActions(edge: .leading, content: { //swipe from leading ege shortcut for adding symbol to watchlist, not available in Watchlist
             if viewModel.activeList != SpecialMarketsList.watchlist.rawValue {
-                addSymbolToListButton(symbolId: symbol.symbol, listName: SpecialMarketsList.watchlist.rawValue)
+                AddAndRemoveSymbolFromListMenuContent.addSymbolToListButton(
+                    symbolId: symbol.symbol,
+                    listName: SpecialMarketsList.watchlist.rawValue,
+                    marketsViewModel: viewModel
+                )
                     .tint(.theme.accent)
             }
         })
         .swipeActions(edge: .trailing, content: { //swipe from trailing edge shortcut for removing symbol from active list, not available in All symbols
             if viewModel.activeList != SpecialMarketsList.all.rawValue {
-                removeSymbolFromListButton(symbolId: symbol.symbol, listName: viewModel.activeList)
+                AddAndRemoveSymbolFromListMenuContent.removeSymbolFromListButton(
+                    symbolId: symbol.symbol,
+                    listName: viewModel.activeList,
+                    marketsViewModel: viewModel
+                )
                     .tint(.theme.red)
             }
         })
         .contextMenu { //long press menu for adding symbol to lists and removing from lists
-            listRowContextMenu(symbolId: symbol.symbol)
+            AddAndRemoveSymbolFromListMenuContent(marketsViewModel: viewModel, symbolId: symbol.symbol)
         }
     }
     
@@ -198,17 +203,6 @@ struct MarketsView: View {
         }
     }
     
-    //content of long press menu on list row, menu for adding symbol into lists and removing symbol from lists
-    private func listRowContextMenu(symbolId: String) -> some View {
-        ForEach(viewModel.listNames, id: \.self) { listName in
-            if viewModel.isSymbolInList(symbolId: symbolId, listName: listName) {
-                removeSymbolFromListButton(symbolId: symbolId, listName: listName)
-            } else {
-                addSymbolToListButton(symbolId: symbolId, listName: listName)
-            }
-        }
-    }
-    
     // MARK: - buttons
     
     //button form creating list, opens alert, where is text field for list name
@@ -239,30 +233,6 @@ struct MarketsView: View {
                 viewModel.deleteListConfirmationDialogPresent = true
             } label: {
                 Label("Delete list", systemImage: "trash")
-            }
-        }
-    }
-    
-    //button for removing symbol from list, symbol can't be removed from All list
-    @ViewBuilder
-    private func removeSymbolFromListButton(symbolId: String, listName: String) -> some View {
-        if listName != SpecialMarketsList.all.rawValue {
-            Button(role: .destructive) {
-                viewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
-            } label: {
-                Label("Remove from \(listName)", systemImage: "trash")
-            }
-        }
-    }
-    
-    //add symbol to list button
-    @ViewBuilder
-    private func addSymbolToListButton(symbolId: String, listName: String) -> some View {
-        if listName != SpecialMarketsList.all.rawValue {
-            Button {
-                viewModel.addSymbolToList(symbolId: symbolId, listName: listName)
-            } label: {
-                Label("Add to \(listName)", systemImage: listName == SpecialMarketsList.watchlist.rawValue ? "eye" : "plus")
             }
         }
     }
