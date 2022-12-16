@@ -50,6 +50,8 @@ struct MarketsView: View {
             .padding(.horizontal, 16)
     }
     
+    // MARK: - symbol list
+    
     @ViewBuilder
     private var symbolList: some View {
         List {
@@ -73,32 +75,18 @@ struct MarketsView: View {
                 .padding(.bottom, 16)
             
             HStack {
-                listPicker
+                listSwitcher //set visible list
                 
                 Spacer()
                 
-                editListsMenu
+                editListsMenu //create, delete, set default list
             }
             .padding(.bottom, 16)
 
-            ListHeaderView(viewModel: viewModel)
+            ListHeaderView(viewModel: viewModel) //sort headers
         }
         .listRowSeparator(.hidden)
         .padding(.bottom, -8)
-    }
-    
-    private var listPicker: some View {
-        Menu {
-            ForEach(viewModel.listNames, id: \.self) { listName in
-                Button(listName) {
-                    viewModel.activeList = listName
-                }
-            }
-        } label: {
-            Text("\(viewModel.activeList) \(Image(systemName: "chevron.up.chevron.down"))")
-                .foregroundColor(.theme.accent)
-        }
-        .frame(minWidth: 128 , alignment: .leading)
     }
     
     @ViewBuilder
@@ -129,33 +117,41 @@ struct MarketsView: View {
             DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
         }
         .padding(.vertical, 6)
-        .swipeActions(edge: .leading, content: {
-            if viewModel.activeList != "Watchlist" {
-                addSymbolToListButton(symbolId: symbol.symbol, listName: "Watchlist")
+        .swipeActions(edge: .leading, content: { //swipe from leading ege shortcut for adding symbol to watchlist, not available in Watchlist
+            if viewModel.activeList != SpecialMarketsList.watchlist.rawValue {
+                addSymbolToListButton(symbolId: symbol.symbol, listName: SpecialMarketsList.watchlist.rawValue)
                     .tint(.theme.accent)
             }
         })
-        .swipeActions(edge: .trailing, content: {
-            if viewModel.activeList != "All" {
-                removeSymbolFromList(symbolId: symbol.symbol, listName: viewModel.activeList)
+        .swipeActions(edge: .trailing, content: { //swipe from trailing edge shortcut for removing symbol from active list, not available in All symbols
+            if viewModel.activeList != SpecialMarketsList.all.rawValue {
+                removeSymbolFromListButton(symbolId: symbol.symbol, listName: viewModel.activeList)
                     .tint(.theme.red)
             }
         })
-        .contextMenu {
+        .contextMenu { //long press menu for adding symbol to lists and removing from lists
             listRowContextMenu(symbolId: symbol.symbol)
         }
     }
     
-    private func listRowContextMenu(symbolId: String) -> some View {
-        ForEach(viewModel.listNames, id: \.self) { listName in
-            if viewModel.isSymbolInList(symbolId: symbolId, listName: listName) {
-                removeSymbolFromList(symbolId: symbolId, listName: listName)
-            } else {
-                addSymbolToListButton(symbolId: symbolId, listName: listName)
+    // MARK: - inputs, menus
+    
+    //set visible list TODO: create menu and own lable, label is laggy
+    private var listSwitcher: some View {
+        Menu {
+            ForEach(viewModel.listNames, id: \.self) { listName in
+                Button(listName) {
+                    viewModel.activeList = listName
+                }
             }
+        } label: {
+            Text("\(viewModel.activeList) \(Image(systemName: "chevron.up.chevron.down"))")
+                .foregroundColor(.theme.accent)
         }
+        .frame(minWidth: 128 , alignment: .leading)
     }
     
+    //can add list, remove list, set list as default
     private var editListsMenu: some View {
         Menu {
             createListButton
@@ -169,7 +165,7 @@ struct MarketsView: View {
                 .font(.title2)
                 .frame(minWidth: 64, alignment: .trailing)
         }
-        .alert("Create list", isPresented: $viewModel.createListAlertPresent) {
+        .alert("Create list", isPresented: $viewModel.createListAlertPresent) { //alert witch input field for entering list name
             TextField("Name", text: $viewModel.newListName)
             Button("Create") {
                 viewModel.createList()
@@ -178,11 +174,29 @@ struct MarketsView: View {
         } message: {
             Text("Create new list of symbols.")
         }
-        .confirmationDialog("Delete \(viewModel.activeList)?", isPresented: $viewModel.deleteListConfirmationDialogPresent, titleVisibility: .visible) {
+        .confirmationDialog( //delete list confirmation
+            "Delete \(viewModel.activeList)?",
+            isPresented: $viewModel.deleteListConfirmationDialogPresent,
+            titleVisibility: .visible
+        ) {
             Button("Delete", role: .destructive, action: viewModel.deleteActiveList)
         }
     }
     
+    //content of long press menu on list row, menu for adding symbol into lists and removing symbol from lists
+    private func listRowContextMenu(symbolId: String) -> some View {
+        ForEach(viewModel.listNames, id: \.self) { listName in
+            if viewModel.isSymbolInList(symbolId: symbolId, listName: listName) {
+                removeSymbolFromListButton(symbolId: symbolId, listName: listName)
+            } else {
+                addSymbolToListButton(symbolId: symbolId, listName: listName)
+            }
+        }
+    }
+    
+    // MARK: - buttons
+    
+    //button form creating list, opens alert, where is text field for list name
     private var createListButton: some View {
         Button {
             viewModel.createListAlertPresent = true
@@ -191,6 +205,7 @@ struct MarketsView: View {
         }
     }
     
+    //set list as default - default list = selected list when opening app
     @ViewBuilder
     private var setListAsDefaultButton: some View {
         if viewModel.activeList != MarketsViewModel.defaultMarketList {
@@ -202,9 +217,10 @@ struct MarketsView: View {
         }
     }
     
+    //delete list, All and Watchlist list can't be deleted
     @ViewBuilder
     private var deleteListButton: some View {
-        if viewModel.activeList != "All" && viewModel.activeList != "Watchlist" {
+        if viewModel.activeList != SpecialMarketsList.all.rawValue && viewModel.activeList != SpecialMarketsList.watchlist.rawValue {
             Button(role: .destructive) {
                 viewModel.deleteListConfirmationDialogPresent = true
             } label: {
@@ -213,9 +229,10 @@ struct MarketsView: View {
         }
     }
     
+    //button for removing symbol from list, symbol can't be removed from All list
     @ViewBuilder
-    private func removeSymbolFromList(symbolId: String, listName: String) -> some View {
-        if listName != "All" {
+    private func removeSymbolFromListButton(symbolId: String, listName: String) -> some View {
+        if listName != SpecialMarketsList.all.rawValue {
             Button(role: .destructive) {
                 viewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
             } label: {
@@ -224,13 +241,14 @@ struct MarketsView: View {
         }
     }
     
+    //add symbol to list button
     @ViewBuilder
     private func addSymbolToListButton(symbolId: String, listName: String) -> some View {
-        if listName != "All" {
+        if listName != SpecialMarketsList.all.rawValue {
             Button {
                 viewModel.addSymbolToList(symbolId: symbolId, listName: listName)
             } label: {
-                Label("Add to \(listName)", systemImage: listName == "Watchlist" ? "eye" : "plus")
+                Label("Add to \(listName)", systemImage: listName == SpecialMarketsList.watchlist.rawValue ? "eye" : "plus")
             }
         }
     }

@@ -12,13 +12,13 @@ final class SettingsViewModel: ObservableObject {
     @AppStorage("colorScheme") var colorScheme = Theme.system
     @AppStorage("soundOn") var soundOn = false
     @AppStorage("notificationsOn") var notificationsOn = true
-    @AppStorage("defaultMarketsList") var defaultMarketsList = MarketsViewModel.ActiveList.all //default list displayed in markets view
+//    @AppStorage("defaultMarketsList") var defaultMarketsList = SpecialMarketsList.all.rawValue //default list displayed in markets view
     
     @MainActor
     func resetAllSettings() {
         colorScheme = Theme.system
         soundOn = false
         notificationsOn = true
-        defaultMarketsList = MarketsViewModel.ActiveList.all
+//        defaultMarketsList = SpecialMarketsList.all.rawValue
     }
 }

@@ -120,7 +120,6 @@ struct TickerDetailView: View {
             
             Spacer()
             
-//            watchlistToggle
             addAndRemoveFromListMenu
         }.padding(.horizontal, 0)
     }
@@ -181,31 +180,6 @@ struct TickerDetailView: View {
         .padding(.horizontal, -11)
     }
     
-    @ViewBuilder
-    private var watchlistToggle: some View {
-        if watched {
-            Button {
-                marketsViewModel.removeSymbolFromWatchlist(symbolId: tickerViewModel.symbol?.symbol ?? "")
-                watched = false
-            } label: {
-                HStack {
-                    Text("Watched")
-                    Image(systemName: "eye")
-                }
-            }
-        } else {
-            Button {
-                marketsViewModel.addSymbolToWatchlist(symbolId: tickerViewModel.symbol?.symbol ?? "")
-                watched = true
-            } label: {
-                HStack {
-                    Text("Not watched")
-                    Image(systemName: "eye.slash")
-                }
-            }
-        }
-    }
-    
     private var addAndRemoveFromListMenu: some View {
         Menu {
             ForEach(marketsViewModel.listNames, id: \.self) { listName in
@@ -217,12 +191,14 @@ struct TickerDetailView: View {
             }
         } label: {
             Image(systemName: "ellipsis")
+                .font(.title2)
+                .frame(minWidth: 64, alignment: .trailing)
         }
     }
     
     @ViewBuilder
     private func removeSymbolFromList(symbolId: String, listName: String) -> some View {
-        if listName != "All" {
+        if listName != SpecialMarketsList.all.rawValue {
             Button(role: .destructive) {
                 marketsViewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
             } label: {
@@ -233,11 +209,11 @@ struct TickerDetailView: View {
     
     @ViewBuilder
     private func addSymbolToListButton(symbolId: String, listName: String) -> some View {
-        if listName != "All" {
+        if listName != SpecialMarketsList.all.rawValue {
             Button {
                 marketsViewModel.addSymbolToList(symbolId: symbolId, listName: listName)
             } label: {
-                Label("Add to \(listName)", systemImage: listName == "Watchlist" ? "eye" : "plus")
+                Label("Add to \(listName)", systemImage: listName == SpecialMarketsList.watchlist.rawValue ? "eye" : "plus")
             }
         }
     }

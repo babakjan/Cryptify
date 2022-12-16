@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 final class MarketsViewModel: ObservableObject {
-    @AppStorage("defaultMarketsList") static var defaultMarketList = "All"
+    @AppStorage("defaultMarketsList") static var defaultMarketList = SpecialMarketsList.all.rawValue
+    
     @Published private(set) var symbols: [Symbol]
     @Published private(set) var symbolsState = ResourceState.ok
     @Published private(set) var watchlistIds = Set<String>()
@@ -29,7 +30,7 @@ final class MarketsViewModel: ObservableObject {
     
     private let symbolApi: SymbolAPI = .init()
     
-    //search filter
+    //search filter - found symbols in active list
     var searchResult: [Symbol] {
         if searchedText.isEmpty {
             return symbolsInActiveList
@@ -39,9 +40,9 @@ final class MarketsViewModel: ObservableObject {
         }
     }
     
-    //list of symbols in watchlist
+    //list of symbols in active list
     var symbolsInActiveList: [Symbol] {
-        if activeList == "All" {
+        if activeList == SpecialMarketsList.all.rawValue {
             return symbols
         }
         return symbols.filter { symbol in
@@ -50,12 +51,14 @@ final class MarketsViewModel: ObservableObject {
     }
     
     var listNames: [String] {
-        ["All"] + marketLists.keys.sorted(by: >)
+        [SpecialMarketsList.all.rawValue] + marketLists.keys.sorted(by: >)
     }
+    
+    // MARK: - functions
     
     init(symbols: [Symbol] = []) {
         self.symbols = symbols
-        self.marketLists = ["Watchlist": []]
+        self.marketLists = [SpecialMarketsList.watchlist.rawValue: Set<String>()]
         
         loadMarketListsFromUserDefauls()
     }
@@ -99,13 +102,7 @@ final class MarketsViewModel: ObservableObject {
         return nil
     }
     
-    func addSymbolToWatchlist(symbolId: String) {
-        marketLists["Watchlist"]?.insert(symbolId)
-    }
-
-    func removeSymbolFromWatchlist(symbolId: String) {
-        marketLists["Watchlist"]?.remove(symbolId)
-    }
+    // MARK: -  symbols
     
     func addSymbolToList(symbolId: String, listName: String) {
         guard marketLists.keys.contains(listName) else {
@@ -127,6 +124,15 @@ final class MarketsViewModel: ObservableObject {
         saveMarketListsToUserDefaults()
     }
     
+    func isSymbolInList(symbolId: String, listName: String) -> Bool {
+        guard marketLists.keys.contains(listName) else {
+            return false
+        }
+        return marketLists[listName]!.contains(symbolId)
+    }
+    
+    // MARK: - list edits
+    
     func createList() {
         if newListName.isEmpty {
             print("list is empty") // TODO: display error
@@ -138,24 +144,22 @@ final class MarketsViewModel: ObservableObject {
         }
         marketLists[newListName] = Set<String>()
         newListName = ""
+        saveMarketListsToUserDefaults()
     }
     
     func setActiveListAsDefault() {
         Self.defaultMarketList = activeList
+        saveMarketListsToUserDefaults()
     }
     
     func deleteActiveList() {
         let listToDelete = activeList
-        activeList = "All"
+        activeList = SpecialMarketsList.all.rawValue
         marketLists.removeValue(forKey: listToDelete)
+        saveMarketListsToUserDefaults()
     }
     
-    func isSymbolInList(symbolId: String, listName: String) -> Bool {
-        guard marketLists.keys.contains(listName) else {
-            return false
-        }
-        return marketLists[listName]!.contains(symbolId)
-    }
+    // MARK: - market lists persistance
     
     private func saveMarketListsToUserDefaults() {
         let data = try? JSONEncoder().encode(marketLists)
@@ -164,19 +168,20 @@ final class MarketsViewModel: ObservableObject {
 
     private func loadMarketListsFromUserDefauls() {
         guard let data = UserDefaults.standard.data(forKey: Self.marketListsUserDefaultsKey) else {
-            marketLists =  ["Watchlist": Set<String>()]
+            marketLists =  [SpecialMarketsList.watchlist.rawValue: Set<String>()]
             return
         }
 
         do {
             let decodedData = try JSONDecoder().decode([String : Set<String>].self, from: data)
             marketLists = decodedData
-            return
         } catch {
             print("[DECODING_MARKET_LISTS_ERROR]", error.localizedDescription)
-            marketLists =  ["Watchlist": Set<String>()]
+            marketLists =  [SpecialMarketsList.watchlist.rawValue: Set<String>()]
         }
     }
+    
+    // MARK: - enums
     
     enum SortSymbolsBy {
         case priceAscending
@@ -186,14 +191,5 @@ final class MarketsViewModel: ObservableObject {
         case dailyChangeAscenging
         case dailyChangeDescending
         case none
-    }
-    
-    enum ActiveList: String, CaseIterable, Identifiable {
-        case all = "All"
-        case watchlist = "Watchlist"
-        
-        var id: String {
-            self.rawValue
-        }
     }
 }

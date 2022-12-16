@@ -34,7 +34,7 @@ struct SettingsView: View {
             
             soundEffectsToggle
             
-            defaultMarketsListPicker
+//            defaultMarketsListPicker
             
             resetBtn
         }
@@ -65,18 +65,18 @@ struct SettingsView: View {
         }
     }
     
-    private var defaultMarketsListPicker: some View {
-        Picker(selection: $settingViewModel.defaultMarketsList) {
-            ForEach(MarketsViewModel.ActiveList.allCases) { list in
-                Text(list.rawValue)
-                    .tag(list)
-            }
-        } label: {
-            labelWithIcon(text: "Default Markets list", systemImage: "list.bullet")
-        }.onChange(of: settingViewModel.defaultMarketsList) { newValue in
-            SoundManager.instance.playTab()
-        }
-    }
+//    private var defaultMarketsListPicker: some View {
+//        Picker(selection: $settingViewModel.defaultMarketsList) {
+//            ForEach(MarketsViewModel.ActiveList.allCases) { list in
+//                Text(list.rawValue)
+//                    .tag(list)
+//            }
+//        } label: {
+//            labelWithIcon(text: "Default Markets list", systemImage: "list.bullet")
+//        }.onChange(of: settingViewModel.defaultMarketsList) { newValue in
+//            SoundManager.instance.playTab()
+//        }
+//    }
     
     private var notificationsToggle: some View {
         Toggle(isOn: settingViewModel.$notificationsOn) {
