@@ -14,13 +14,11 @@ struct TickerDetailView: View {
     @StateObject var marketsViewModel: MarketsViewModel
     
     @State private var timer: Timer?
-    @State private var watched: Bool //if symbol is in watch list
     
     init(symbol: String, navigationPath: Binding<[Symbol]>, marketsViewModel: MarketsViewModel) {
         self._tickerViewModel = StateObject(wrappedValue: TickerViewModel(symbolId: symbol))
         self._navigationPath = navigationPath
         self._marketsViewModel = StateObject(wrappedValue: marketsViewModel)
-        self.watched = marketsViewModel.watchlistIds.contains(symbol)
     }
     
     var body: some View {

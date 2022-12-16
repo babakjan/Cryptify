@@ -174,6 +174,18 @@ struct MarketsView: View {
         } message: {
             Text("Create new list of symbols.")
         }
+        .alert(
+            isPresented: Binding(
+                get: { viewModel.createListError != nil },
+                set: {
+                    if !$0 {
+                        viewModel.createListError = nil
+                    }
+                }
+            ),
+            error: viewModel.createListError,
+            actions: {}
+        )
         .confirmationDialog( //delete list confirmation
             "Delete \(viewModel.activeList)?",
             isPresented: $viewModel.deleteListConfirmationDialogPresent,
@@ -208,7 +220,7 @@ struct MarketsView: View {
     //set list as default - default list = selected list when opening app
     @ViewBuilder
     private var setListAsDefaultButton: some View {
-        if viewModel.activeList != MarketsViewModel.defaultMarketList {
+        if viewModel.activeList != MarketsViewModel.defaultMarketList { // TODO: after setting default, this not work, button still shown
             Button {
                 viewModel.setActiveListAsDefault()
             } label: {

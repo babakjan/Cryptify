@@ -13,12 +13,12 @@ final class MarketsViewModel: ObservableObject {
     
     @Published private(set) var symbols: [Symbol]
     @Published private(set) var symbolsState = ResourceState.ok
-    @Published private(set) var watchlistIds = Set<String>()
     @Published private(set) var lastUpdateDate: Date?
-    @Published var marketLists: [String: Set<String>] //id is list name, value is list of symbol ids
+    @Published var marketLists: [String: Set<String>] //key is unique list name, value is list of symbol ids
     @Published var activeList = MarketsViewModel.defaultMarketList
     @Published var newListName = ""
     @Published var createListAlertPresent = false
+    @Published var createListError: CreateListError?
     @Published var deleteListConfirmationDialogPresent = false
     @Published var searchedText = ""
     @Published var sortBy: SortSymbolsBy = .priceDescending {
@@ -135,14 +135,15 @@ final class MarketsViewModel: ObservableObject {
     
     func createList() {
         if newListName.isEmpty {
-            print("list is empty") // TODO: display error
+            createListError = .empty
             return
         }
-        if marketLists.keys.contains(newListName) {
-            print("list exists") // TODO: display error
+        if listNames.contains(newListName) {
+            createListError = .duplicate(name: newListName)
             return
         }
         marketLists[newListName] = Set<String>()
+        activeList = newListName
         newListName = ""
         saveMarketListsToUserDefaults()
     }
@@ -156,6 +157,11 @@ final class MarketsViewModel: ObservableObject {
         let listToDelete = activeList
         activeList = SpecialMarketsList.all.rawValue
         marketLists.removeValue(forKey: listToDelete)
+        
+        if Self.defaultMarketList == listToDelete {
+            Self.defaultMarketList = SpecialMarketsList.all.rawValue
+        }
+        
         saveMarketListsToUserDefaults()
     }
     
@@ -191,5 +197,17 @@ final class MarketsViewModel: ObservableObject {
         case dailyChangeAscenging
         case dailyChangeDescending
         case none
+    }
+    
+    enum CreateListError: LocalizedError {
+        case duplicate(name: String) //list already exists
+        case empty //can't use empty name
+        
+        var errorDescription: String? {
+            switch self {
+            case let .duplicate(name): return "List \"\(name)\" already exists!"
+            case .empty: return "List name can't be empty!"
+            }
+        }
     }
 }
