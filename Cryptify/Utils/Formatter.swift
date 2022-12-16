@@ -13,7 +13,7 @@ final class Formatter {
     
     private let numberFormatter: NumberFormatter
     
-    private init() {
+    private init() { //sigleton hasn't accessible constructor
         numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.decimalSeparator = "."

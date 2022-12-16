@@ -31,8 +31,6 @@ final class MarketsViewModel: ObservableObject {
     static let marketListsUserDefaultsKey = "marketLists"
     static let defaultMarketListUserDefaultsKey = "defaultMarketsList"
     
-    private let symbolApi: SymbolAPI = .init()
-    
     //search filter - found symbols in active list
     var searchResult: [Symbol] {
         if searchedText.isEmpty {
@@ -71,7 +69,7 @@ final class MarketsViewModel: ObservableObject {
         symbolsState = .loading
         
         do {
-            symbols = try await symbolApi.fetchAllSymbols().sorted(by: { $0.price > $1.price })
+            symbols = try await SymbolAPI.shared.fetchAllSymbols().sorted(by: { $0.price > $1.price })
         } catch {
             symbolsState = .error(message: error.localizedDescription)
             print("[ERROR] fetch symbols market view model")

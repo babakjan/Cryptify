@@ -33,11 +33,6 @@ final class TickerViewModel: ObservableObject {
     private var orderBookInRowFails = 0 //number of failed requests in a row of order book
     
     private let symbolId: String
-    private let tickerApi: TickerAPI = .init()
-    private let symbolApi: SymbolAPI = .init()
-    private let candleApi: CandleAPI = .init()
-    private let orderBookApi: OrderBookAPI = .init()
-    private let tradeApi: TradeAPI = .init()
     
     //setter using animation
     var selectedChart: ChartType {
@@ -103,7 +98,7 @@ final class TickerViewModel: ObservableObject {
         tickerState = .loading
         
         do {
-            ticker = try await tickerApi.fetchTicker(symbolId: symbolId)
+            ticker = try await TickerAPI.shared.fetchTicker(symbolId: symbolId)
         } catch {
             print("[ERROR] fetch ticker ticker view model")
             tickerState = .error(message: error.localizedDescription)
@@ -118,7 +113,7 @@ final class TickerViewModel: ObservableObject {
         symbolState = .loading
         
         do {
-            symbol = try await symbolApi.fetchSymbol(symbolId: symbolId)
+            symbol = try await SymbolAPI.shared.fetchSymbol(symbolId: symbolId)
         } catch {
             print("[ERROR] fetch symbol ticker view model")
             symbolState = .error(message: error.localizedDescription)
@@ -133,7 +128,7 @@ final class TickerViewModel: ObservableObject {
         candlesState = .loading
         
         do {
-            candles = try await candleApi.fetchAllCandles(symbolId: symbolId, interval: selectedInterval)
+            candles = try await CandleAPI.shared.fetchAllCandles(symbolId: symbolId, interval: selectedInterval)
         } catch {
             print("[ERROR] fetch candles ticker view model")
             candlesState = .error(message: error.localizedDescription)
@@ -148,7 +143,7 @@ final class TickerViewModel: ObservableObject {
         orderBookState = .loading
         
         do {
-            orderBook = try await orderBookApi.fetchOrderBook(symbolId: symbolId)
+            orderBook = try await OrderBookAPI.shared.fetchOrderBook(symbolId: symbolId)
         } catch {
             print("[ERROR] fetch order book ticker view model")
             orderBookInRowFails += 1
@@ -165,7 +160,7 @@ final class TickerViewModel: ObservableObject {
         tradesState = .loading
         
         do {
-            trades = try await tradeApi.fetchAllTrades(symbolId: symbolId)
+            trades = try await TradeAPI.shared.fetchAllTrades(symbolId: symbolId)
         } catch {
             print("[ERROR] fetch trades ticker view model")
             tradesInRowFails += 1

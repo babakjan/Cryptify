@@ -9,7 +9,12 @@ import Foundation
 
 //api endpoint documentation https://docs.poloniex.com/#public-endpoints-market-data-candles
 
+//singleton API for Candles
 final class CandleAPI: API<[Either<UInt64, String>]> {
+    
+    static let shared = CandleAPI()
+    
+    private override init() {} //sigleton hasn't accessible constructor
     
     func fetchAllCandles(symbolId: String, interval: TickerViewModel.Interval) async throws -> [Candle] {
         let eitherArrays = try await fetchAll(

@@ -18,6 +18,8 @@ final class SoundManager {
     
     private var player: AVAudioPlayer?
     
+    private init() {} //sigleton hasn't accessible constructor
+    
     enum SoundOption: String {
         case transitionLeft
         case transitionRight
