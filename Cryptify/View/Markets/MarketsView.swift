@@ -22,7 +22,7 @@ struct MarketsView: View {
             }
         }
         .searchable(text: $viewModel.searchedText, placement: .navigationBarDrawer(displayMode: .always))
-        .navigationTitle("Markets")
+        .navigationTitle(LocalizedStringKey("markets"))
         .toolbar {
             ToolbarItem(placement: .principal) {
                 ToolbarHeaderView(icon: "gearshape.2", iconIsNavigationLink: true) {
@@ -164,14 +164,14 @@ struct MarketsView: View {
                 .font(.title2)
                 .frame(minWidth: 64, alignment: .trailing)
         }
-        .alert("Create list", isPresented: $viewModel.createListAlertPresent) { //alert witch input field for entering list name
-            TextField("Name", text: $viewModel.newListName)
-            Button("Create") {
+        .alert(LocalizedStringKey("createList"), isPresented: $viewModel.createListAlertPresent) { //alert witch input field for entering list name
+            TextField(LocalizedStringKey("name"), text: $viewModel.newListName)
+            Button(LocalizedStringKey("create")) {
                 viewModel.createList()
             }
-            Button("Cancel", role: .cancel) {}
+            Button(LocalizedStringKey("cancel"), role: .cancel) {}
         } message: {
-            Text("Create new list of symbols.")
+            Text(LocalizedStringKey("createListSubtitle"))
         }
         .alert(
             isPresented: Binding(
@@ -186,11 +186,11 @@ struct MarketsView: View {
             actions: {}
         )
         .confirmationDialog( //delete list confirmation
-            "Delete \(viewModel.activeList)?",
+            LocalizedStringKey("delete \(viewModel.activeList)?"),
             isPresented: $viewModel.deleteListConfirmationDialogPresent,
             titleVisibility: .visible
         ) {
-            Button("Delete", role: .destructive, action: viewModel.deleteActiveList)
+            Button(LocalizedStringKey("delete"), role: .destructive, action: viewModel.deleteActiveList)
         }
     }
     
@@ -201,7 +201,7 @@ struct MarketsView: View {
         Button {
             viewModel.createListAlertPresent = true
         } label: {
-            Label("Create list", systemImage: "plus")
+            Label(LocalizedStringKey("createList"), systemImage: "plus")
         }
     }
     
@@ -212,7 +212,7 @@ struct MarketsView: View {
         Button {
             viewModel.setActiveListAsDefault()
         } label: {
-            Label("Set as default", systemImage: "pin")
+            Label(LocalizedStringKey("setAsDefault"), systemImage: "pin")
         }
     }
     
@@ -223,7 +223,7 @@ struct MarketsView: View {
             Button(role: .destructive) {
                 viewModel.deleteListConfirmationDialogPresent = true
             } label: {
-                Label("Delete list", systemImage: "trash")
+                Label(LocalizedStringKey("deleteList"), systemImage: "trash")
             }
         }
     }

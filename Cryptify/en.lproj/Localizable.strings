@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   Cryptify
 
@@ -6,6 +6,28 @@
   
 */
 
+
+// MARK: - Markets
+
+"markets" = "Markets";
+"lastUpdate" = "Last update: ";
+
+"pair" = "Pair";
+"price" = "Price";
+"24h" = "24h";
+
+"createList" = "Create list";
+"createListSubtitle" = "Create new list of symbols.";
+"name" = "Name";
+"create" = "Create";
+"cancel" = "Cancel";
+"setAsDefault" = "Set as default";
+"deleteList" = "Delete list";
+"delete %@?" = "Delete %@?";
+"delete" = "Delete";
+
+"removeFromList %@" = "Remove from %@";
+"addToList %@" = "Add to %@";
 
 // MARK: - settings
 

@@ -7,7 +7,29 @@
 */
 
 
-// MARK: - settings
+// MARK: - Markets
+
+"markets" = "Trhy";
+"lastUpdate" = "Poslední aktualizace: ";
+
+"pair" = "Pár";
+"price" = "Cena";
+"24h" = "24h";
+
+"createList" = "Vytvořit seznam";
+"createListSubtitle" = "Vytvořit nový seznam symbolů.";
+"name" = "Jméno";
+"create" = "Vytvořit";
+"cancel" = "Zrušit";
+"setAsDefault" = "Nastavit jako výchozí";
+"deleteList" = "Smazat seznam";
+"delete %@?" = "Smazat %@?";
+"delete" = "Smazat";
+
+"removeFromList %@" = "Odstranit z %@";
+"addToList %@" = "Přidat do %@";
+
+// MARK: - Settings
 
 "settings" = "Nastavení";
 
@@ -17,11 +39,10 @@
 "lightTheme" = "světlé";
 "notifications" = "Notifikace";
 "soundEffects" = "Zvuky";
-"defaultMarketList" = "Výchozí list pro trhy";
+"defaultMarketList" = "Výchozí seznam pro trhy";
 "resetAllSettings" = "Resetovat nastavení";
 
 "about" = "O aplikaci";
 "sourceCode" = "[Zdrojový kód](https://gitlab.fit.cvut.cz/babakjan/cryptify)";
 "followMeOnGitHub" = "[Sledujte mě na GitHubu](https://github.com/babakjan)";
 "messageMeOnLinkedIn" = "[Pošlete mi zprávu na LinkedInu](https://www.linkedin.com/in/janbabak/)";
-

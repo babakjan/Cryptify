@@ -200,11 +200,11 @@
 				DF18A9F129296EE100533C8B /* ContentView.swift */,
 				DFC0D8A1292A4E6500907736 /* HeaderLogoView.swift */,
 				DF3FBC43292CD20100A8C865 /* ToolbarHeaderView.swift */,
+				DFA7EA71294C6AA400B4D2F9 /* AddAndRemoveSymbolFromListMenuContent.swift */,
 				DF16FFA22934DFC2005C2CB6 /* Settings */,
 				DF18A9FF29296FEE00533C8B /* Markets */,
 				DF9F74C1292BFE4C00D1F411 /* Ticker */,
 				DFEFDC64294741520050847E /* State */,
-				DFA7EA71294C6AA400B4D2F9 /* AddAndRemoveSymbolFromListMenuContent.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

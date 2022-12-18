@@ -27,7 +27,7 @@ struct ListHeaderView: View {
     
     private var pair: some View {
         HStack {
-            Text("Pair")
+            Text(LocalizedStringKey("pair"))
             Image(systemName: "chevron.down")
                 .opacity(viewModel.sortBy == .pairAscending || viewModel.sortBy == .pairDescendig ? 1 : 0)
                 .rotationEffect(Angle(degrees: viewModel.sortBy == .pairAscending ? 180 : 0))
@@ -42,7 +42,7 @@ struct ListHeaderView: View {
     
     private var price: some View {
         HStack {
-            Text("Price")
+            Text(LocalizedStringKey("price"))
             Image(systemName: "chevron.down")
                 .opacity(viewModel.sortBy == .priceAscending || viewModel.sortBy == .priceDescending ? 1 : 0)
                 .rotationEffect(Angle(degrees: viewModel.sortBy == .priceAscending ? 180 : 0))
@@ -57,7 +57,7 @@ struct ListHeaderView: View {
     
     private var dailyChange: some View {
         HStack {
-            Text("24h")
+            Text(LocalizedStringKey("24h"))
             Image(systemName: "chevron.down")
                 .opacity(viewModel.sortBy == .dailyChangeAscenging || viewModel.sortBy == .dailyChangeDescending ? 1 : 0)
                 .rotationEffect(Angle(degrees: viewModel.sortBy == .dailyChangeAscenging ? 180 : 0))
