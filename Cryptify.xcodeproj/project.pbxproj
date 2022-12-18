@@ -47,6 +47,7 @@
 		DF9F74C5292C1DCC00D1F411 /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9F74C4292C1DCC00D1F411 /* Ticker.swift */; };
 		DFA7EA70294C533900B4D2F9 /* SpecialMarketList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA7EA6F294C533900B4D2F9 /* SpecialMarketList.swift */; };
 		DFA7EA72294C6AA400B4D2F9 /* AddAndRemoveSymbolFromListMenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA7EA71294C6AA400B4D2F9 /* AddAndRemoveSymbolFromListMenuContent.swift */; };
+		DFA7EA74294D0BD000B4D2F9 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA7EA73294D0BD000B4D2F9 /* NotificationManager.swift */; };
 		DFC0D89E292A0B2B00907736 /* MarketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D89D292A0B2B00907736 /* MarketsView.swift */; };
 		DFC0D8A2292A4E6500907736 /* HeaderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D8A1292A4E6500907736 /* HeaderLogoView.swift */; };
 		DFC0D8A4292A557C00907736 /* LastUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0D8A3292A557C00907736 /* LastUpdateView.swift */; };
@@ -101,6 +102,7 @@
 		DF9F74C4292C1DCC00D1F411 /* Ticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticker.swift; sourceTree = "<group>"; };
 		DFA7EA6F294C533900B4D2F9 /* SpecialMarketList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialMarketList.swift; sourceTree = "<group>"; };
 		DFA7EA71294C6AA400B4D2F9 /* AddAndRemoveSymbolFromListMenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAndRemoveSymbolFromListMenuContent.swift; sourceTree = "<group>"; };
+		DFA7EA73294D0BD000B4D2F9 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		DFC0D89D292A0B2B00907736 /* MarketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsView.swift; sourceTree = "<group>"; };
 		DFC0D8A1292A4E6500907736 /* HeaderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLogoView.swift; sourceTree = "<group>"; };
 		DFC0D8A3292A557C00907736 /* LastUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastUpdateView.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			children = (
 				DF3FBC4A292D0CB100A8C865 /* Formatter.swift */,
 				DF41C6A9293802E5000EC205 /* SoundManager.swift */,
+				DFA7EA73294D0BD000B4D2F9 /* NotificationManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				DFEFDC6A2947C1FB0050847E /* LoadingView.swift in Sources */,
 				DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */,
 				DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */,
+				DFA7EA74294D0BD000B4D2F9 /* NotificationManager.swift in Sources */,
 				DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */,
 				DFEFDC66294741DC0050847E /* ErrorView.swift in Sources */,
 				DF3FBC52292D393300A8C865 /* SymbolAPI.swift in Sources */,

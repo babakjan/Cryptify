@@ -19,6 +19,9 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(colorScheme == Theme.light ? .light : colorScheme == Theme.dark ? .dark : .none)
+        .onAppear {
+            NotificationManager.shared.setUp()
+        }
     }
 }
 

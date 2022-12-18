@@ -79,6 +79,7 @@ struct SettingsView: View {
             Label("Notifications", systemImage: settingViewModel.notificationsOn ? "bell.badge" : "bell.slash")
         }.onChange(of: settingViewModel.notificationsOn) { newValue in
             SoundManager.shared.playTab()
+            NotificationManager.shared.notificatiosOnToggled()
         }
     }
     
