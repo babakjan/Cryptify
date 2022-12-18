@@ -12,7 +12,7 @@ struct DetailsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Details")
+            Text(LocalizedStringKey("details"))
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.bottom, 4)
@@ -20,22 +20,22 @@ struct DetailsView: View {
             HStack {
                 //left column
                 VStack(alignment: .leading, spacing: 8) {
-                    labelPropertyView(label: "Low:", property: ticker.formattedLow)
+                    labelPropertyView(label: "low: ", property: ticker.formattedLow)
                     
-                    labelPropertyView(label: "High:", property: ticker.formattedHigh)
-                    
-                    labelPropertyView(label: "Open:", property: ticker.formattedOpen)
+                    labelPropertyView(label: "high: ", property: ticker.formattedHigh)
+                
+                    labelPropertyView(label: "open: ", property: ticker.formattedOpen)
                 }
                 
                 Spacer()
                 
                 //right column
                 VStack(alignment: .leading, spacing: 8) {
-                    labelPropertyView(label: "Close:", property: ticker.formattedClose)
+                    labelPropertyView(label: "close: ", property: ticker.formattedClose)
                     
-                    labelPropertyView(label: "Quantity:", property: ticker.formattedQuantity)
+                    labelPropertyView(label: "quantity: ", property: ticker.formattedQuantity)
                     
-                    labelPropertyView(label: "TradeCount:", property: "\(ticker.tradeCount)")
+                    labelPropertyView(label: "tradeCount: ", property: "\(ticker.tradeCount)")
                 }
             }
         }
@@ -43,7 +43,7 @@ struct DetailsView: View {
     
     private func labelPropertyView(label: String, property: String) -> some View {
         HStack() {
-            Text(label)
+            Text(LocalizedStringKey(label))
                 .foregroundColor(Color.theme.secondaryText)
                 .font(.callout)
             

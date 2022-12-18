@@ -10,7 +10,7 @@
 // MARK: - Markets
 
 "markets" = "Markets";
-"lastUpdate" = "Last update: ";
+"lastUpdate: " = "Last update: ";
 
 "pair" = "Pair";
 "price" = "Price";
@@ -29,7 +29,49 @@
 "removeFromList %@" = "Remove from %@";
 "addToList %@" = "Add to %@";
 
-// MARK: - settings
+// MARK: - Ticker detail
+
+"price: " = "Price: ";
+"24h: " = "24h: ";
+
+"chartType" = "Chart type";
+"lineChart" = "Line";
+"areaChart" = "Area";
+"candleChart" = "Candles";
+
+"interval" = "Interval";
+"all" = "All";
+"10Y" = "10Y";
+"5Y" = "5Y";
+"2Y" = "2Y";
+"1Y" = "1Y";
+"6M" = "6M";
+"3M" = "3M";
+"1M" = "1M";
+"1W" = "1W";
+"1D" = "1D";
+"1H" = "1H";
+"30m" = "30m";
+
+"details" = "Details";
+"low: " = "Low: ";
+"high: " = "High: ";
+"open: " = "Open: ";
+"close: " = "Close: ";
+"quantity: " = "Quantity: ";
+"tradeCount: " = "Trade count: ";
+
+"trades" = "Trades";
+"sum" = "Sum";
+"amount" = "Amount";
+"tradesNotAvailableError" = "Trades are not available!";
+
+"orderBook" = "Order book";
+"bids" = "Bids";
+"asks" = "Asks";
+"orderBookNotAvailableError" = "Order Book isn't available!";
+
+// MARK: - Settings
 
 "settings" = "Setting";
 

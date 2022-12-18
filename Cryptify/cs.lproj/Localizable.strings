@@ -10,7 +10,7 @@
 // MARK: - Markets
 
 "markets" = "Trhy";
-"lastUpdate" = "Poslední aktualizace: ";
+"lastUpdate: " = "Poslední aktualizace: ";
 
 "pair" = "Pár";
 "price" = "Cena";
@@ -29,14 +29,56 @@
 "removeFromList %@" = "Odstranit z %@";
 "addToList %@" = "Přidat do %@";
 
+// MARK: - Ticker detail
+
+"price: " = "Cena: ";
+"24h: " = "24h: ";
+
+"chartType" = "Druh grafu";
+"lineChart" = "Křivka";
+"areaChart" = "Plocha";
+"candleChart" = "Svíce";
+
+"interval" = "Interval";
+"all" = "Vše";
+"10Y" = "10l";
+"5Y" = "5l";
+"2Y" = "2r";
+"1Y" = "1r";
+"6M" = "6M";
+"3M" = "3M";
+"1M" = "1M";
+"1W" = "1t";
+"1D" = "1d";
+"1H" = "1h";
+"30m" = "30m";
+
+"details" = "Detaily";
+"low: " = "Minimum: ";
+"high: " = "Maximum: ";
+"open: " = "Otevírací cena: ";
+"close: " = "Uzavírací cena: ";
+"quantity: " = "Množství: ";
+"tradeCount: " = "Počet obchodů: ";
+
+"trades" = "Obchody";
+"sum" = "Suma";
+"amount" = "Množství";
+"tradesNotAvailableError" = "Obchody nejsou dostupné!";
+
+"orderBook" = "Seznam příkazů";
+"bids" = "Nabídka";
+"asks" = "Poptávka";
+"orderBookNotAvailableError" = "Seznam příkazů není dostupný!";
+
 // MARK: - Settings
 
 "settings" = "Nastavení";
 
-"theme" = "Zobrazení";
-"systemTheme" = "systémové";
-"darkTheme" = "tmavé";
-"lightTheme" = "světlé";
+"theme" = "Vzhled";
+"systemTheme" = "systémový";
+"darkTheme" = "tmavý";
+"lightTheme" = "světlý";
 "notifications" = "Notifikace";
 "soundEffects" = "Zvuky";
 "defaultMarketList" = "Výchozí seznam pro trhy";

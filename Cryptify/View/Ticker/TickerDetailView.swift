@@ -152,9 +152,9 @@ struct TickerDetailView: View {
     // MARK: - inputs
 
     private var chartTypePicker: some View {
-        Picker("Chart type", selection: $tickerViewModel.selectedChart) {
+        Picker(LocalizedStringKey("chartType"), selection: $tickerViewModel.selectedChart) {
             ForEach(TickerViewModel.ChartType.allCases) { chartType in
-                Text(chartType.rawValue)
+                Text(LocalizedStringKey(chartType.rawValue))
                     .tag(chartType)
             }
         }
@@ -165,9 +165,9 @@ struct TickerDetailView: View {
     }
     
     private var intervalPicker: some View {
-        Picker("Interval", selection: $tickerViewModel.selectedInterval) {
+        Picker(LocalizedStringKey("interval"), selection: $tickerViewModel.selectedInterval) {
             ForEach(TickerViewModel.Interval.allCases) { interval in
-                Text(interval.rawValue)
+                Text(LocalizedStringKey(interval.rawValue))
                     .tag(interval)
             }
         }
@@ -197,7 +197,7 @@ struct TickerDetailView: View {
     private var displayedViewPicker: some View {
         Picker("Displayed View", selection: $tickerViewModel.displayedView) {
             ForEach(TickerViewModel.DisplayedView.allCases) { view in
-                Text(view.rawValue)
+                Text(LocalizedStringKey(view.rawValue))
                     .tag(view)
             }
         }

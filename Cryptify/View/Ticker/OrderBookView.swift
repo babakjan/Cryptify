@@ -12,7 +12,7 @@ struct OrderBookView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Order Book")
+            Text(LocalizedStringKey("orderBook"))
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.bottom, -8)
@@ -21,16 +21,16 @@ struct OrderBookView: View {
                 LoadingView()
             } else if tickerViewModel.orderBookState == .error(), case let .error(message) = tickerViewModel.orderBookState {
                 ErrorView(
-                    heading: "Order Book isn't available!",
+                    heading: "orderBookNotAvailableError",
                     paragraph: message,
                     showTryAgainButton: true,
                     tryAgainAction: tickerViewModel.fetchOrderBook,
                     showImage: false
                 )
             } else if let orderBook = tickerViewModel.orderBook {
-                grid(title: "Bids", data: orderBook.bids, foregroundColor: .theme.green)
+                grid(title: "bids", data: orderBook.bids, foregroundColor: .theme.green)
 
-                grid(title: "Asks", data: orderBook.asks, foregroundColor: .theme.red)
+                grid(title: "asks", data: orderBook.asks, foregroundColor: .theme.red)
             }
         }
     }
@@ -44,15 +44,15 @@ struct OrderBookView: View {
         ]
         
         Group {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.title3)
                 .fontWeight(.semibold)
                 .padding(.bottom, -16)
             
             LazyVGrid(columns: columns, spacing: 8) {
-                gridHeaderItem(label: "Price")
-                gridHeaderItem(label: "Sum")
-                gridHeaderItem(label: "Amount")
+                gridHeaderItem(label: "price")
+                gridHeaderItem(label: "sum")
+                gridHeaderItem(label: "amount")
                 
                 ForEach(data.indices, id: \.self) { index in
                     Text(Formatter.shared.formatToNumberOfdigits(of: data[index].price))
@@ -67,7 +67,7 @@ struct OrderBookView: View {
     }
     
     private func gridHeaderItem(label: String) -> some View {
-        Text(label)
+        Text(LocalizedStringKey(label))
             .foregroundColor(.theme.secondaryText)
             .fontWeight(.medium)
     }

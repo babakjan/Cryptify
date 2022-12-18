@@ -12,7 +12,7 @@ struct TradesView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Trades")
+            Text(LocalizedStringKey("trades"))
                 .font(.title2)
                 .fontWeight(.bold)
 
@@ -20,7 +20,7 @@ struct TradesView: View {
                 LoadingView()
             } else if tickerViewModel.tradesState == .error(), case let .error(message) = tickerViewModel.tradesState {
                 ErrorView(
-                    heading: "Trades are not available!",
+                    heading: "tradesNotAvailableError",
                     paragraph: message,
                     showTryAgainButton: true, tryAgainAction: tickerViewModel.fetchTrades,
                     showImage: false
@@ -40,9 +40,9 @@ struct TradesView: View {
         ]
         
         LazyVGrid(columns: columns, spacing: 8) {
-            gridHeaderItem(label: "Price")
-            gridHeaderItem(label: "Sum")
-            gridHeaderItem(label: "Amount")
+            gridHeaderItem(label: "price")
+            gridHeaderItem(label: "sum")
+            gridHeaderItem(label: "amount")
             
             ForEach(tickerViewModel.trades) { trade in
                 Group {
@@ -55,7 +55,7 @@ struct TradesView: View {
     }
     
     private func gridHeaderItem(label: String) -> some View {
-        Text(label)
+        Text(LocalizedStringKey(label))
             .foregroundColor(.theme.secondaryText)
             .fontWeight(.medium)
     }

@@ -12,7 +12,7 @@ struct PriceAndDailyChangeView: View {
     
     var body: some View {
         HStack {
-            Text("Price:")
+            Text(LocalizedStringKey("price: "))
                 .font(.title3)
                 .foregroundColor(.theme.secondaryText)
             
@@ -22,7 +22,7 @@ struct PriceAndDailyChangeView: View {
             
             Spacer()
             
-            Text("24h:")
+            Text(LocalizedStringKey("24h: "))
                 .font(.title3)
                 .foregroundColor(.theme.secondaryText)
             

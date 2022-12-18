@@ -21,7 +21,7 @@ struct LastUpdateView: View {
     
     var body: some View {
         HStack(alignment: .center) {
-            Text(LocalizedStringKey("lastUpdate"))
+            Text(LocalizedStringKey("lastUpdate: "))
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.theme.secondaryText)

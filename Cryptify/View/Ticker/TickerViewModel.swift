@@ -196,9 +196,9 @@ final class TickerViewModel: ObservableObject {
     }
     
     enum ChartType: String, CaseIterable, Identifiable {
-        case area = "Area"
-        case line = "Line"
-        case candles = "Candles"
+        case area = "areaChart"
+        case line = "lineChart"
+        case candles = "candleChart"
         
         var id: String {
             self.rawValue
@@ -206,7 +206,7 @@ final class TickerViewModel: ObservableObject {
     }
     
     enum Interval: String, CaseIterable, Identifiable {
-        case all = "All"
+        case all = "all"
         case years10 = "10Y"
         case years5 = "5Y"
         case years2 = "2Y"
@@ -226,8 +226,8 @@ final class TickerViewModel: ObservableObject {
     
     //which subview is displayed in ticker detail view
     enum DisplayedView: String, CaseIterable, Identifiable {
-        case trades = "Trades"
-        case orderBook = "OrderBook"
+        case trades = "trades"
+        case orderBook = "orderBook"
         
         var id: String {
             return self.rawValue
