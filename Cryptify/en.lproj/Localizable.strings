@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  Cryptify
+
+  Created by Jan Babák on 18.12.2022.
+  
+*/
+
+
+// MARK: - settings
+
+"settings" = "Setting";
+
+"theme" = "Theme";
+"systemTheme" = "system";
+"darkTheme" = "dark";
+"lightTheme" = "light";
+"notifications" = "Notifications";
+"soundEffects" = "Sound Effects";
+"defaultMarketList" = "Default market list";
+"resetAllSettings" = "Reset all settings";
+
+"about" = "About";
+"sourceCode" = "[Source code](https://gitlab.fit.cvut.cz/babakjan/cryptify)";
+"followMeOnGitHub" = "[Follow me on GitHub](https://github.com/babakjan)";
+"messageMeOnLinkedIn" = "[Message me on LinkedIn](https://www.linkedin.com/in/janbabak/)";

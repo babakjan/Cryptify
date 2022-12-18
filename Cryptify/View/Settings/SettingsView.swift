@@ -17,7 +17,7 @@ struct SettingsView: View {
             
             aboutSection
         }
-        .navigationTitle("Settings")
+        .navigationTitle(LocalizedStringKey("settings"))
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -27,7 +27,7 @@ struct SettingsView: View {
     }
     
     private var settingsSection: some View {
-        Section(header: Text("Settings")) {
+        Section(header: Text(LocalizedStringKey("settings"))) {
             themePicker
             
             notificationsToggle
@@ -41,21 +41,21 @@ struct SettingsView: View {
     }
     
     private var aboutSection: some View {
-        Section(header: Text("About")) {
-            Label("[Source code](https://gitlab.fit.cvut.cz/babakjan/cryptify)", systemImage: "link")
-            Label("[Follow me on GitHub](https://github.com/babakjan)", systemImage: "person")
-            Label("[Message me on LinkedIn](https://www.linkedin.com/in/janbabak/)", systemImage: "paperplane")
+        Section(header: Text(LocalizedStringKey("about"))) {
+            Label(LocalizedStringKey("sourceCode"), systemImage: "link")
+            Label(LocalizedStringKey("followMeOnGitHub"), systemImage: "person")
+            Label(LocalizedStringKey("messageMeOnLinkedIn"), systemImage: "paperplane")
         }
     }
     
     private var themePicker: some View {
         Picker(selection: settingViewModel.$colorScheme) {
             ForEach(Theme.allCases) { theme in
-                Text(theme.rawValue)
+                Text(LocalizedStringKey(theme.rawValue))
                     .tag(theme)
             }
         } label: {
-            Label("Theme", systemImage: settingViewModel.colorScheme == .dark ? "moon" :
+            Label(LocalizedStringKey("theme"), systemImage: settingViewModel.colorScheme == .dark ? "moon" :
                     settingViewModel.colorScheme == .light ? "sun.max" : "apps.iphone")
         }.onChange(of: settingViewModel.colorScheme) { newValue in
             SoundManager.shared.playTab()
@@ -68,7 +68,7 @@ struct SettingsView: View {
                 Text(listName)
             }
         } label: {
-            Label("Default Markets list", systemImage: "list.bullet")
+            Label(LocalizedStringKey("defaultMarketList"), systemImage: "list.bullet")
         }.onChange(of: settingViewModel.defaultMarketsList) { newValue in
             SoundManager.shared.playTab()
         }
@@ -76,7 +76,7 @@ struct SettingsView: View {
     
     private var notificationsToggle: some View {
         Toggle(isOn: settingViewModel.$notificationsOn) {
-            Label("Notifications", systemImage: settingViewModel.notificationsOn ? "bell.badge" : "bell.slash")
+            Label(LocalizedStringKey("notifications"), systemImage: settingViewModel.notificationsOn ? "bell.badge" : "bell.slash")
         }.onChange(of: settingViewModel.notificationsOn) { newValue in
             SoundManager.shared.playTab()
             NotificationManager.shared.notificatiosOnToggled()
@@ -85,7 +85,7 @@ struct SettingsView: View {
     
     private var soundEffectsToggle: some View {
         Toggle(isOn: settingViewModel.$soundOn) {
-            Label("Sound effects", systemImage: settingViewModel.soundOn ? "speaker.wave.2" : "speaker.slash")
+            Label(LocalizedStringKey("soundEffects"), systemImage: settingViewModel.soundOn ? "speaker.wave.2" : "speaker.slash")
         }.onChange(of: settingViewModel.soundOn) { newValue in
             SoundManager.shared.playTab()
         }
@@ -96,7 +96,7 @@ struct SettingsView: View {
             SoundManager.shared.playTab()
             settingViewModel.resetAllSettings()
         } label: {
-            Label("Reset all settings", systemImage: "arrow.counterclockwise")
+            Label(LocalizedStringKey("resetAllSettings"), systemImage: "arrow.counterclockwise")
         }
     }
 }
