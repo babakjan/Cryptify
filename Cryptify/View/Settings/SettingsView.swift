@@ -58,7 +58,7 @@ struct SettingsView: View {
             Label("Theme", systemImage: settingViewModel.colorScheme == .dark ? "moon" :
                     settingViewModel.colorScheme == .light ? "sun.max" : "apps.iphone")
         }.onChange(of: settingViewModel.colorScheme) { newValue in
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
         }
     }
     
@@ -70,7 +70,7 @@ struct SettingsView: View {
         } label: {
             Label("Default Markets list", systemImage: "list.bullet")
         }.onChange(of: settingViewModel.defaultMarketsList) { newValue in
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
         }
     }
     
@@ -78,7 +78,7 @@ struct SettingsView: View {
         Toggle(isOn: settingViewModel.$notificationsOn) {
             Label("Notifications", systemImage: settingViewModel.notificationsOn ? "bell.badge" : "bell.slash")
         }.onChange(of: settingViewModel.notificationsOn) { newValue in
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
         }
     }
     
@@ -86,13 +86,13 @@ struct SettingsView: View {
         Toggle(isOn: settingViewModel.$soundOn) {
             Label("Sound effects", systemImage: settingViewModel.soundOn ? "speaker.wave.2" : "speaker.slash")
         }.onChange(of: settingViewModel.soundOn) { newValue in
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
         }
     }
     
     private var resetBtn: some View {
         Button {
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
             settingViewModel.resetAllSettings()
         } label: {
             Label("Reset all settings", systemImage: "arrow.counterclockwise")

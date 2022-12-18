@@ -159,7 +159,7 @@ struct TickerDetailView: View {
             }
         }
         .onChange(of: tickerViewModel.selectedChart) { newValue in
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
         }
         .padding(.horizontal, -11)
     }
@@ -203,7 +203,7 @@ struct TickerDetailView: View {
         }
         .pickerStyle(.segmented)
         .onChange(of: tickerViewModel.displayedView) { newValue in
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
             Task {
                 await tickerViewModel.refreshDisplayedView()
             }
@@ -225,13 +225,13 @@ struct TickerDetailView: View {
         if value.translation.width < 0, let symbolId = tickerViewModel.symbol?.symbol {
             let symbol = marketsViewModel.getNextSymbol(symbolId: symbolId)
             if let symbol {
-                SoundManager.instance.playTransitionRight()
+                SoundManager.shared.playTransitionRight()
                 navigationPath.append(symbol)
             }
         }
 
         if value.translation.width > 0 {
-            SoundManager.instance.playTransitionLeft()
+            SoundManager.shared.playTransitionLeft()
             navigationPath.removeLast()
         }
     }

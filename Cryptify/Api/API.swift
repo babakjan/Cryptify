@@ -9,11 +9,8 @@ import Foundation
 
 //sigleton API, all APIs inherit from it
 class API {
-    static let shared = API()
-    
+    static let sharedApi = API()
     static let serverUrl = "https://api.poloniex.com/markets"
-    
-    private init() {} //sigleton hasn't accessible constructor
 
     //fetch single entity - return instance of T?
     func fetch<T: Decodable>(path: String, parameters: [Parameter: String] = [:]) async throws -> T? {

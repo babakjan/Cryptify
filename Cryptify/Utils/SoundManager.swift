@@ -11,7 +11,7 @@ import SwiftUI
 
 //sound manager implemented as singleton patter
 final class SoundManager {
-    static let instance = SoundManager()
+    static let shared = SoundManager()
     static let soundOnUserDefaultsKey = "soundOn"
     
     @AppStorage(SoundManager.soundOnUserDefaultsKey) static private(set) var soundOn = false

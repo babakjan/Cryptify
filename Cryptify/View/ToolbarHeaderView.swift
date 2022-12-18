@@ -37,12 +37,12 @@ struct ToolbarHeaderView<Destination: View>: View {
                         iconView
                     }
                     .simultaneousGesture(TapGesture().onEnded{
-                        SoundManager.instance.playTab()
+                        SoundManager.shared.playTab()
                     })
                 } else {
                     iconView
                         .onTapGesture {
-                            SoundManager.instance.playTab()
+                            SoundManager.shared.playTab()
                             iconAction()
                         }
                 }

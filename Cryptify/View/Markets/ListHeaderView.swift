@@ -33,7 +33,7 @@ struct ListHeaderView: View {
                 .rotationEffect(Angle(degrees: viewModel.sortBy == .pairAscending ? 180 : 0))
         }
         .onTapGesture {
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
             withAnimation {
                 viewModel.sortBy = viewModel.sortBy == .pairAscending ? .pairDescendig : .pairAscending
             }
@@ -48,7 +48,7 @@ struct ListHeaderView: View {
                 .rotationEffect(Angle(degrees: viewModel.sortBy == .priceAscending ? 180 : 0))
         }
         .onTapGesture {
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
             withAnimation {
                 viewModel.sortBy = viewModel.sortBy == .priceAscending ? .priceDescending : .priceAscending
             }
@@ -63,7 +63,7 @@ struct ListHeaderView: View {
                 .rotationEffect(Angle(degrees: viewModel.sortBy == .dailyChangeAscenging ? 180 : 0))
         }
         .onTapGesture {
-            SoundManager.instance.playTab()
+            SoundManager.shared.playTab()
             withAnimation {
                 viewModel.sortBy = viewModel.sortBy == .dailyChangeAscenging ? .dailyChangeDescending : .dailyChangeAscenging
             }
