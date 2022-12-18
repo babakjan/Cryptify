@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ErrorView: View {
     var heading: LocalizedStringKey = "Something went wrong!" //for example error name
-    var paragraph = "You may have lost your connection or the server is currently unavailable. Please try it later." //detailet error description, solution, ...
+    var paragraph =  //detailet error description, solution, ...
     var showTryAgainButton = false
     var tryAgainAction: () async -> Void = { } //for example reload, when showTryAgainButton is true
     var showImage = true //if true show image of disconnected server and client

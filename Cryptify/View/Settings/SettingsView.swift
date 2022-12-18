@@ -65,7 +65,7 @@ struct SettingsView: View {
     private var defaultMarketsListPicker: some View {
         Picker(selection: $settingViewModel.defaultMarketsList) {
             ForEach(settingViewModel.listNames, id: \.self) { listName in
-                Text(listName)
+                Text(LocalizedStringKey(listName))
             }
         } label: {
             Label(LocalizedStringKey("defaultMarketList"), systemImage: "list.bullet")

@@ -26,8 +26,10 @@
 "delete %@?" = "Delete %@?";
 "delete" = "Delete";
 
-"removeFromList %@" = "Remove from %@";
-"addToList %@" = "Add to %@";
+"removeFrom " = "Remove from ";
+"addTo " = "Add to ";
+
+"watchlist" = "Watchlist";
 
 // MARK: - Ticker detail
 

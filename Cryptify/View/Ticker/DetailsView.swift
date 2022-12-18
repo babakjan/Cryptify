@@ -22,18 +22,18 @@ struct DetailsView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     labelPropertyView(label: "low: ", property: ticker.formattedLow)
                     
-                    labelPropertyView(label: "high: ", property: ticker.formattedHigh)
-                
                     labelPropertyView(label: "open: ", property: ticker.formattedOpen)
+                    
+                    labelPropertyView(label: "quantity: ", property: ticker.formattedQuantity)
                 }
                 
                 Spacer()
                 
                 //right column
                 VStack(alignment: .leading, spacing: 8) {
-                    labelPropertyView(label: "close: ", property: ticker.formattedClose)
+                    labelPropertyView(label: "high: ", property: ticker.formattedHigh)
                     
-                    labelPropertyView(label: "quantity: ", property: ticker.formattedQuantity)
+                    labelPropertyView(label: "close: ", property: ticker.formattedClose)
                     
                     labelPropertyView(label: "tradeCount: ", property: "\(ticker.tradeCount)")
                 }

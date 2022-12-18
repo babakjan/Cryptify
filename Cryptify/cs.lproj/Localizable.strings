@@ -26,8 +26,10 @@
 "delete %@?" = "Smazat %@?";
 "delete" = "Smazat";
 
-"removeFromList %@" = "Odstranit z %@";
-"addToList %@" = "Přidat do %@";
+"removeFrom " = "Odstranit z ";
+"addTo " = "Přidat do ";
+
+"watchlist" = "Sledované";
 
 // MARK: - Ticker detail
 
@@ -81,7 +83,7 @@
 "lightTheme" = "světlý";
 "notifications" = "Notifikace";
 "soundEffects" = "Zvuky";
-"defaultMarketList" = "Výchozí seznam pro trhy";
+"defaultMarketList" = "Výchozí seznam";
 "resetAllSettings" = "Resetovat nastavení";
 
 "about" = "O aplikaci";

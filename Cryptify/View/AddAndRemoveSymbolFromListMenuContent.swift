@@ -41,7 +41,10 @@ struct RemoveSymbolFromListButton: View {
             Button(role: .destructive) {
                 marketsViewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
             } label: {
-                Label(LocalizedStringKey("removeFromList \(listName)"), systemImage: "trash")
+                HStack {
+                    Text(LocalizedStringKey("removeFrom ")) + Text(LocalizedStringKey(listName))
+                    Image(systemName: "trash")
+                }
             }
         }
     }
@@ -58,7 +61,10 @@ struct AddSymbolToListButton: View {
             Button {
                 marketsViewModel.addSymbolToList(symbolId: symbolId, listName: listName)
             } label: {
-                Label(LocalizedStringKey("addToList \(listName)"), systemImage: listName == SpecialMarketsList.watchlist.rawValue ? "eye" : "plus")
+                HStack {
+                    Text(LocalizedStringKey("addTo ")) + Text(LocalizedStringKey(listName))
+                    Image(systemName: listName == SpecialMarketsList.watchlist.rawValue ? "eye" : "plus")
+                }
             }
         }
     }

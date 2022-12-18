@@ -140,7 +140,7 @@ struct MarketsView: View {
     private var listSwitcher: some View {
         Picker("List", selection: $viewModel.activeList) {
             ForEach(viewModel.listNames, id: \.self) { listName in
-                Text(listName)
+                Text(LocalizedStringKey(listName))
             }
         }
         .foregroundColor(.theme.accent)
