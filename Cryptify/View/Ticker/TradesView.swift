@@ -15,20 +15,27 @@ struct TradesView: View {
             Text(LocalizedStringKey("trades"))
                 .font(.title2)
                 .fontWeight(.bold)
+                .padding(.bottom, -8)
 
             if tickerViewModel.tradesState == .loading && tickerViewModel.trades.isEmpty {
                 LoadingView()
-            } else if tickerViewModel.tradesState == .error(), case let .error(message) = tickerViewModel.tradesState {
-                ErrorView(
-                    heading: "tradesNotAvailableError",
-                    paragraph: message,
-                    showTryAgainButton: true, tryAgainAction: tickerViewModel.fetchTrades,
-                    showImage: false
-                )
+                    .padding(.top, 8)
+            } else if tickerViewModel.tradesState == .error(), case let .error(messageLocalizedKey) = tickerViewModel.tradesState {
+                error(messageLocalizedKey: messageLocalizedKey)
             } else {
                 grid()
             }
         }
+    }
+    
+    private func error(messageLocalizedKey: String) -> some View {
+        ErrorView(
+            headingLocalizedKey: "tradesNotAvailableError",
+            paragraphLocalizedKey: messageLocalizedKey,
+            showTryAgainButton: true, tryAgainAction: tickerViewModel.fetchTrades,
+            showImage: false
+        )
+        .padding(.top, 8)
     }
     
     @ViewBuilder
@@ -52,6 +59,7 @@ struct TradesView: View {
                 }.foregroundColor(trade.color)
             }
         }
+        .padding(.top, 8)
     }
     
     private func gridHeaderItem(label: String) -> some View {

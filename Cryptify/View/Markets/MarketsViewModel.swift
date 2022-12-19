@@ -71,7 +71,7 @@ final class MarketsViewModel: ObservableObject {
         do {
             symbols = try await SymbolAPI.shared.fetchAllSymbols().sorted(by: { $0.price > $1.price })
         } catch {
-            symbolsState = .error(message: error.localizedDescription)
+            symbolsState = .error(messageLocalizedKey: error.localizedDescription)
             print("[ERROR] fetch symbols market view model")
             return
         }
@@ -206,8 +206,8 @@ final class MarketsViewModel: ObservableObject {
         
         var errorDescription: String? {
             switch self {
-            case let .duplicate(name): return "List \"\(name)\" already exists!"
-            case .empty: return "List name can't be empty!"
+            case .duplicate: return NSLocalizedString("listAlreadyExists", comment: "")
+            case .empty: return NSLocalizedString("listNameEmpty", comment: "")
             }
         }
     }

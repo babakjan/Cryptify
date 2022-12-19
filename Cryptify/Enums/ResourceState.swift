@@ -11,7 +11,7 @@ import Foundation
 enum ResourceState: Equatable {
     case loading
     case ok
-    case error(message: String = "")
+    case error(messageLocalizedKey: String = "")
     
     //custom comparator, besause I want .error equals .error regardless of the message value
     static func ==(lhs: ResourceState, rhs: ResourceState) -> Bool {

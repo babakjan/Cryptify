@@ -19,20 +19,26 @@ struct OrderBookView: View {
             
             if tickerViewModel.orderBookState == .loading && tickerViewModel.orderBook == nil {
                 LoadingView()
-            } else if tickerViewModel.orderBookState == .error(), case let .error(message) = tickerViewModel.orderBookState {
-                ErrorView(
-                    heading: "orderBookNotAvailableError",
-                    paragraph: message,
-                    showTryAgainButton: true,
-                    tryAgainAction: tickerViewModel.fetchOrderBook,
-                    showImage: false
-                )
+                    .padding(.top, 8)
+            } else if tickerViewModel.orderBookState == .error(), case let .error(messageLocalizedKey) = tickerViewModel.orderBookState {
+                error(messageLocalizedKey: messageLocalizedKey)
             } else if let orderBook = tickerViewModel.orderBook {
                 grid(title: "bids", data: orderBook.bids, foregroundColor: .theme.green)
 
                 grid(title: "asks", data: orderBook.asks, foregroundColor: .theme.red)
             }
         }
+    }
+    
+    private func error(messageLocalizedKey: String) -> some View {
+        ErrorView(
+            headingLocalizedKey: "orderBookNotAvailableError",
+            paragraphLocalizedKey: messageLocalizedKey,
+            showTryAgainButton: true,
+            tryAgainAction: tickerViewModel.fetchOrderBook,
+            showImage: false
+        )
+        .padding(.top, 8)
     }
     
     @ViewBuilder

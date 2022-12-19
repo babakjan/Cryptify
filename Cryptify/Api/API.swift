@@ -17,7 +17,7 @@ class API {
         let url = createUrl(path: path, parameters: parameters)
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.timeoutInterval = 16
+        request.timeoutInterval = 24
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -66,12 +66,13 @@ class API {
         case clientError
         case serverError
         
+        //return string, which can be translated by LocalizedStingKey(string)
         var errorDescription: String? {
             switch self {
             case .serverError:
-                return NSLocalizedString("The server is currently unavailable. Please wait, we are working on that.", comment: "")
+                return NSLocalizedString("serverError", comment: "")
             case .clientError:
-                return NSLocalizedString("You may have lost your connection or something have broken on your device.", comment: "")
+                return NSLocalizedString("clientError", comment: "")
             }
         }
     }

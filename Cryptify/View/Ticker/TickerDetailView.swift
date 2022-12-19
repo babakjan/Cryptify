@@ -46,15 +46,15 @@ struct TickerDetailView: View {
             if tickerViewModel.tickerState == .loading || tickerViewModel.symbolState == .loading {
                 LoadingView()
                     .frame(height: (UIScreen.main.bounds.height / 2) + 36)
-            } else if tickerViewModel.tickerState == .error(), case let .error(message) = tickerViewModel.tickerState {
+            } else if tickerViewModel.tickerState == .error(), case let .error(messageLocalizedKey) = tickerViewModel.tickerState {
                 ErrorView(
-                    paragraph: message,
+                    paragraphLocalizedKey: messageLocalizedKey,
                     showTryAgainButton: true,
                     tryAgainAction: tickerViewModel.fetchData
                 )
             } else if tickerViewModel.symbolState == .error(), case let .error(message) = tickerViewModel.symbolState {
                 ErrorView(
-                    paragraph: message,
+                    paragraphLocalizedKey: message,
                     showTryAgainButton: true,
                     tryAgainAction: tickerViewModel.fetchData
                 )
@@ -127,10 +127,10 @@ struct TickerDetailView: View {
         if tickerViewModel.candlesState == .loading {
             LoadingView()
                 .frame(height: 290)
-        } else if tickerViewModel.candlesState == .error(), case let .error(message) = tickerViewModel.candlesState {
+        } else if tickerViewModel.candlesState == .error(), case let .error(messageLocalizedKey) = tickerViewModel.candlesState {
             ErrorView(
-                heading: "Chart's not available!",
-                paragraph: message,
+                headingLocalizedKey: "chartNotAvailable",
+                paragraphLocalizedKey: messageLocalizedKey,
                 showTryAgainButton: true,
                 tryAgainAction: tickerViewModel.fetchCandles,
                 showImage: false

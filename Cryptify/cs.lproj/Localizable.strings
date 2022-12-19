@@ -66,12 +66,10 @@
 "trades" = "Obchody";
 "sum" = "Suma";
 "amount" = "Množství";
-"tradesNotAvailableError" = "Obchody nejsou dostupné!";
 
 "orderBook" = "Seznam příkazů";
 "bids" = "Nabídka";
 "asks" = "Poptávka";
-"orderBookNotAvailableError" = "Seznam příkazů není dostupný!";
 
 // MARK: - Settings
 
@@ -90,3 +88,15 @@
 "sourceCode" = "[Zdrojový kód](https://gitlab.fit.cvut.cz/babakjan/cryptify)";
 "followMeOnGitHub" = "[Sledujte mě na GitHubu](https://github.com/babakjan)";
 "messageMeOnLinkedIn" = "[Pošlete mi zprávu na LinkedInu](https://www.linkedin.com/in/janbabak/)";
+
+// MARK: - Errors
+
+"defaultErrorHeading" = "Něco se pokazilo!";
+"defaultErrorMessage" = "Možná nejste připojeni k internetu nebo server není v současné době dostupný. Zkuste to prosím později.";
+"serverError" = "Server je momentálně nedostupný. Prosíme zkuste to později, pracujeme na tom.";
+"clientError" = "Možná jste ztratili připojení nebo se něco pokazilo na vašem zařízení.";
+"chartNotAvailable" = "Graf není momentálně dostupný.";
+"tradesNotAvailableError" = "Obchody nejsou dostupné!";
+"orderBookNotAvailableError" = "Seznam příkazů není dostupný!";
+"listNameEmpty" = "Jméno seznamu nemůže být prázdné!";
+"listAlreadyExists" = "Seznam již existuje! Zvolte jiné jméno.";

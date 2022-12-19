@@ -66,12 +66,10 @@
 "trades" = "Trades";
 "sum" = "Sum";
 "amount" = "Amount";
-"tradesNotAvailableError" = "Trades are not available!";
 
 "orderBook" = "Order book";
 "bids" = "Bids";
 "asks" = "Asks";
-"orderBookNotAvailableError" = "Order Book isn't available!";
 
 // MARK: - Settings
 
@@ -90,3 +88,15 @@
 "sourceCode" = "[Source code](https://gitlab.fit.cvut.cz/babakjan/cryptify)";
 "followMeOnGitHub" = "[Follow me on GitHub](https://github.com/babakjan)";
 "messageMeOnLinkedIn" = "[Message me on LinkedIn](https://www.linkedin.com/in/janbabak/)";
+
+// MARK: - Errors
+
+"defaultErrorHeading" = "Something went wrong!";
+"defaultErrorMessage" = "You may have lost your connection or the server is currently unavailable. Please try it later.";
+"serverError" = "The server is currently unavailable. Please wait, we are working on that.";
+"clientError" = "You may have lost your connection or something have broken on your device.";
+"chartNotAvailable" = "Chart's not available!";
+"tradesNotAvailableError" = "Trades are not available!";
+"orderBookNotAvailableError" = "Order Book isn't available!";
+"listNameEmpty" = "List name can't be empty!";
+"listAlreadyExists" = "List already exists! Choose different name.";
