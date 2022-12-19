@@ -206,7 +206,7 @@ final class MarketsViewModel: ObservableObject {
         
         var errorDescription: String? {
             switch self {
-            case .duplicate: return NSLocalizedString("listAlreadyExists", comment: "")
+            case .duplicate: return NSLocalizedString("listAlreadyExists", comment: "") // TODO: show list name, interpolation isn't working
             case .empty: return NSLocalizedString("listNameEmpty", comment: "")
             }
         }

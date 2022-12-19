@@ -15,8 +15,7 @@ struct LastUpdateView: View {
     init(lastUpdateDate: Date?) {
         self.lastUpdateDate = lastUpdateDate
         formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d HH:mm"
-        formatter.locale = Locale(identifier: "en_US_POSIX") //translate from localized to english
+        formatter.dateFormat = "d.M. HH:mm"
     }
     
     var body: some View {
