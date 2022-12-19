@@ -70,9 +70,9 @@ class API {
         var errorDescription: String? {
             switch self {
             case .serverError:
-                return NSLocalizedString("serverError", comment: "")
+                return NSLocalizedString("serverError", comment: "Server error message.")
             case .clientError:
-                return NSLocalizedString("clientError", comment: "")
+                return NSLocalizedString("clientError", comment: "Client error message.")
             }
         }
     }

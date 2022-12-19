@@ -15,8 +15,8 @@ struct MarketsView: View {
         Group {
             if viewModel.symbolsState == ResourceState.loading {
                 LoadingView()
-            } else if viewModel.symbolsState == ResourceState.error(), case let .error(messageLocalizedKey) = viewModel.symbolsState {
-                error(messageLocalizedKey: messageLocalizedKey)
+            } else if viewModel.symbolsState == ResourceState.error(), case let .error(message) = viewModel.symbolsState {
+                error(message: message)
             } else {
                 symbolList
             }
@@ -40,9 +40,9 @@ struct MarketsView: View {
         }
     }
     
-    private func error(messageLocalizedKey: String) -> some View {
+    private func error(message: String) -> some View {
         ErrorView(
-            paragraphLocalizedKey: messageLocalizedKey,
+            paragraph: message,
             showTryAgainButton: true,
             tryAgainAction: viewModel.fetchSymbols
         )

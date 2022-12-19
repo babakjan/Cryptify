@@ -101,7 +101,7 @@ final class TickerViewModel: ObservableObject {
             ticker = try await TickerAPI.shared.fetchTicker(symbolId: symbolId)
         } catch {
             print("[ERROR] fetch ticker ticker view model")
-            tickerState = .error(messageLocalizedKey: error.localizedDescription)
+            tickerState = .error(message: error.localizedDescription)
             return
         }
         
@@ -116,7 +116,7 @@ final class TickerViewModel: ObservableObject {
             symbol = try await SymbolAPI.shared.fetchSymbol(symbolId: symbolId)
         } catch {
             print("[ERROR] fetch symbol ticker view model")
-            symbolState = .error(messageLocalizedKey: error.localizedDescription)
+            symbolState = .error(message: error.localizedDescription)
             return
         }
         
@@ -131,7 +131,7 @@ final class TickerViewModel: ObservableObject {
             candles = try await CandleAPI.shared.fetchAllCandles(symbolId: symbolId, interval: selectedInterval)
         } catch {
             print("[ERROR] fetch candles ticker view model")
-            candlesState = .error(messageLocalizedKey: error.localizedDescription)
+            candlesState = .error(message: error.localizedDescription)
             return
         }
         
@@ -147,7 +147,7 @@ final class TickerViewModel: ObservableObject {
         } catch {
             print("[ERROR] fetch order book ticker view model")
             orderBookInRowFails += 1
-            orderBookState = .error(messageLocalizedKey: error.localizedDescription)
+            orderBookState = .error(message: error.localizedDescription)
             return
         }
         
@@ -164,7 +164,7 @@ final class TickerViewModel: ObservableObject {
         } catch {
             print("[ERROR] fetch trades ticker view model")
             tradesInRowFails += 1
-            tradesState = .error(messageLocalizedKey: error.localizedDescription)
+            tradesState = .error(message: error.localizedDescription)
             return
         }
         

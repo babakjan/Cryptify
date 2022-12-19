@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
+import UIKit
 
 //state of requested resource
 enum ResourceState: Equatable {
     case loading
     case ok
-    case error(messageLocalizedKey: String = "")
+    case error(message: String = NSLocalizedString("", comment: ""))
     
     //custom comparator, besause I want .error equals .error regardless of the message value
     static func ==(lhs: ResourceState, rhs: ResourceState) -> Bool {

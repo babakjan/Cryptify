@@ -20,18 +20,18 @@ struct TradesView: View {
             if tickerViewModel.tradesState == .loading && tickerViewModel.trades.isEmpty {
                 LoadingView()
                     .padding(.top, 8)
-            } else if tickerViewModel.tradesState == .error(), case let .error(messageLocalizedKey) = tickerViewModel.tradesState {
-                error(messageLocalizedKey: messageLocalizedKey)
+            } else if tickerViewModel.tradesState == .error(), case let .error(message) = tickerViewModel.tradesState {
+                error(message: message)
             } else {
                 grid()
             }
         }
     }
     
-    private func error(messageLocalizedKey: String) -> some View {
+    private func error(message: String) -> some View {
         ErrorView(
-            headingLocalizedKey: "tradesNotAvailableError",
-            paragraphLocalizedKey: messageLocalizedKey,
+            heading: NSLocalizedString("tradesNotAvailableError", comment: "Trades error heading."),
+            paragraph: message,
             showTryAgainButton: true, tryAgainAction: tickerViewModel.fetchTrades,
             showImage: false
         )

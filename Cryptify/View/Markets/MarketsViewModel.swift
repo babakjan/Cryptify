@@ -71,7 +71,7 @@ final class MarketsViewModel: ObservableObject {
         do {
             symbols = try await SymbolAPI.shared.fetchAllSymbols().sorted(by: { $0.price > $1.price })
         } catch {
-            symbolsState = .error(messageLocalizedKey: error.localizedDescription)
+            symbolsState = .error(message: error.localizedDescription)
             print("[ERROR] fetch symbols market view model")
             return
         }

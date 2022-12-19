@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ErrorView: View {
-    var headingLocalizedKey = "defaultErrorHeading" //for example error name - is translated
-    var paragraphLocalizedKey = "defaultErrorMessage" //detailet error description, solution, ..., - is translated
+    var heading = NSLocalizedString("defaultErrorHeading", comment: "Error heading.") //for example error name - is translated
+    var paragraph = NSLocalizedString("defaultErrorMessage", comment: "Error description.") //detailet error description, solution, ..., - is translated
     var showTryAgainButton = false
     var tryAgainAction: () async -> Void = { } //for example reload, when showTryAgainButton is true
     var showImage = true //if true show image of disconnected server and client
@@ -25,13 +25,13 @@ struct ErrorView: View {
                     .padding(.bottom, 24)
             }
             
-            Text(LocalizedStringKey(headingLocalizedKey))
+            Text(heading)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.bottom, 8)
                 .multilineTextAlignment(.center)
             
-            Text(LocalizedStringKey(paragraphLocalizedKey))
+            Text(paragraph)
                 .font(.subheadline)
                 .foregroundColor(.theme.secondaryText)
                 .multilineTextAlignment(.center)
