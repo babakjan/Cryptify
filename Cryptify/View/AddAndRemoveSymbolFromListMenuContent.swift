@@ -33,12 +33,18 @@ struct AddAndRemoveSymbolFromListMenuContent: View {
 struct RemoveSymbolFromListButton: View {
     var symbolId: String
     var listName: String
+    var swipeSound = false //if true makes swipe sound, default tab otherwise
     
     @StateObject var marketsViewModel: MarketsViewModel
     
     var body: some View {
         if listName != SpecialMarketsList.all.rawValue {
             Button(role: .destructive) {
+                if swipeSound {
+                    SoundManager.shared.playTransitionRight()
+                } else {
+                    SoundManager.shared.playTab()
+                }
                 marketsViewModel.removeSymbolFromList(symbolId: symbolId, listName: listName)
             } label: {
                 HStack {
@@ -53,12 +59,18 @@ struct RemoveSymbolFromListButton: View {
 struct AddSymbolToListButton: View {
     var symbolId: String
     var listName: String
+    var swipeSound = false //if true makes swipe sound, default tab otherwise
     
     @StateObject var marketsViewModel: MarketsViewModel
     
     var body: some View {
         if listName != SpecialMarketsList.all.rawValue {
             Button {
+                if swipeSound {
+                    SoundManager.shared.playTransitionLeft()
+                } else {
+                    SoundManager.shared.playTab()
+                }
                 marketsViewModel.addSymbolToList(symbolId: symbolId, listName: listName)
             } label: {
                 HStack {

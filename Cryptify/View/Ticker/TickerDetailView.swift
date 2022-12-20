@@ -162,6 +162,9 @@ struct TickerDetailView: View {
             SoundManager.shared.playTab()
         }
         .padding(.horizontal, -11)
+        .onTapGesture {
+            SoundManager.shared.playTab()
+        }
     }
     
     private var intervalPicker: some View {
@@ -172,12 +175,16 @@ struct TickerDetailView: View {
             }
         }
         .onChange(of: tickerViewModel.selectedInterval) { interval in
+            SoundManager.shared.playTab()
             Task {
                 await tickerViewModel.fetchCandles()
                 tickerViewModel.animateChart()
             }
         }
         .padding(.horizontal, -11)
+        .onTapGesture {
+            SoundManager.shared.playTab()
+        }
     }
     
     private var addAndRemoveFromListMenu: some View {
@@ -189,7 +196,10 @@ struct TickerDetailView: View {
         } label: {
             Image(systemName: "ellipsis")
                 .font(.title2)
-                .frame(minWidth: 64, alignment: .trailing)
+                .frame(width: 64, height: 24, alignment: .trailing)
+        }
+        .onTapGesture {
+            SoundManager.shared.playTab()
         }
     }
     

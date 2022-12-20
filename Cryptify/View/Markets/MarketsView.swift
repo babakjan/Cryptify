@@ -97,7 +97,7 @@ struct MarketsView: View {
                 NavigationLink (value: symbol) {
                     EmptyView()
                 }
-                .opacity(0)
+                .opacity(0.1)
     
                 listRow(symbol: symbol)
             }
@@ -130,13 +130,23 @@ struct MarketsView: View {
         .padding(.vertical, 6)
         .swipeActions(edge: .leading, content: { //swipe from leading ege shortcut for adding symbol to watchlist, not available in Watchlist
             if viewModel.activeList != SpecialMarketsList.watchlist.rawValue {
-                AddSymbolToListButton(symbolId: symbol.symbol, listName: SpecialMarketsList.watchlist.rawValue, marketsViewModel: viewModel)
+                AddSymbolToListButton(
+                    symbolId: symbol.symbol,
+                    listName: SpecialMarketsList.watchlist.rawValue,
+                    swipeSound: true,
+                    marketsViewModel: viewModel
+                )
                     .tint(.theme.accent)
             }
         })
         .swipeActions(edge: .trailing, content: { //swipe from trailing edge shortcut for removing symbol from active list, not available in All symbols
             if viewModel.activeList != SpecialMarketsList.all.rawValue {
-                RemoveSymbolFromListButton(symbolId: symbol.symbol, listName: viewModel.activeList, marketsViewModel: viewModel)
+                RemoveSymbolFromListButton(
+                    symbolId: symbol.symbol,
+                    listName: viewModel.activeList,
+                    swipeSound: true,
+                    marketsViewModel: viewModel
+                )
                     .tint(.theme.red)
             }
         })
@@ -158,7 +168,12 @@ struct MarketsView: View {
         .labelsHidden()
         .padding(.leading, -8)
         .pickerStyle(.menu)
-
+        .onChange(of: viewModel.activeList) { newValue in
+            SoundManager.shared.playTab()
+        }
+        .onTapGesture {
+            SoundManager.shared.playTab()
+        }
     }
     
     //can add list, remove list, set list as default
@@ -173,14 +188,20 @@ struct MarketsView: View {
             Text("\(Image(systemName: "ellipsis"))")
                 .foregroundColor(.theme.accent)
                 .font(.title2)
-                .frame(minWidth: 64, alignment: .trailing)
+                .frame(width: 64, height: 24, alignment: .trailing)
+        }
+        .onTapGesture {
+            SoundManager.shared.playTab()
         }
         .alert(LocalizedStringKey("createList"), isPresented: $viewModel.createListAlertPresent) { //alert witch input field for entering list name
             TextField(LocalizedStringKey("name"), text: $viewModel.newListName)
             Button(LocalizedStringKey("create")) {
+                SoundManager.shared.playTab()
                 viewModel.createList()
             }
-            Button(LocalizedStringKey("cancel"), role: .cancel) {}
+            Button(LocalizedStringKey("cancel"), role: .cancel) {
+                SoundManager.shared.playTab()
+            }
         } message: {
             Text(LocalizedStringKey("createListSubtitle"))
         }
@@ -210,6 +231,7 @@ struct MarketsView: View {
     //button form creating list, opens alert, where is text field for list name
     private var createListButton: some View {
         Button {
+            SoundManager.shared.playTab()
             viewModel.createListAlertPresent = true
         } label: {
             Label(LocalizedStringKey("createList"), systemImage: "plus")
@@ -221,6 +243,7 @@ struct MarketsView: View {
     private var setListAsDefaultButton: some View {
         // TODO: display only if active list != default list
         Button {
+            SoundManager.shared.playTab()
             viewModel.setActiveListAsDefault()
         } label: {
             Label(LocalizedStringKey("setAsDefault"), systemImage: "pin")
@@ -232,6 +255,7 @@ struct MarketsView: View {
     private var deleteListButton: some View {
         if viewModel.activeList != SpecialMarketsList.all.rawValue && viewModel.activeList != SpecialMarketsList.watchlist.rawValue {
             Button(role: .destructive) {
+                SoundManager.shared.playTab()
                 viewModel.deleteListConfirmationDialogPresent = true
             } label: {
                 Label(LocalizedStringKey("deleteList"), systemImage: "trash")

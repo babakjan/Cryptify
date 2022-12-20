@@ -95,6 +95,7 @@ struct SettingsView: View {
     
     private var languagePickerLink: some View {
         Button {
+            SoundManager.shared.playTab()
             // Create the URL that deep links to your app's custom settings.
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 // Ask the system to open that URL.
