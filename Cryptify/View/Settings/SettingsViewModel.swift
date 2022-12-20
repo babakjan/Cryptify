@@ -16,6 +16,12 @@ final class SettingsViewModel: ObservableObject {
     
     static let colorSchemeUserDefaultsKey = "colorScheme"
     
+    //names of all market lists available
+    var listNames: [String] {
+        let marketLists = MarketsViewModel.loadMarketListsFromUserDefauls()
+        return [SpecialMarketsList.all.rawValue] + marketLists.keys.sorted(by: >)
+    }
+    
     @MainActor
     func resetAllSettings() {
         colorScheme = Theme.system
@@ -24,9 +30,12 @@ final class SettingsViewModel: ObservableObject {
         defaultMarketsList = SpecialMarketsList.all.rawValue
     }
     
-    //names of all market lists available
-    var listNames: [String] {
-        let marketLists = MarketsViewModel.loadMarketListsFromUserDefauls()
-        return [SpecialMarketsList.all.rawValue] + marketLists.keys.sorted(by: >)
+    //this function is required, color scheme of alerts wouldn't work without this
+    func setColorTheme() {
+        SoundManager.shared.playTab()
+        
+        //set preffered color scheme to alerts
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).overrideUserInterfaceStyle =
+            colorScheme == Theme.light ? .light : colorScheme == Theme.dark ? .dark : .unspecified
     }
 }

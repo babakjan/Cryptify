@@ -60,7 +60,7 @@ struct SettingsView: View {
             Label(LocalizedStringKey("theme"), systemImage: settingViewModel.colorScheme == .dark ? "moon" :
                     settingViewModel.colorScheme == .light ? "sun.max" : "apps.iphone")
         }.onChange(of: settingViewModel.colorScheme) { newValue in
-            SoundManager.shared.playTab()
+            settingViewModel.setColorTheme()
         }
     }
     
@@ -103,7 +103,7 @@ struct SettingsView: View {
                 }
             }
         } label: {
-            Label(LocalizedStringKey("changeLanguage"), systemImage: "globe")
+            Label(LocalizedStringKey("appLanguage"), systemImage: "globe")
         }
     }
     

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var navigationPath: [Symbol] = []
-    @AppStorage(SettingsViewModel.colorSchemeUserDefaultsKey) private var colorScheme = Theme.system
     
     var body: some View {
         NavigationView {
@@ -18,7 +17,6 @@ struct ContentView: View {
                     .foregroundColor(.theme.text)
             }
         }
-        .preferredColorScheme(colorScheme == Theme.light ? .light : colorScheme == Theme.dark ? .dark : .none)
         .onAppear {
             NotificationManager.shared.setUp()
         }
