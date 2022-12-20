@@ -82,6 +82,7 @@
 "notifications" = "Notifications";
 "soundEffects" = "Sound Effects";
 "defaultMarketList" = "Default market list";
+"changeLanguage" = "Change app language";
 "resetAllSettings" = "Reset all settings";
 
 "about" = "About";

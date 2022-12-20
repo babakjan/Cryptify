@@ -36,6 +36,8 @@ struct SettingsView: View {
             
             defaultMarketsListPicker
             
+            languagePickerLink
+            
             resetBtn
         }
     }
@@ -88,6 +90,20 @@ struct SettingsView: View {
             Label(LocalizedStringKey("soundEffects"), systemImage: settingViewModel.soundOn ? "speaker.wave.2" : "speaker.slash")
         }.onChange(of: settingViewModel.soundOn) { newValue in
             SoundManager.shared.playTab()
+        }
+    }
+    
+    private var languagePickerLink: some View {
+        Button {
+            // Create the URL that deep links to your app's custom settings.
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                // Ask the system to open that URL.
+                Task {
+                    await UIApplication.shared.open(url)
+                }
+            }
+        } label: {
+            Label(LocalizedStringKey("changeLanguage"), systemImage: "globe")
         }
     }
     

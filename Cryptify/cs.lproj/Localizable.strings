@@ -82,6 +82,7 @@
 "notifications" = "Notifikace";
 "soundEffects" = "Zvuky";
 "defaultMarketList" = "Výchozí seznam";
+"changeLanguage" = "Změnit jazyk aplikace";
 "resetAllSettings" = "Resetovat nastavení";
 
 "about" = "O aplikaci";
