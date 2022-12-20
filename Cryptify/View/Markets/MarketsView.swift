@@ -102,17 +102,28 @@ struct MarketsView: View {
                 listRow(symbol: symbol)
             }
         }
+        .onPreferenceChange(PairColumnWidthPreferenceKey.self) { width in
+            viewModel.pairColumnWidth = width
+        }
     }
 
     @ViewBuilder
     private func listRow(symbol: Symbol) -> some View {
         HStack {
-            PairView(symbol: symbol)
-                .frame(minWidth: 148, alignment: .leading)
+            PairView(symbol: symbol, viewModel: viewModel)
+                .frame(idealWidth: viewModel.pairColumnWidth, maxWidth: .infinity, alignment: .leading)
+                .overlay {
+                    GeometryReader { proxy in
+                        Color.clear.preference(
+                            key: PairColumnWidthPreferenceKey.self,
+                            value: proxy.size.width
+                        )
+                    }
+                }
+            Spacer()
             
             Text(symbol.formattedPrice)
-            
-            Spacer()
+                .frame(width: 96, alignment: .leading)
             
             DailyChangeView(dailyChage: symbol.dailyChange, dailyChangeFormatted: symbol.formattedDailyChange)
         }
@@ -226,6 +237,14 @@ struct MarketsView: View {
                 Label(LocalizedStringKey("deleteList"), systemImage: "trash")
             }
         }
+    }
+}
+
+struct PairColumnWidthPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0 //default width
+    
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
     }
 }
 

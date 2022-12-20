@@ -14,11 +14,10 @@ struct ListHeaderView: View {
     var body: some View {
         HStack {
             pair
-                .frame(minWidth: 148, alignment: .leading)
-            
-            price
             
             Spacer()
+            
+            price
             
             dailyChange
         }
@@ -32,6 +31,7 @@ struct ListHeaderView: View {
                 .opacity(viewModel.sortBy == .pairAscending || viewModel.sortBy == .pairDescendig ? 1 : 0)
                 .rotationEffect(Angle(degrees: viewModel.sortBy == .pairAscending ? 180 : 0))
         }
+        .frame(maxWidth: viewModel.pairColumnWidth, alignment: .leading)
         .onTapGesture {
             SoundManager.shared.playTab()
             withAnimation {
@@ -47,6 +47,7 @@ struct ListHeaderView: View {
                 .opacity(viewModel.sortBy == .priceAscending || viewModel.sortBy == .priceDescending ? 1 : 0)
                 .rotationEffect(Angle(degrees: viewModel.sortBy == .priceAscending ? 180 : 0))
         }
+        .frame(width: 96, alignment: .leading)
         .onTapGesture {
             SoundManager.shared.playTab()
             withAnimation {
@@ -62,6 +63,7 @@ struct ListHeaderView: View {
                 .opacity(viewModel.sortBy == .dailyChangeAscenging || viewModel.sortBy == .dailyChangeDescending ? 1 : 0)
                 .rotationEffect(Angle(degrees: viewModel.sortBy == .dailyChangeAscenging ? 180 : 0))
         }
+        .frame(width: 76, alignment: .trailing)
         .onTapGesture {
             SoundManager.shared.playTab()
             withAnimation {

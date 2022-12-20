@@ -20,6 +20,7 @@ final class MarketsViewModel: ObservableObject {
     @Published var createListError: CreateListError?
     @Published var deleteListConfirmationDialogPresent = false
     @Published var searchedText = ""
+    @Published var pairColumnWidth: CGFloat? = nil
     @Published var sortBy: SortSymbolsBy = .priceDescending {
         didSet {
             sortSymbols()
@@ -69,7 +70,8 @@ final class MarketsViewModel: ObservableObject {
         symbolsState = .loading
         
         do {
-            symbols = try await SymbolAPI.shared.fetchAllSymbols().sorted(by: { $0.price > $1.price })
+            symbols = try await SymbolAPI.shared.fetchAllSymbols()
+            sortSymbols()
         } catch {
             symbolsState = .error(message: error.localizedDescription)
             print("[ERROR] fetch symbols market view model")
