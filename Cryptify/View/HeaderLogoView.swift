@@ -13,7 +13,7 @@ struct HeaderLogoView: View {
     var body: some View {
         Text("_cryptify")
             .foregroundColor(.theme.accent)
-            .font(.custom("Menlo",fixedSize: 24)) //TODO change font
+            .font(.custom("Menlo",fixedSize: 24)) // TODO: change font
             .fontWeight(.bold)
             .padding(.bottom, 16)
     }
