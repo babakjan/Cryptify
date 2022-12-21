@@ -61,9 +61,9 @@ struct OrderBookView: View {
                 gridHeaderItem(label: "amount")
                 
                 ForEach(data.indices, id: \.self) { index in
-                    Text(Formatter.shared.formatToNumberOfdigits(of: data[index].price))
-                    Text(Formatter.shared.formatToNumberOfdigits(of: data[index].price * data[index].amount))
-                    Text("\(Formatter.shared.formatToNumberOfdigits(of: data[index].amount))")
+                    Text(Formatter.shared.formatToNumberOfdigits(of: data[index].price, maxNumberOfDigits: 6))
+                    Text(Formatter.shared.formatToNumberOfdigits(of: data[index].price * data[index].amount, maxNumberOfDigits: 6))
+                    Text("\(Formatter.shared.formatToNumberOfdigits(of: data[index].amount, maxNumberOfDigits: 6))")
                 }
                 .foregroundColor(foregroundColor)
             }

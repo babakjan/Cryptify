@@ -29,7 +29,7 @@ struct LastUpdateView: View {
                 Text(formatter.string(from: date).capitalized)
                     .fontWeight(.semibold)
             } else {
-                Text("-") //TODO get last updated date from disk?
+                Text("-")
             }
                 
             Spacer()

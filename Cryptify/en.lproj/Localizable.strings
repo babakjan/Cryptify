@@ -17,7 +17,7 @@
 "24h" = "24h";
 
 "createList" = "Create list";
-"createListSubtitle" = "Create new list of symbols.";
+"createListSubtitle" = "Create a new list of symbols.";
 "name" = "Name";
 "create" = "Create";
 "cancel" = "Cancel";
@@ -96,8 +96,8 @@
 "defaultErrorMessage" = "You may have lost your connection or the server is currently unavailable. Please try it later.";
 "serverError" = "The server is currently unavailable. Please wait, we are working on that.";
 "clientError" = "You may have lost your connection or something has broken on your device.";
-"chartNotAvailable" = "Chart's not available!";
+"chartNotAvailable" = "The chart's not available!";
 "tradesNotAvailableError" = "Trades are not available!";
 "orderBookNotAvailableError" = "Order Book isn't available!";
 "listNameEmpty" = "List name can't be empty!";
-"listAlreadyExists" = "List already exists! Choose different name.";
+"listAlreadyExists" = "The list already exists! Choose a different name.";

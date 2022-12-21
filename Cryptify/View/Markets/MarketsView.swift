@@ -72,7 +72,6 @@ struct MarketsView: View {
     private var symbolListHeader: some View {
         VStack(alignment: .leading) {
             LastUpdateView(lastUpdateDate: viewModel.lastUpdateDate)
-                .padding(.bottom, 16)
             
             HStack {
                 listSwitcher //set visible list
@@ -81,7 +80,6 @@ struct MarketsView: View {
                 
                 editListsMenu //create, delete, set default list
             }
-            .padding(.bottom, 16)
 
             ListHeaderView(viewModel: viewModel) //sort headers
         }
@@ -166,7 +164,7 @@ struct MarketsView: View {
         }
         .foregroundColor(.theme.accent)
         .labelsHidden()
-        .padding(.leading, -8)
+        .padding(.leading, -11)
         .pickerStyle(.menu)
         .onChange(of: viewModel.activeList) { newValue in
             SoundManager.shared.playTab()

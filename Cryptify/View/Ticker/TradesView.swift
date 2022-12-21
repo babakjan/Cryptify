@@ -53,9 +53,9 @@ struct TradesView: View {
             
             ForEach(tickerViewModel.trades) { trade in
                 Group {
-                    Text(Formatter.shared.formatToNumberOfdigits(of: trade.price * trade.amount))
-                    Text(Formatter.shared.formatToNumberOfdigits(of: trade.amount * trade.price))
-                    Text(Formatter.shared.formatToNumberOfdigits(of: trade.amount))
+                    Text(Formatter.shared.formatToNumberOfdigits(of: trade.price * trade.amount, maxNumberOfDigits: 6))
+                    Text(Formatter.shared.formatToNumberOfdigits(of: trade.amount * trade.price, maxNumberOfDigits: 6))
+                    Text(Formatter.shared.formatToNumberOfdigits(of: trade.amount, maxNumberOfDigits: 6))
                 }.foregroundColor(trade.color)
             }
         }
