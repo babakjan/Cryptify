@@ -155,6 +155,7 @@ final class MarketsViewModel: ObservableObject {
     func setActiveListAsDefault() {
         Self.defaultMarketList = activeList
         Self.saveMarketListsToUserDefaults(marketLists)
+        objectWillChange.send()
     }
     
     func deleteActiveList() {

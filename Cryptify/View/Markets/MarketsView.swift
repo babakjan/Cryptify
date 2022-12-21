@@ -12,14 +12,18 @@ struct MarketsView: View {
     @StateObject var viewModel = MarketsViewModel()
     
     var body: some View {
-        Group {
+        ZStack {
+            if viewModel.symbolsState == ResourceState.error(), case let .error(message) = viewModel.symbolsState {
+                error(message: message)
+            }
+            
+            symbolList
+                .opacity(viewModel.symbolsState == .ok ? 1 : 0)
+            
             if viewModel.symbolsState == ResourceState.loading {
                 LoadingView()
-            } else if viewModel.symbolsState == ResourceState.error(), case let .error(message) = viewModel.symbolsState {
-                error(message: message)
-            } else {
-                symbolList
             }
+            
         }
         .searchable(text: $viewModel.searchedText, placement: .navigationBarDrawer(displayMode: .always))
         .navigationTitle(LocalizedStringKey("markets"))
@@ -34,9 +38,7 @@ struct MarketsView: View {
             await viewModel.fetchSymbols()
         }
         .refreshable {
-            Task { //without this, task is cancelled due to ui rebuild, is there a better way?
-                await viewModel.fetchSymbols()
-            }
+            await viewModel.fetchSymbols()
         }
     }
     
@@ -239,12 +241,13 @@ struct MarketsView: View {
     //set list as default - default list = selected list when opening app
     @ViewBuilder
     private var setListAsDefaultButton: some View {
-        // TODO: display only if active list != default list
-        Button {
-            SoundManager.shared.playTab()
-            viewModel.setActiveListAsDefault()
-        } label: {
-            Label(LocalizedStringKey("setAsDefault"), systemImage: "pin")
+        if viewModel.activeList != MarketsViewModel.defaultMarketList {
+            Button {
+                SoundManager.shared.playTab()
+                viewModel.setActiveListAsDefault()
+            } label: {
+                Label(LocalizedStringKey("setAsDefault"), systemImage: "pin")
+            }
         }
     }
     
