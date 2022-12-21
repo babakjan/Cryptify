@@ -32,4 +32,6 @@ Cryptify is a native iOS app for tracking the prices of cryptocurrencies.
     <img src="screenshots/settings-dark-mode.png" alt="Settings dark mode" height="300"/>
     <img src="screenshots/settings-light-mode.png" alt="Settings light mode" height="300"/>
     <img src="screenshots/trades-light-mode.png" alt="Trades light mode" height="300"/>
+    <img src="screenshots/chart-error-dark-mode.png" alt="Chart error dark mode" height="300"/>
+    <img src="screenshots/error-screen-light-mode.png" alt="Error screen light mode" height="300"/>
 </div>
