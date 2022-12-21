@@ -67,8 +67,14 @@ struct TickerDetailView: View {
         .padding(.top, 8)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                ToolbarHeaderView(icon: "xmark") {
+            ToolbarItem(placement: .navigationBarLeading) {
+                HeaderLogoView()
+            }
+            ToolbarItem(placement: .principal) { //this replaces the inline navigation title
+                Color.clear
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarHeaderIconView(icon: "xmark") {
                     navigationPath.removeAll()
                 }
             }

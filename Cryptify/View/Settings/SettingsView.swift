@@ -20,8 +20,14 @@ struct SettingsView: View {
         .navigationTitle(LocalizedStringKey("settings"))
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                ToolbarHeaderView(icon: "xmark", iconAction: { self.dismiss() })
+            ToolbarItem(placement: .navigationBarLeading) {
+                HeaderLogoView()
+            }
+            ToolbarItem(placement: .principal) { //this replaces the inline navigation title
+                Color.clear
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarHeaderIconView(icon: "xmark", iconAction: { self.dismiss() })
             }
         }
     }

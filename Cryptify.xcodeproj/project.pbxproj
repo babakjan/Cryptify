@@ -18,7 +18,7 @@
 		DF18AA07292972B000533C8B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18AA06292972B000533C8B /* API.swift */; };
 		DF318EF529328D380082922D /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF318EF429328D380082922D /* ListHeaderView.swift */; };
 		DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC41292CABD800A8C865 /* TickerViewModel.swift */; };
-		DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC43292CD20100A8C865 /* ToolbarHeaderView.swift */; };
+		DF3FBC44292CD20100A8C865 /* ToolbarHeaderIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC43292CD20100A8C865 /* ToolbarHeaderIconView.swift */; };
 		DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC47292CE42A00A8C865 /* DetailsView.swift */; };
 		DF3FBC4B292D0CB100A8C865 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC4A292D0CB100A8C865 /* Formatter.swift */; };
 		DF3FBC4D292D16D200A8C865 /* Candle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FBC4C292D16D200A8C865 /* Candle.swift */; };
@@ -75,7 +75,7 @@
 		DF18AA06292972B000533C8B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		DF318EF429328D380082922D /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
 		DF3FBC41292CABD800A8C865 /* TickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewModel.swift; sourceTree = "<group>"; };
-		DF3FBC43292CD20100A8C865 /* ToolbarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarHeaderView.swift; sourceTree = "<group>"; };
+		DF3FBC43292CD20100A8C865 /* ToolbarHeaderIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarHeaderIconView.swift; sourceTree = "<group>"; };
 		DF3FBC47292CE42A00A8C865 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		DF3FBC4A292D0CB100A8C865 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		DF3FBC4C292D16D200A8C865 /* Candle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candle.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 			children = (
 				DF18A9F129296EE100533C8B /* ContentView.swift */,
 				DFC0D8A1292A4E6500907736 /* HeaderLogoView.swift */,
-				DF3FBC43292CD20100A8C865 /* ToolbarHeaderView.swift */,
+				DF3FBC43292CD20100A8C865 /* ToolbarHeaderIconView.swift */,
 				DFA7EA71294C6AA400B4D2F9 /* AddAndRemoveSymbolFromListMenuContent.swift */,
 				DF16FFA22934DFC2005C2CB6 /* Settings */,
 				DF18A9FF29296FEE00533C8B /* Markets */,
@@ -406,7 +406,7 @@
 				DF3FBC42292CABD800A8C865 /* TickerViewModel.swift in Sources */,
 				DF3FBC48292CE42A00A8C865 /* DetailsView.swift in Sources */,
 				DFA7EA74294D0BD000B4D2F9 /* NotificationManager.swift in Sources */,
-				DF3FBC44292CD20100A8C865 /* ToolbarHeaderView.swift in Sources */,
+				DF3FBC44292CD20100A8C865 /* ToolbarHeaderIconView.swift in Sources */,
 				DFEFDC66294741DC0050847E /* ErrorView.swift in Sources */,
 				DF3FBC52292D393300A8C865 /* SymbolAPI.swift in Sources */,
 				DF41C6AA293802E5000EC205 /* SoundManager.swift in Sources */,
@@ -578,8 +578,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -611,8 +610,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

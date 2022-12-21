@@ -28,8 +28,14 @@ struct MarketsView: View {
         .searchable(text: $viewModel.searchedText, placement: .navigationBarDrawer(displayMode: .always))
         .navigationTitle(LocalizedStringKey("markets"))
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                ToolbarHeaderView(icon: "gearshape.2", iconIsNavigationLink: true) {
+            ToolbarItem(placement: .navigationBarLeading) {
+                HeaderLogoView()
+            }
+            ToolbarItem(placement: .principal) { //this replaces the inline navigation title
+                Color.clear
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarHeaderIconView(icon: "gearshape.2", iconIsNavigationLink: true) {
                     SettingsView()
                 }
             }

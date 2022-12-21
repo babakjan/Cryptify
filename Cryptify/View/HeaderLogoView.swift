@@ -15,7 +15,6 @@ struct HeaderLogoView: View {
             .foregroundColor(.theme.accent)
             .font(.custom("Menlo",fixedSize: 24)) // TODO: change font
             .fontWeight(.bold)
-            .padding(.bottom, 16)
     }
 }
 
