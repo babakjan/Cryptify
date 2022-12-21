@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToolbarHeaderView<Destination: View>: View {
+struct ToolbarHeaderIconView<Destination: View>: View {
     private var icon: String //system name of icon - place it on the right side
     private var iconAction: () -> Void //icon on tab gesture action
     private var iconIsNavigationLink: Bool //if icon is navigation link
@@ -26,27 +26,19 @@ struct ToolbarHeaderView<Destination: View>: View {
     }
     
     var body: some View {
-        HStack(alignment: .center) {
-            HeaderLogoView()
-            
-            Spacer()
-            
-            if !icon.isEmpty {
-                if iconIsNavigationLink {
-                    NavigationLink(destination: destination) {
-                        iconView
-                    }
-                    .simultaneousGesture(TapGesture().onEnded{
-                        SoundManager.shared.playTab()
-                    })
-                } else {
-                    iconView
-                        .onTapGesture {
-                            SoundManager.shared.playTab()
-                            iconAction()
-                        }
-                }
+        if iconIsNavigationLink {
+            NavigationLink(destination: destination) {
+                iconView
             }
+            .simultaneousGesture(TapGesture().onEnded{
+                SoundManager.shared.playTab()
+            })
+        } else {
+            iconView
+                .onTapGesture {
+                    SoundManager.shared.playTab()
+                    iconAction()
+                }
         }
     }
     
@@ -60,7 +52,7 @@ struct ToolbarHeaderView<Destination: View>: View {
 
 struct TickerHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ToolbarHeaderView(iconAction: {}) {
+        ToolbarHeaderIconView(iconAction: {}) {
             EmptyView()
         }
     }
